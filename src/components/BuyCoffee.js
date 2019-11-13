@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Box, Button, Card, Field, Flex, Heading, Input, Modal, Select, Text } from 'rimble-ui';
 import contentStrings from "../constants/Localization";
+import colors from "../theme/colors";
+
 
 class BuyCoffee extends Component {
     constructor(props) {
@@ -49,12 +51,12 @@ class BuyCoffee extends Component {
           </Box> 
   
           <Modal isOpen={this.state.isOpen} >
-            <Card width={"420px"} p={0} borderRadius={7} borderColor="#9C7349" boxShadow="1" >              
+            <Card width={"420px"} p={0} borderRadius={7} borderColor={colors.brown.light} boxShadow="1" >              
               <Flex p="3%" mt="3%">
                 <Box width={1 / 2}>
-                    <Heading.h3 color="#332211" >{this.state.totalUSD}  USD</Heading.h3>
-                    <Text.span color="#A58666">{this.props.coffeeBagInfo.available}/{this.props.coffeeBagInfo.total}</Text.span>
-                    <Text.span color="#A58666" ml="2">{contentStrings.available}</Text.span>
+                    <Heading.h3>{this.state.totalUSD}  USD</Heading.h3>
+                    <Text.span color={colors.brown.text}>{this.props.coffeeBagInfo.available}/{this.props.coffeeBagInfo.total}</Text.span>
+                    <Text.span color={colors.brown.text} ml="2">{contentStrings.available}</Text.span>
                 </Box>
                 <Box width={1 / 2}>
                     <Input type="number" required={true} placeholder="1" onChange={this.onBagsChange}/>                    

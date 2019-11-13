@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Box } from 'rimble-ui';
 import HeaderBar from "./HeaderBar";
 import CoffeeCard from "./CoffeeCard"
 import CoffeeActions from "./CoffeeActions"

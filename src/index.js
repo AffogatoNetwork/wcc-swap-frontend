@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "rimble-ui";
 import {theme} from 'rimble-ui'
-import CustomTheme from './components/AffogatoTheme'
+import CustomTheme from './theme/AffogatoTheme'
 
 ReactDOM.render(
   

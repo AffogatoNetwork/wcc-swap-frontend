@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { Box, Button, Card, Field, Flex, Heading, Input, Modal, Select, Text } from 'rimble-ui';
 import contentStrings from "../constants/Localization";
-
-//bags to redeem, 
-//price if are sell
-//cancel and confirm buttons
+import colors from "../theme/colors"
 
 
 class RedeemCoffee extends Component {
@@ -60,18 +57,18 @@ class RedeemCoffee extends Component {
         return(
             <>
                 <Box width={1 / 2} pl="0.5%">    
-                    <Button variant="custom" width={1} disabled={this.state.buttonDisabled} onClick={this.openModal}>
+                    <Button variant="custom" width={1} disabled onClick={this.openModal}>
                         {contentStrings.redeem}
                     </Button>
                 </Box>
                 <Modal isOpen={this.state.isOpen} >
-                    <Card width={"420px"} p={0} borderRadius={7} borderColor="#9C7349" boxShadow="1" >
+                    <Card width={"420px"} p={0} borderRadius={7} borderColor={colors.brown.text} boxShadow="1" >
                         <Flex p="3%" mt="3%">
                             <Box width={1 / 2} py='3%'>
                                 <Flex>
-                                    <Heading.h3 color="#332211" >
+                                    <Heading.h3 color={colors.brown.base} >
                                         {this.state.bagsToRedeem}/{this.state.availableToRedeem}
-                                        <Text.span color="#A58666" ml="2">{contentStrings.bags} {contentStrings.available}</Text.span>
+                                        <Text.span color={colors.brown.text} ml="2">{contentStrings.bags} {contentStrings.available}</Text.span>
                                     </Heading.h3> 
                                 </Flex>
                             </Box>
