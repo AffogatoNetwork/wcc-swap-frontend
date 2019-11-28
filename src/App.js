@@ -1,20 +1,10 @@
 import React, { Component } from "react";
 import Web3Provider, { Connectors } from 'web3-react'
 import { Route } from "react-router-dom";
-import { ethers } from 'ethers';
-
 import "./App.css";
-import factoryABI from "./constants/factoryABI";
-import exchangeABI from "./constants/exchangeABI";
-import tokenABI from "./constants/tokenABI";
-
 import Web3Connection from "./components/Web3Connection"
 import Container from "./components/Container";
-
-import getWeb3 from "./utils/getWeb3";
-
-const factoryAddress = '0xf5D915570BC477f9B8D6C0E980aA81757A3AaC36';
-const tokenAddress = '0xa0857d98b167638081eef794625506f30cc07ef0';
+import Main from "./components/Main";
 
 const PROVIDER_URL = 'https://rinkeby.infura.io/'
 
@@ -45,7 +35,7 @@ class App extends Component {
                 exact
                 path="/"
                 render={() => (
-                  <Container />
+                  <Main />
                 )}
             />      
           </Web3Connection>        

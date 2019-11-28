@@ -6,6 +6,7 @@ import QRCode from 'qrcode.react'
 import Button from './Button'
 import { Controls } from './Redeem'
 
+
 export default function ConnectWallet({ setShowConnect, closeCheckout }) {
   const { account, connector, setConnector } = useWeb3Context()
 
