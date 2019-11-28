@@ -86,7 +86,7 @@ class BuyCoffee extends Component {
                 justifyContent={"flex-end"}
               >
                 <Button.Outline size="small"  variant="danger" onClick={this.closeModal}>{contentStrings.cancel}</Button.Outline>
-                <Button variant="primary" size="small" ml={3}>{contentStrings.buy}</Button>
+                <Button variant="primary" size="small" ml={3} >{contentStrings.buy}</Button>
               </Flex>
             </Card>
           </Modal>

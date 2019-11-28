@@ -1,36 +1,24 @@
-import React, { Component } from "react";
+import React, { Component, useState, useCallback } from "react";
+import { useWeb3Context } from 'web3-react'
 import HeaderBar from "./HeaderBar";
 import CoffeeCard from "./CoffeeCard"
 import CoffeeActions from "./CoffeeActions"
 
-class Container extends Component {
 
-    constructor(props) {
-        super(props);
-        
-        let bagInfo = {
-            price: 25.98,
-            available: 90,
-            total: 100,      
-        }
-        
-        this.state = {
-          coffeeBagInfo: bagInfo,
-        };
-      }
+export default function Container (){
+    const { account } = useWeb3Context()
+    const [showConnect, setShowConnect] = useState(false)
 
-    loadCurrentPrice(){
+    const coffeeBagInfo = {
+        price: 25.98,
+        available: 90,
+        total: 100,      
+    }    
 
-    }
-
-    render(){
-        return (<>
-            <HeaderBar />
-            <CoffeeCard coffeeBagInfo={this.state.coffeeBagInfo}  />
-            <CoffeeActions coffeeBagInfo={this.state.coffeeBagInfo}  />
-        </>);
-    }
+    return (<>
+        <HeaderBar setShowConnect={setShowConnect} />
+        <CoffeeCard coffeeBagInfo={coffeeBagInfo}  />
+        <CoffeeActions coffeeBagInfo={coffeeBagInfo}  />
+    </>);
 
 }
-
-export default Container; 
