@@ -1,0 +1,134 @@
+$break-small: 320px;
+$break-large: 1200px;
+
+.App {
+  text-align: center;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  img.logo {
+    width: 212px;
+  }
+  .btn {
+    border-radius: 6px;
+    padding: 0.75rem;
+  }
+  .address {
+    background-color: #f1f2f6;
+    cursor: auto;
+    transform: scale(1);
+    padding: 0.75rem;
+    border-radius: 6px;
+    transition: transform 0.3s ease 0s;
+    color: #2b2b2b;
+    border: 0;
+    font-family: Inter, sans-serif;
+    opacity: 1;
+    display: inline-block;
+    margin-top: 7px;
+
+    p {
+      color: #2b2b2b;
+      font-weight: bold;
+    }
+
+    .circle {
+      display: initial;
+      width: 12px;
+      height: 12px;
+      margin-left: 12px;
+      margin-top: 4px;
+      float: right;
+      border-radius: 100%;
+      &.connected {
+        background-color: rgb(102, 187, 102);
+      }
+    }
+  }
+}
+
+.coffee-card {
+  width: 26%;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.btn {
+  p {
+    font-weight: bold;
+  }
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #332211 !important;
+  border-color: #332211 !important;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+.coffee-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .button-wrapper {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+
+  .buy {
+    border-radius: 0;
+  }
+
+  .sell {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+.coffee-container {
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (max-width: $break-small) {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: $break-large) {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
