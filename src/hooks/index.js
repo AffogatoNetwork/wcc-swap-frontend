@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback, useMemo } from 'react'
-import { useWeb3Context } from 'web3-react'
+import { useEffect, useState, useCallback, useMemo } from "react";
+import { useWeb3Context } from "web3-react";
 
 import {
   isAddress,
@@ -9,185 +9,250 @@ import {
   getEtherBalance,
   getTokenBalance,
   getTokenAllowance,
-  TOKEN_ADDRESSES
-} from '../factory'
-import { utils } from 'ethers'
+  TOKEN_ADDRESSES,
+  getCoffeeInformation
+} from "../factory";
+import { utils } from "ethers";
 
 export function useBlockEffect(functionToRun) {
-  const { library } = useWeb3Context()
+  const { library } = useWeb3Context();
 
   useEffect(() => {
     if (library) {
       function wrappedEffect(blockNumber) {
-        functionToRun(blockNumber)
+        functionToRun(blockNumber);
       }
-      library.on('block', wrappedEffect)
+      library.on("block", wrappedEffect);
       return () => {
-        library.removeListener('block', wrappedEffect)
-      }
+        library.removeListener("block", wrappedEffect);
+      };
     }
-  }, [library, functionToRun])
+  }, [library, functionToRun]);
 }
 
 export function useTokenContract(tokenAddress, withSignerIfPossible = true) {
-  const { library, account } = useWeb3Context()
+  const { library, account } = useWeb3Context();
 
   return useMemo(() => {
     try {
-      return getTokenContract(tokenAddress, library, withSignerIfPossible ? account : undefined)
+      return getTokenContract(
+        tokenAddress,
+        library,
+        withSignerIfPossible ? account : undefined
+      );
     } catch {
-      return null
+      return null;
     }
-  }, [account, library, tokenAddress, withSignerIfPossible])
+  }, [account, library, tokenAddress, withSignerIfPossible]);
 }
 
 export function useExchangeContract(tokenAddress, withSignerIfPossible = true) {
-  const { library, account } = useWeb3Context()
+  const { library, account } = useWeb3Context();
 
-  const [exchangeAddress, setExchangeAddress] = useState()
+  const [exchangeAddress, setExchangeAddress] = useState();
   useEffect(() => {
     if (isAddress(tokenAddress)) {
-      let stale = false
-      getTokenExchangeAddressFromFactory(tokenAddress, library).then(exchangeAddress => {
-        if (!stale) {
-          setExchangeAddress(exchangeAddress)
+      let stale = false;
+      getTokenExchangeAddressFromFactory(tokenAddress, library).then(
+        exchangeAddress => {
+          if (!stale) {
+            setExchangeAddress(exchangeAddress);
+          }
         }
-      })
+      );
       return () => {
-        stale = true
-        setExchangeAddress()
-      }
+        stale = true;
+        setExchangeAddress();
+      };
     }
-  }, [library, tokenAddress])
+  }, [library, tokenAddress]);
 
   return useMemo(() => {
     try {
-      return getExchangeContract(exchangeAddress, library, withSignerIfPossible ? account : undefined)
+      return getExchangeContract(
+        exchangeAddress,
+        library,
+        withSignerIfPossible ? account : undefined
+      );
     } catch {
-      return null
+      return null;
     }
-  }, [exchangeAddress, library, withSignerIfPossible, account])
+  }, [exchangeAddress, library, withSignerIfPossible, account]);
 }
 
 export function useAddressBalance(address, tokenAddress) {
-  const { library } = useWeb3Context()
+  const { library } = useWeb3Context();
 
-  const [balance, setBalance] = useState()
+  const [balance, setBalance] = useState();
 
   const updateBalance = useCallback(() => {
-    if (isAddress(address) && (tokenAddress === 'ETH' || isAddress(tokenAddress))) {
-      let stale = false
+    if (
+      isAddress(address) &&
+      (tokenAddress === "ETH" || isAddress(tokenAddress))
+    ) {
+      let stale = false;
 
-      ;(tokenAddress === 'ETH' ? getEtherBalance(address, library) : getTokenBalance(tokenAddress, address, library))
+      (tokenAddress === "ETH"
+        ? getEtherBalance(address, library)
+        : getTokenBalance(tokenAddress, address, library)
+      )
         .then(value => {
           if (!stale) {
-            setBalance(value)
+            setBalance(value);
           }
         })
         .catch(() => {
           if (!stale) {
-            setBalance(null)
+            setBalance(null);
           }
-        })
+        });
       return () => {
-        stale = true
-        setBalance()
-      }
+        stale = true;
+        setBalance();
+      };
     }
-  }, [address, library, tokenAddress])
+  }, [address, library, tokenAddress]);
 
   useEffect(() => {
-    return updateBalance()
-  }, [updateBalance])
+    return updateBalance();
+  }, [updateBalance]);
 
-  useBlockEffect(updateBalance)
+  useBlockEffect(updateBalance);
 
-  return balance
+  return balance;
 }
 
 export function useTotalSupply(contract) {
-  const [totalSupply, setTotalSupply] = useState()
+  const [totalSupply, setTotalSupply] = useState();
 
   const updateTotalSupply = useCallback(() => {
     if (!!contract) {
-      let stale = false
+      let stale = false;
 
       contract
         .totalSupply()
         .then(value => {
           if (!stale) {
-            setTotalSupply(value)
+            setTotalSupply(value);
           }
         })
         .catch(() => {
           if (!stale) {
-            setTotalSupply(null)
+            setTotalSupply(null);
           }
-        })
+        });
       return () => {
-        stale = true
-        setTotalSupply()
-      }
+        stale = true;
+        setTotalSupply();
+      };
     }
-  }, [contract])
+  }, [contract]);
 
   useEffect(() => {
-    return updateTotalSupply()
-  }, [updateTotalSupply])
+    return updateTotalSupply();
+  }, [updateTotalSupply]);
 
-  useBlockEffect(updateTotalSupply)
+  useBlockEffect(updateTotalSupply);
 
-  return totalSupply && Math.round(Number(utils.formatEther(totalSupply)))
+  return totalSupply && Math.round(Number(utils.formatEther(totalSupply)));
 }
 
 export function useExchangeReserves(tokenAddress) {
-  const exchangeContract = useExchangeContract(tokenAddress)
+  const exchangeContract = useExchangeContract(tokenAddress);
 
-  const reserveETH = useAddressBalance(exchangeContract && exchangeContract.address, TOKEN_ADDRESSES.ETH)
-  const reserveToken = useAddressBalance(exchangeContract && exchangeContract.address, tokenAddress)
+  const reserveETH = useAddressBalance(
+    exchangeContract && exchangeContract.address,
+    TOKEN_ADDRESSES.ETH
+  );
+  const reserveToken = useAddressBalance(
+    exchangeContract && exchangeContract.address,
+    tokenAddress
+  );
 
-  return { reserveETH, reserveToken }
+  return { reserveETH, reserveToken };
 }
 
 export function useAddressAllowance(address, tokenAddress, spenderAddress) {
-  const { library } = useWeb3Context()
+  const { library } = useWeb3Context();
 
-  const [allowance, setAllowance] = useState()
+  const [allowance, setAllowance] = useState();
 
   const updateAllowance = useCallback(() => {
-    if (isAddress(address) && isAddress(tokenAddress) && isAddress(spenderAddress)) {
-      let stale = false
+    if (
+      isAddress(address) &&
+      isAddress(tokenAddress) &&
+      isAddress(spenderAddress)
+    ) {
+      let stale = false;
 
       getTokenAllowance(address, tokenAddress, spenderAddress, library)
         .then(allowance => {
           if (!stale) {
-            setAllowance(allowance)
+            setAllowance(allowance);
           }
         })
         .catch(() => {
           if (!stale) {
-            setAllowance(null)
+            setAllowance(null);
           }
-        })
+        });
 
       return () => {
-        stale = true
-        setAllowance()
-      }
+        stale = true;
+        setAllowance();
+      };
     }
-  }, [address, library, spenderAddress, tokenAddress])
+  }, [address, library, spenderAddress, tokenAddress]);
 
   useEffect(() => {
-    return updateAllowance()
-  }, [updateAllowance])
+    return updateAllowance();
+  }, [updateAllowance]);
 
-  useBlockEffect(updateAllowance)
+  useBlockEffect(updateAllowance);
 
-  return allowance
+  return allowance;
 }
 
 export function useExchangeAllowance(address, tokenAddress) {
-  const exchangeContract = useExchangeContract(tokenAddress)
+  const exchangeContract = useExchangeContract(tokenAddress);
 
-  return useAddressAllowance(address, tokenAddress, exchangeContract && exchangeContract.address)
+  return useAddressAllowance(
+    address,
+    tokenAddress,
+    exchangeContract && exchangeContract.address
+  );
+}
+
+export function useGetCoffeeInformation(contract) {
+  const { library, account } = useWeb3Context();
+  const [coffeeInformation, setCoffeeInformation] = useState();
+
+  const updateCoffeeInformation = useCallback(() => {
+    if (!!contract) {
+      let stale = false;
+
+      contract
+        .getCoffee()
+        .then(value => {
+          if (!stale) {
+            setCoffeeInformation(value);
+          }
+        })
+        .catch(() => {
+          if (!stale) {
+            setCoffeeInformation(null);
+          }
+        });
+      return () => {
+        stale = true;
+        setCoffeeInformation();
+      };
+    }
+  }, [contract]);
+
+  useEffect(() => {
+    return updateCoffeeInformation();
+  }, [updateCoffeeInformation]);
+
+  return coffeeInformation;
 }
