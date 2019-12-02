@@ -5,7 +5,7 @@ import CoffeeCard from "./CoffeeCard"
 import CoffeeActions from "./CoffeeActions"
 
 
-export default function Container ({ totalSupply }){
+export default function Container ({ totalSupply, balanceBags }){
     const { account } = useWeb3Context()
     const [showConnect, setShowConnect] = useState(false)
 
@@ -17,7 +17,7 @@ export default function Container ({ totalSupply }){
 
     return (<>
         <HeaderBar setShowConnect={setShowConnect} />
-        <CoffeeCard totalSupply={totalSupply}  />
+        <CoffeeCard totalSupply={totalSupply} balanceBags={balanceBags} />
         <CoffeeActions coffeeBagInfo={coffeeBagInfo}  />
     </>);
 

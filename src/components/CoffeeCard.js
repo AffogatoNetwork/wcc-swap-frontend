@@ -5,7 +5,10 @@ import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
 
 
-export default function  CoffeeCard({ totalSupply }) {
+export default function  CoffeeCard({ totalSupply, balanceBags }) {
+
+    
+    console.log('Bags: ' + balanceBags);
 
     return (
         <Card width={"26%"} height="550px" mx={"auto"} bg="#FCF6F0" boxShadow="3"  borderRadius={10}>
@@ -24,7 +27,7 @@ export default function  CoffeeCard({ totalSupply }) {
                 <Heading.h3 color={colors.brown.base} ml="2" >  USD</Heading.h3>
             </Flex>        
             <Flex>
-                <Heading.h5 color={colors.brown.text}>80/{totalSupply}</Heading.h5>
+                <Heading.h5 color={colors.brown.text}>1000/{totalSupply}</Heading.h5>
                 <Heading.h5 color={colors.brown.text} ml="2">{contentStrings.available}</Heading.h5>
             </Flex>
         </Card>
