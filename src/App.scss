@@ -75,6 +75,7 @@ $break-large: 1200px;
 }
 
 .coffee-card {
+  display: grid;
   width: 26%;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
@@ -133,7 +134,7 @@ $break-large: 1200px;
   }
 
   @media screen and (min-width: $break-large) {
-    width: 800px;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
   }

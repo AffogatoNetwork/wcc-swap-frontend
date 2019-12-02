@@ -11,7 +11,6 @@ export default function CoffeeCard({ totalSupply, coffeeHash }) {
   const [{ data, loading, error }, refetch] = useAxios(
     `https://ipfs.infura.io/ipfs/${coffeeHash}`
   );
-  console.log("TCL: CoffeeCard -> data", data);
 
   if (loading) return <Heading.h3>Loading...</Heading.h3>;
   if (error) return <Heading.h3>Error...</Heading.h3>;
@@ -24,7 +23,8 @@ export default function CoffeeCard({ totalSupply, coffeeHash }) {
       boxShadow="3"
       borderRadius={10}
     >
-      <Flex contentAlign="left" flexDirection="column" textAlign="left">
+      <Image alt={contentStrings.coffeeBag} src={coffee_bag} height="400px" />
+      <div contentAlign="left" divDirection="column" textAlign="left">
         <Heading.h2 color={colors.brown.base} textAlign="left">
           Premium Specialty Coffee
         </Heading.h2>
@@ -34,20 +34,19 @@ export default function CoffeeCard({ totalSupply, coffeeHash }) {
           <li>Process: {data.coffee.Process}</li>
           <li>Score: {data.coffee.score}/100</li>
         </ul>
-      </Flex>
-      <Image alt={contentStrings.coffeeBag} src={coffee_bag} height="400px" />
-      <Flex>
+      </div>
+      <div>
         <Heading.h3 color={colors.brown.base}>$96</Heading.h3>
         <Heading.h3 color={colors.brown.base} ml="2">
           USD
         </Heading.h3>
-      </Flex>
-      <Flex>
+      </div>
+      <div>
         <Heading.h5 color={colors.brown.text}>80/{totalSupply}</Heading.h5>
         <Heading.h5 color={colors.brown.text} ml="2">
           {contentStrings.available}
         </Heading.h5>
-      </Flex>
+      </div>
     </Card>
   );
 }
