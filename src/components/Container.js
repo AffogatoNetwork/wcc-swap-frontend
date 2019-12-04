@@ -4,6 +4,8 @@ import HeaderBar from "./HeaderBar";
 import CoffeeCard from "./CoffeeCard";
 import CoffeeActions from "./CoffeeActions";
 import { Heading } from "rimble-ui";
+import affogato_horizontal from "../assets/affogato-horizontal.png";
+import nativo from "../assets/nativo.jpg";
 
 export default function Container({ totalSupply, coffeeHash }) {
   const { account } = useWeb3Context();
@@ -21,9 +23,21 @@ export default function Container({ totalSupply, coffeeHash }) {
   return (
     <>
       <HeaderBar setShowConnect={setShowConnect} />
+      <Heading.h1>Dynamic Priced Coffee Sale</Heading.h1>
+      <Heading.h4>Invest, Trade, Redeem and Brew your Coffee</Heading.h4>
       <div className="coffee-container">
         <CoffeeCard totalSupply={totalSupply} coffeeHash={coffeeHash} />
-        <CoffeeActions coffeeBagInfo={coffeeBagInfo} />
+        {/* <CoffeeActions coffeeBagInfo={coffeeBagInfo} /> */}
+      </div>
+      <div className="credits">
+        <div>
+          <p>Brought to you by</p>
+        </div>
+        <div className="logos">
+          <img src={affogato_horizontal} alt="affogato" className="affogato" />
+          <b>+</b>
+          <img src={nativo} alt="nativo" className="nativo" />
+        </div>
       </div>
     </>
   );

@@ -31,15 +31,48 @@ $break-large: 1200px;
   flex-direction: row;
   justify-content: space-between;
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 
   img.logo {
     width: 212px;
   }
+
   .btn {
     border-radius: 6px;
     padding: 0.75rem;
   }
+
+  .wallet-details {
+    display: flex;
+  }
+
+  .tokens {
+    cursor: auto;
+    transform: scale(1);
+    padding: 0.75rem;
+    border-radius: 6px;
+    transition: transform 0.3s ease 0s;
+    color: #2b2b2b;
+
+    font-family: Inter, sans-serif;
+    opacity: 1;
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+
+    img {
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    p {
+      color: #2b2b2b;
+      font-weight: bold;
+    }
+  }
+
   .address {
     background-color: #f1f2f6;
     cursor: auto;
@@ -51,8 +84,10 @@ $break-large: 1200px;
     border: 0;
     font-family: Inter, sans-serif;
     opacity: 1;
-    display: inline-block;
     margin-top: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     p {
       color: #2b2b2b;
@@ -64,8 +99,6 @@ $break-large: 1200px;
       width: 12px;
       height: 12px;
       margin-left: 12px;
-      margin-top: 4px;
-      float: right;
       border-radius: 100%;
       &.connected {
         background-color: rgb(102, 187, 102);
@@ -74,16 +107,121 @@ $break-large: 1200px;
   }
 }
 
+.coffee-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+
+  @media screen and (max-width: $break-small) {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: $break-large) {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 .coffee-card {
   display: grid;
-  width: 26%;
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  // border-bottom-left-radius: 0 !important;
+  // border-bottom-right-radius: 0 !important;
+  grid-template-columns: 25% 25% 25% 25%;
+  padding: 0px;
+  background-color: #fcf6f0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  height: auto;
+  min-width: 16px;
+  min-height: 16px;
+  position: relative;
+  border: 1px solid transparent;
+  border-bottom: 1px transparent;
+  border-color: #eee;
+  border-radius: 10px;
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1);
+  min-height: 450px;
+  padding-right: 42px;
 
-  ul {
-    list-style-type: none;
+  .coffee-image {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    background-image: url("assets/coffee-bag.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: auto;
+  }
+
+  .product-title {
+    padding-top: 42px;
+    padding-left: 43px;
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    p {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    a {
+      font-weight: bold;
+      color: #b4600b;
+    }
+  }
+
+  .product-details {
+    margin-left: 20px;
     text-align: left;
-    padding-left: 0;
+    padding-top: 42px;
+    padding-left: 43px;
+
+    ul {
+      list-style-type: none;
+      text-align: left;
+      padding-left: 0;
+
+      li {
+        margin-bottom: 20px;
+      }
+
+      img {
+        margin-top: 5px;
+        height: 50px;
+      }
+    }
+
+    button {
+      width: 50%;
+      margin-top: 20px;
+    }
+
+    .buy {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      span {
+        margin-right: 2px;
+      }
+    }
+    .trade {
+      background: #fe6dde;
+      color: white;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      span {
+        margin-right: 2px;
+      }
+    }
   }
 }
 
@@ -123,19 +261,33 @@ $break-large: 1200px;
   }
 }
 
-.coffee-container {
-  margin-left: auto;
-  margin-right: auto;
-
-  @media screen and (max-width: $break-small) {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+.credits {
+  p {
+    margin-bottom: 0px;
+    margin-top: 40px;
+    font-weight: bold;
+    font-size: small;
   }
+  .logos {
+    margin-top: -5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 
-  @media screen and (min-width: $break-large) {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    b {
+      margin-left: 40px;
+      margin-right: 40px;
+      font-size: 40px;
+      display: inline-block;
+    }
+
+    img.affogato {
+      height: 50px;
+    }
+
+    img.nativo {
+      height: 100px;
+    }
   }
 }

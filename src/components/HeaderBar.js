@@ -3,6 +3,7 @@ import { Flex, Box } from "rimble-ui";
 import { Button } from "reactstrap";
 import styled from "styled-components";
 import affogato_horizontal from "../assets/affogato-horizontal.png";
+import icon from "../assets/icon.png";
 import { useWeb3Context } from "web3-react";
 import { addressShortener } from "../utils/utils";
 import "../App.scss";
@@ -21,15 +22,21 @@ export default function HeaderBar({ setShowConnect }) {
   return (
     <>
       <div className="header">
-        <div bg="white" width={1 / 4} color="black" fontSize={4} p={3}>
+        <div bg="white" color="black">
           <img src={affogato_horizontal} alt="affogato" className="logo" />
         </div>
-        <div bg="white" width={1 / 2}></div>
-        <div bg="white" width={1 / 4} color="black" fontSize={4} p={3}>
+        <div bg="white"></div>
+        <div bg="white" color="black">
           {account ? (
-            <div className="address">
-              <CoffeeCount> {addressShortener(account)}</CoffeeCount>
-              <div className="circle connected"></div>
+            <div className="wallet-details">
+              <div className="tokens">
+                <img src={icon} alt="WCC" />
+                <CoffeeCount> 0 WCC</CoffeeCount>
+              </div>
+              <div className="address">
+                <CoffeeCount> {addressShortener(account)}</CoffeeCount>
+                <div className="circle connected"></div>
+              </div>
             </div>
           ) : (
             <button className="btn btn-primary" onClick={() => handleAccount()}>
