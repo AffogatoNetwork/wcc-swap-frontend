@@ -1,20 +1,23 @@
 import React, { Component } from "react";
-import Web3Provider, { Connectors } from 'web3-react'
+import Web3Provider, { Connectors } from "web3-react";
 import { Route } from "react-router-dom";
-import "./App.css";
-import Web3Connection from "./components/Web3Connection"
+import "./App.scss";
+import Web3Connection from "./components/Web3Connection";
 import Container from "./components/Container";
 import Main from "./components/Main";
 
-const PROVIDER_URL = 'https://rinkeby.infura.io/'
+const PROVIDER_URL = "https://rinkeby.infura.io/";
 
-const { NetworkOnlyConnector, InjectedConnector, WalletConnectConnector } = Connectors
-const Injected = new InjectedConnector({ supportedNetworks: [4] })
+const {
+  NetworkOnlyConnector,
+  InjectedConnector,
+  WalletConnectConnector
+} = Connectors;
+const Injected = new InjectedConnector({ supportedNetworks: [4] });
 const Network = new NetworkOnlyConnector({
   providerURL: PROVIDER_URL
-})
-const connectors = { Network, Injected }
-
+});
+const connectors = { Network, Injected };
 
 class App extends Component {
   state = {
@@ -26,23 +29,15 @@ class App extends Component {
   };
 
   render() {
-    
     return (
-      <div className="App">   
-        <Web3Provider connectors={connectors} libraryName={'ethers.js'}>
+      <div className="App">
+        <Web3Provider connectors={connectors} libraryName={"ethers.js"}>
           <Web3Connection>
-            <Route
-                exact
-                path="/"
-                render={() => (
-                  <Main />
-                )}
-            />      
-          </Web3Connection>        
-        </Web3Provider>        
+            <Route exact path="/" render={() => <Main />} />
+          </Web3Connection>
+        </Web3Provider>
       </div>
     );
-    
   }
 }
 

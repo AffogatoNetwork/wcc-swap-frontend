@@ -19,6 +19,13 @@ let CustomTheme = {
             // use css custom props
             '--main-color': '#B4600B',
             '--contrast-color': colors.white.base,
+        },
+        gray:{
+            color: colors.black.base,
+            backgroundColor: colors.gray.base,
+            // use css custom props
+            '--main-color': colors.gray.base,
+            '--contrast-color': colors.black.base,
         }                
     },
     headings: {

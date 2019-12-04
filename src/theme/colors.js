@@ -12,6 +12,12 @@ let colors = {
     },
     white: {
         base: "#fff"
+    },
+    gray:{
+        base: "#f1f2f6"
+    },
+    black:{
+        base: "#2b2b2b"
     }
 }
 
