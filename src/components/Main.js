@@ -120,14 +120,11 @@ function getExchangeRate(inputValue, outputValue, invert = false) {
 }
 
 //get ETH price
-function calculateEthPrice(
-  reserveWCCETH,
-  reserveWCCToken
-){
+function calculateEthPrice(reserveWCCETH, reserveWCCToken) {
   const amount = calculateEtherTokenInputFromOutput(
     1,
     reserveWCCToken,
-    reserveWCCETH    
+    reserveWCCETH
   );
 
   return amount;
@@ -260,7 +257,7 @@ export default function Main({ stats, status }) {
   const tokenContractSelectedToken = useTokenContract(
     TOKEN_ADDRESSES[selectedTokenSymbol]
   );
-  
+
   // get balances
   const balanceETH = useAddressBalance(account, TOKEN_ADDRESSES.ETH);
   const balanceWCC = useAddressBalance(account, TOKEN_ADDRESSES.WCC);
@@ -299,7 +296,7 @@ export default function Main({ stats, status }) {
     reserveETH: reserveSelectedTokenETH,
     reserveToken: reserveSelectedTokenToken
   } = useExchangeReserves(TOKEN_ADDRESSES[selectedTokenSymbol]);
-  
+
   const reserveDAIETH = useAddressBalance(
     exchangeContractDAI && exchangeContractDAI.address,
     TOKEN_ADDRESSES.ETH
@@ -700,15 +697,18 @@ export default function Main({ stats, status }) {
     });
   }
 
-  return <Container 
-            coffeeHash={coffeeHash} 
-            selectedTokenSymbol={selectedTokenSymbol}
-            setSelectedTokenSymbol={setSelectedTokenSymbol}
-            validateBuy={validateBuy}
-            totalSupply={totalSupply} 
-            dollarPrice={dollarPrice}
-            reserveWCCToken={reserveWCCToken}
-            reserveWCCETH={reserveWCCETH}
-            calculateEthPrice={calculateEthPrice}
-          />;
+  return (
+    <Container
+      coffeeHash={coffeeHash}
+      selectedTokenSymbol={selectedTokenSymbol}
+      setSelectedTokenSymbol={setSelectedTokenSymbol}
+      validateBuy={validateBuy}
+      totalSupply={totalSupply}
+      dollarPrice={dollarPrice}
+      reserveWCCToken={reserveWCCToken}
+      reserveWCCETH={reserveWCCETH}
+      calculateEthPrice={calculateEthPrice}
+      accountBalance={balanceWCC}
+    />
+  );
 }

@@ -232,7 +232,8 @@ $break-large: 1200px;
         }
       }
 
-      button {
+      button,
+      a {
         width: 50%;
         margin-top: 20px;
       }
@@ -508,10 +509,12 @@ $break-large: 1200px;
         }
       }
 
-      button {
+      button,
+      a {
         width: 50%;
         margin-top: 20px;
       }
+
       .button-wrapper {
         display: flex;
         .buy {

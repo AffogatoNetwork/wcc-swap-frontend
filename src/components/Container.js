@@ -7,17 +7,18 @@ import { Heading } from "rimble-ui";
 import affogato_horizontal from "../assets/affogato-horizontal.png";
 import nativo from "../assets/nativo.jpg";
 
-export default function Container({ 
-  coffeeHash, 
-  selectedTokenSymbol, 
-  setSelectedTokenSymbol, 
+export default function Container({
+  coffeeHash,
+  selectedTokenSymbol,
+  setSelectedTokenSymbol,
   validateBuy,
-  totalSupply, 
-  dollarPrice, 
-  reserveWCCToken, 
-  reserveWCCETH, 
-  calculateEthPrice
- }) {
+  totalSupply,
+  dollarPrice,
+  reserveWCCToken,
+  reserveWCCETH,
+  calculateEthPrice,
+  accountBalance
+}) {
   const { account } = useWeb3Context();
   const [showConnect, setShowConnect] = useState(false);
 
@@ -27,27 +28,30 @@ export default function Container({
 
   return (
     <span className="wrapper">
-      <HeaderBar setShowConnect={setShowConnect} />
+      <HeaderBar
+        setShowConnect={setShowConnect}
+        accountBalance={accountBalance}
+      />
       <Heading.h1>Dynamic Priced Coffee Sale</Heading.h1>
       <Heading.h4>Invest, Trade, Redeem and Brew your Coffee</Heading.h4>
       <div className="coffee-container">
-        <CoffeeCard 
-          coffeeHash={coffeeHash} 
+        <CoffeeCard
+          coffeeHash={coffeeHash}
           selectedTokenSymbol={selectedTokenSymbol}
           setSelectedTokenSymbol={setSelectedTokenSymbol}
           validateBuy={validateBuy}
-          totalSupply={totalSupply} 
+          totalSupply={totalSupply}
           dollarPrice={dollarPrice}
           reserveWCCToken={reserveWCCToken}
           reserveWCCETH={reserveWCCETH}
-          calculateEthPrice={calculateEthPrice} 
+          calculateEthPrice={calculateEthPrice}
         />
-        <CoffeeActions 
-          coffeeHash={coffeeHash} 
+        <CoffeeActions
+          coffeeHash={coffeeHash}
           selectedTokenSymbol={selectedTokenSymbol}
           setSelectedTokenSymbol={setSelectedTokenSymbol}
           validateBuy={validateBuy}
-          totalSupply={totalSupply} 
+          totalSupply={totalSupply}
           dollarPrice={dollarPrice}
           reserveWCCToken={reserveWCCToken}
           reserveWCCETH={reserveWCCETH}

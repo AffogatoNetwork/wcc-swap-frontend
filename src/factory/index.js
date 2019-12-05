@@ -7,14 +7,16 @@ import WCC_ARTIFACT from "../contracts/WrappedCoffeeCoin.json";
 
 import UncheckedJsonRpcSigner from "./signer";
 
-const FACTORY_ADDRESS = "0xf5D915570BC477f9B8D6C0E980aA81757A3AaC36";
+require("dotenv").config();
+
+const FACTORY_ADDRESS = process.env.REACT_APP_FACTORY_ADDRESS;
 
 let ERC20_ABI = WCC_ARTIFACT.abi;
 
 export const TOKEN_ADDRESSES = {
   ETH: "ETH",
-  WCC: "0x79a1772Ae1590bD783e246AA4dE9580E0D4b49e2",
-  DAI: "0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359"
+  WCC: process.env.REACT_APP_WCC_ADDRESS,
+  DAI: process.env.REACT_APP_DAI_ADDRESS
 };
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
