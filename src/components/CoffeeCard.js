@@ -41,7 +41,8 @@ export default function CoffeeCard({ totalSupply, coffeeHash }) {
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Details</Heading.h5> {data.coffee.Process}, Medium roast
+            <Heading.h5>Redem Details</Heading.h5>28 kg, {data.coffee.Process},
+            Medium roast
           </li>
           {/* <li>
             <Heading.h5>Process</Heading.h5> {data.coffee.Process}
@@ -60,12 +61,14 @@ export default function CoffeeCard({ totalSupply, coffeeHash }) {
         <Heading.h5 color={colors.brown.text}>
           80/{totalSupply} {contentStrings.available}
         </Heading.h5>
-        <Button variant="primary" className="buy">
-          {contentStrings.buy}
-        </Button>
-        <Button variant="custom" className="trade">
-          Swap
-        </Button>
+        <div className="button-wrapper">
+          <Button variant="primary" className="buy">
+            {contentStrings.buy}
+          </Button>
+          <Button variant="custom" className="trade">
+            Swap
+          </Button>
+        </div>
       </div>
     </div>
   );

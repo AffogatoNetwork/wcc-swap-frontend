@@ -22,209 +22,6 @@ $break-large: 1200px;
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
-}
-
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-top: 40px;
-  padding-bottom: 20px;
-
-  img.logo {
-    width: 212px;
-  }
-
-  .btn {
-    border-radius: 6px;
-    padding: 0.75rem;
-  }
-
-  .wallet-details {
-    display: flex;
-  }
-
-  .tokens {
-    cursor: auto;
-    transform: scale(1);
-    padding: 0.75rem;
-    border-radius: 6px;
-    transition: transform 0.3s ease 0s;
-    color: #2b2b2b;
-
-    font-family: Inter, sans-serif;
-    opacity: 1;
-    margin-top: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-
-    img {
-      height: 20px;
-      margin-right: 5px;
-    }
-
-    p {
-      color: #2b2b2b;
-      font-weight: bold;
-    }
-  }
-
-  .address {
-    background-color: #f1f2f6;
-    cursor: auto;
-    transform: scale(1);
-    padding: 0.75rem;
-    border-radius: 6px;
-    transition: transform 0.3s ease 0s;
-    color: #2b2b2b;
-    border: 0;
-    font-family: Inter, sans-serif;
-    opacity: 1;
-    margin-top: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    p {
-      color: #2b2b2b;
-      font-weight: bold;
-    }
-
-    .circle {
-      display: initial;
-      width: 12px;
-      height: 12px;
-      margin-left: 12px;
-      border-radius: 100%;
-      &.connected {
-        background-color: rgb(102, 187, 102);
-      }
-    }
-  }
-}
-
-.coffee-container {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-
-  @media screen and (max-width: $break-small) {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media screen and (min-width: $break-large) {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-.coffee-card {
-  display: grid;
-  // border-bottom-left-radius: 0 !important;
-  // border-bottom-right-radius: 0 !important;
-  grid-template-columns: 25% 25% 25% 25%;
-  padding: 0px;
-  background-color: #fcf6f0;
-  margin-left: auto;
-  margin-right: auto;
-  width: 85%;
-  height: auto;
-  min-width: 16px;
-  min-height: 16px;
-  position: relative;
-  border: 1px solid transparent;
-  border-bottom: 1px transparent;
-  border-color: #eee;
-  border-radius: 10px;
-  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1);
-  min-height: 450px;
-  padding-right: 42px;
-
-  .coffee-image {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    background-image: url("assets/coffee-bag.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: auto;
-  }
-
-  .product-title {
-    padding-top: 42px;
-    padding-left: 43px;
-
-    h2 {
-      margin-top: 20px;
-    }
-
-    p {
-      text-align: left;
-      margin-top: 20px;
-    }
-
-    a {
-      font-weight: bold;
-      color: #b4600b;
-    }
-  }
-
-  .product-details {
-    margin-left: 20px;
-    text-align: left;
-    padding-top: 42px;
-    padding-left: 43px;
-
-    ul {
-      list-style-type: none;
-      text-align: left;
-      padding-left: 0;
-
-      li {
-        margin-bottom: 20px;
-      }
-
-      img {
-        margin-top: 5px;
-        height: 50px;
-      }
-    }
-
-    button {
-      width: 50%;
-      margin-top: 20px;
-    }
-
-    .buy {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-      span {
-        margin-right: 2px;
-      }
-    }
-    .trade {
-      background: #fe6dde;
-      color: white;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-
-      span {
-        margin-right: 2px;
-      }
-    }
-  }
-}
-
 .btn {
   p {
     font-weight: bold;
@@ -239,55 +36,560 @@ $break-large: 1200px;
     opacity: 0.9;
   }
 }
-.coffee-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 
-  .button-wrapper {
-    width: 100%;
-    button {
-      width: 100%;
+@media screen and (min-width: $break-small) {
+  .App {
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .wrapper {
+    h1 {
+      font-size: 32px;
+    }
+
+    h4 {
+      margin-top: 20px;
+      font-size: 20px;
     }
   }
 
-  .buy {
-    border-radius: 0;
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+
+    img.logo {
+      width: 150px;
+      margin-top: 6px;
+    }
+
+    .btn {
+      border-radius: 6px;
+      padding: 0.75rem;
+    }
+
+    .wallet-details {
+      display: flex;
+    }
+
+    .tokens {
+      cursor: auto;
+      transform: scale(1);
+      padding: 0.75rem;
+      border-radius: 6px;
+      transition: transform 0.3s ease 0s;
+      color: #2b2b2b;
+
+      font-family: Inter, sans-serif;
+      opacity: 1;
+      margin-top: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 5px;
+
+      img {
+        height: 20px;
+        margin-right: 5px;
+      }
+
+      p {
+        color: #2b2b2b;
+        font-weight: bold;
+      }
+    }
+
+    .address {
+      background-color: #f1f2f6;
+      cursor: auto;
+      transform: scale(1);
+      padding: 0.75rem;
+      border-radius: 6px;
+      transition: transform 0.3s ease 0s;
+      color: #2b2b2b;
+      border: 0;
+      font-family: Inter, sans-serif;
+      opacity: 1;
+      margin-top: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        color: #2b2b2b;
+        font-weight: bold;
+      }
+
+      .circle {
+        display: initial;
+        width: 12px;
+        height: 12px;
+        margin-left: 12px;
+        border-radius: 100%;
+        &.connected {
+          background-color: rgb(102, 187, 102);
+        }
+      }
+    }
   }
 
-  .sell {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  .coffee-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+  }
+
+  .coffee-card {
+    border: 1px solid transparent;
+    border-bottom: 1px transparent;
+    border-color: #eee;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+    padding: 0px;
+    background-color: #fcf6f0;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    min-width: 16px;
+    min-height: 16px;
+    position: relative;
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1);
+    min-height: 450px;
+    text-align: center;
+    padding-bottom: 30px;
+
+    .coffee-image {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background-image: url("assets/coffee-bag.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 300px;
+      padding: 0;
+      grid-row-start: 1;
+      grid-row-end: 2;
+    }
+
+    .product-title {
+      padding: 0px 20px;
+      text-align: center;
+
+      h2 {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 28px;
+      }
+
+      h4 {
+        font-size: 20px;
+        text-align: center;
+      }
+
+      h6 {
+        font-size: 15px;
+        text-align: center;
+      }
+
+      p {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      a {
+        font-weight: bold;
+        color: #b4600b;
+      }
+    }
+
+    .product-details {
+      padding: 0px 20px;
+      text-align: center;
+
+      ul {
+        list-style-type: none;
+        text-align: center;
+        padding-left: 0;
+
+        li {
+          margin-bottom: 20px;
+        }
+
+        img {
+          margin-top: 5px;
+          height: 50px;
+        }
+      }
+
+      button {
+        width: 50%;
+        margin-top: 20px;
+      }
+
+      .buy {
+        display: none;
+        // border-top-right-radius: 0;
+        // border-bottom-right-radius: 0;
+        // span {
+        //   margin-right: 2px;
+        // }
+      }
+
+      .trade {
+        display: none;
+        // background: #fe6dde;
+        // color: white;
+        // border-top-left-radius: 0;
+        // border-bottom-left-radius: 0;
+
+        // span {
+        //   margin-right: 2px;
+        // }
+      }
+    }
+  }
+
+  .coffee-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .button-wrapper {
+      width: 100%;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    .buy {
+      border-radius: 0;
+    }
+
+    .sell {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  .credits {
+    padding-bottom: 20px;
+    p {
+      margin-bottom: 0px;
+      margin-top: 40px;
+      font-weight: bold;
+      font-size: small;
+    }
+
+    .logos {
+      margin-top: -5px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      b {
+        margin-left: 40px;
+        margin-right: 40px;
+        font-size: 40px;
+        display: inline-block;
+      }
+
+      img.affogato {
+        max-height: 50px;
+      }
+
+      img.nativo {
+        max-height: 100px;
+      }
+    }
   }
 }
 
-.credits {
-  p {
-    margin-bottom: 0px;
-    margin-top: 40px;
-    font-weight: bold;
-    font-size: small;
+@media screen and (min-width: $break-large) {
+  .App {
+    text-align: center;
+    padding-left: 40px;
+    padding-right: 40px;
   }
-  .logos {
-    margin-top: -5px;
+
+  .wrapper {
+    h1 {
+      font-size: 48px;
+    }
+
+    h4 {
+      margin-top: 0px;
+      font-size: 20px;
+    }
+  }
+  .header {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-bottom: 20px;
 
-    b {
-      margin-left: 40px;
-      margin-right: 40px;
-      font-size: 40px;
-      display: inline-block;
+    img.logo {
+      width: 212px;
+      margin-top: 0px;
     }
 
-    img.affogato {
-      height: 50px;
+    .btn {
+      border-radius: 6px;
+      padding: 0.75rem;
     }
 
-    img.nativo {
-      height: 100px;
+    .wallet-details {
+      display: flex;
+    }
+
+    .tokens {
+      cursor: auto;
+      transform: scale(1);
+      padding: 0.75rem;
+      border-radius: 6px;
+      transition: transform 0.3s ease 0s;
+      color: #2b2b2b;
+
+      font-family: Inter, sans-serif;
+      opacity: 1;
+      margin-top: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+
+      img {
+        height: 20px;
+        margin-right: 5px;
+      }
+
+      p {
+        color: #2b2b2b;
+        font-weight: bold;
+      }
+    }
+
+    .address {
+      background-color: #f1f2f6;
+      cursor: auto;
+      transform: scale(1);
+      padding: 0.75rem;
+      border-radius: 6px;
+      transition: transform 0.3s ease 0s;
+      color: #2b2b2b;
+      border: 0;
+      font-family: Inter, sans-serif;
+      opacity: 1;
+      margin-top: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        color: #2b2b2b;
+        font-weight: bold;
+      }
+
+      .circle {
+        display: initial;
+        width: 12px;
+        height: 12px;
+        margin-left: 12px;
+        border-radius: 100%;
+        &.connected {
+          background-color: rgb(102, 187, 102);
+        }
+      }
+    }
+  }
+
+  .coffee-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .coffee-card {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 100%;
+    padding: 0px;
+    background-color: #fcf6f0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    height: auto;
+    min-width: 16px;
+    min-height: 16px;
+    position: relative;
+    border: 1px solid transparent;
+    border-bottom: 1px transparent;
+    border-color: #eee;
+    border-radius: 10px;
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1);
+    min-height: 450px;
+    padding-right: 42px;
+
+    .coffee-image {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-top-right-radius: 0px;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      background-image: url("assets/coffee-bag.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: auto;
+    }
+
+    .product-title {
+      padding-top: 42px;
+      padding-left: 43px;
+
+      h2 {
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      h4 {
+        text-align: left;
+      }
+      h6 {
+        text-align: left;
+      }
+
+      p {
+        text-align: left;
+        margin-top: 20px;
+      }
+
+      a {
+        font-weight: bold;
+        color: #b4600b;
+      }
+    }
+
+    .product-details {
+      margin-left: 20px;
+      text-align: left;
+      padding-top: 42px;
+      padding-left: 43px;
+
+      ul {
+        list-style-type: none;
+        text-align: left;
+        padding-left: 0;
+
+        li {
+          margin-bottom: 20px;
+        }
+
+        img {
+          margin-top: 5px;
+          height: 50px;
+        }
+      }
+
+      button {
+        width: 50%;
+        margin-top: 20px;
+      }
+      .button-wrapper {
+        display: flex;
+        .buy {
+          width: 50%;
+          display: flex;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          span {
+            margin-right: 2px;
+          }
+        }
+        .trade {
+          width: 50%;
+          display: flex;
+          background: #fe6dde;
+          color: white;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+
+          span {
+            margin-right: 2px;
+          }
+        }
+      }
+    }
+  }
+
+  .coffee-actions {
+    display: none;
+    // flex-direction: column;
+    // justify-content: space-between;
+
+    // .button-wrapper {
+    //   width: 100%;
+    //   button {
+    //     width: 100%;
+    //   }
+    // }
+
+    // .buy {
+    //   border-radius: 0;
+    // }
+
+    // .sell {
+    //   border-top-left-radius: 0;
+    //   border-top-right-radius: 0;
+    // }
+  }
+
+  .credits {
+    padding-bottom: 0px;
+    p {
+      margin-bottom: 0px;
+      margin-top: 40px;
+      font-weight: bold;
+      font-size: small;
+    }
+    .logos {
+      margin-top: -5px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      b {
+        margin-left: 40px;
+        margin-right: 40px;
+        font-size: 40px;
+        display: inline-block;
+      }
+
+      img.affogato {
+        height: 50px;
+      }
+
+      img.nativo {
+        height: 100px;
+      }
     }
   }
 }

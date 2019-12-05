@@ -12,7 +12,7 @@ class CoffeeActions extends Component {
 
         <div className="button-wrapper">
           <Button variant="custom" className="sell">
-            {contentStrings.sell}
+            Swap
           </Button>
         </div>
         {/* <RedeemCoffee /> */}

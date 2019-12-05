@@ -21,13 +21,13 @@ export default function Container({ totalSupply, coffeeHash }) {
   }
 
   return (
-    <>
+    <span className="wrapper">
       <HeaderBar setShowConnect={setShowConnect} />
       <Heading.h1>Dynamic Priced Coffee Sale</Heading.h1>
       <Heading.h4>Invest, Trade, Redeem and Brew your Coffee</Heading.h4>
       <div className="coffee-container">
         <CoffeeCard totalSupply={totalSupply} coffeeHash={coffeeHash} />
-        {/* <CoffeeActions coffeeBagInfo={coffeeBagInfo} /> */}
+        <CoffeeActions coffeeBagInfo={coffeeBagInfo} />
       </div>
       <div className="credits">
         <div>
@@ -39,6 +39,6 @@ export default function Container({ totalSupply, coffeeHash }) {
           <img src={nativo} alt="nativo" className="nativo" />
         </div>
       </div>
-    </>
+    </span>
   );
 }
