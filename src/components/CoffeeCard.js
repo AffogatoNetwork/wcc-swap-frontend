@@ -1,14 +1,16 @@
-import React, { Component } from "react";
-import { Card, Heading, Image, Flex } from "rimble-ui";
-import coffee_bag from "../assets/coffee_bag.png";
+import React from "react";
+import { Button, Heading } from "rimble-ui";
 import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
 import { amountFormatter } from '../factory'
+import BuyCoffee from "./BuyCoffee";
 import "../App.scss";
 import useAxios from "axios-hooks";
+import drip from "../assets/drip.png";
+import pour from "../assets/pour.png";
 
 
-export default function CoffeeCard({ coffeeHash, totalSupply, dollarPrice, reserveWCCToken }) {
+export default function CoffeeCard({ coffeeHash, selectedTokenSymbol, setSelectedTokenSymbol,totalSupply, dollarPrice, reserveWCCToken, reserveWCCETH, calculateEthPrice }) {
   //let coffeeInfo
   const [{ data, loading, error }, refetch] = useAxios(
     `https://ipfs.infura.io/ipfs/${coffeeHash}`
@@ -18,35 +20,62 @@ export default function CoffeeCard({ coffeeHash, totalSupply, dollarPrice, reser
   if (error) return <Heading.h3>Error...</Heading.h3>;
 
   return (
-    <Card
-      className="coffee-card"
-      mx={"auto"}
-      bg="#FCF6F0"
-      boxShadow="3"
-      borderRadius={10}
-    >
-      <Image alt={contentStrings.coffeeBag} src={coffee_bag} height="400px" />
-      <div contentAlign="left" divDirection="column" textAlign="left">
+    <div className="coffee-card">
+      <div className="coffee-image"></div>
+
+      <div className="product-title">
+        <Heading.h4 color={colors.brown.base} textAlign="left">
+          Honduran {data.coffee.Variety}
+        </Heading.h4>
+        <Heading.h6 textAlign="left">{data.coffee.notes}</Heading.h6>
         <Heading.h2 color={colors.brown.base} textAlign="left">
           Premium Specialty Coffee
         </Heading.h2>
+        <p>
+          We are using as colateral this single origin coffee best in terms of
+          flavor in quality with Wrapped DAI Saving rates as collateral to mint
+          a wrapped coffee coin token used to redeem a premium bag of this
+          coffee roasted.
+        </p>
+        <p>
+          Read all the details <a href="#"> over here</a>
+        </p>
+      </div>
+      <div className="product-details">
         <ul>
-          <li>Notes: {data.coffee.notes}</li>
-          <li>Variety: {data.coffee.Variety}</li>
-          <li>Process: {data.coffee.Process}</li>
-          <li>Score: {data.coffee.score}/100</li>
+          <li>
+            <Heading.h5>Details</Heading.h5> {data.coffee.Process}, Medium roast
+          </li>
+          {/* <li>
+            <Heading.h5>Process</Heading.h5> {data.coffee.Process}
+          </li> */}
+          <li>
+            <Heading.h5>Specialty Coffee Score</Heading.h5> {data.coffee.score}
+            /100
+          </li>
+          <li>
+            <Heading.h5>Best for</Heading.h5>
+            <img src={pour} alt="pour over coffee" className="pour" />
+            <img src={drip} alt="drip machine" className="drip" />
+          </li>
         </ul>
-      </div>
-      <div>
-        <Heading.h3 color={colors.brown.base}>{dollarPrice ? `$${amountFormatter(dollarPrice, 18, 2)} USD` : '$0.00'}</Heading.h3>
-      </div>
-      <div>
+        <Heading.h3 color={colors.brown.base}>
+            {reserveWCCETH && `${calculateEthPrice(reserveWCCETH, reserveWCCToken)} ETH / $10` } 
+        </Heading.h3>
         <Heading.h5 color={colors.brown.text}>
-            {reserveWCCToken && totalSupply
-               ? `${amountFormatter(reserveWCCToken, 18, 0)}/${totalSupply} available`
-               : ''}     
-        </Heading.h5>        
+          {reserveWCCToken && `${amountFormatter(reserveWCCToken, 18, 0)} / ${totalSupply} ${contentStrings.available}`}
+        </Heading.h5>
+        <BuyCoffee 
+          selectedTokenSymbol={selectedTokenSymbol}
+          setSelectedTokenSymbol={setSelectedTokenSymbol}
+          totalSupply={totalSupply}         
+          dollarPrice={dollarPrice}
+          reserveWCCToken={reserveWCCToken}
+        />
+        <Button variant="custom" className="trade">
+          Swap
+        </Button>
       </div>
-    </Card>
+    </div>
   );
 }

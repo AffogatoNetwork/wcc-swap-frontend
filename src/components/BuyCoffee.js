@@ -49,12 +49,10 @@ export default function BuyCoffee({ selectedTokenSymbol,  setSelectedTokenSymbol
   }
   
   return (
-    <>
-      <div className="button-wrapper">
-        <Button variant="primary" className="buy" onClick={openModal}>
-          {contentStrings.buy}
-        </Button>
-      </div>
+    <>      
+      <Button variant="primary" className="buy" onClick={openModal}>
+        {contentStrings.buy}
+      </Button>      
 
       <Modal isOpen={show}>
         <Card
