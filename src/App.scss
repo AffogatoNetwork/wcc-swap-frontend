@@ -269,8 +269,12 @@ $break-large: 1200px;
     .button-wrapper {
       width: 100%;
 
-      button {
+      button,
+      a {
         width: 100%;
+      }
+      a:hover {
+        color: white;
       }
     }
 
