@@ -16,7 +16,14 @@ import { amountFormatter } from '../factory'
 import SelectToken from './SelectToken'
 
 
-export default function BuyCoffee({ selectedTokenSymbol,  setSelectedTokenSymbol,  totalSupply, dollarPrice, reserveWCCToken }) {
+export default function BuyCoffee({ 
+  selectedTokenSymbol,  
+  setSelectedTokenSymbol, 
+  validateBuy,  
+  totalSupply, 
+  dollarPrice, 
+  reserveWCCToken 
+}) {
   const [show, setShow] = useState(false);
 
   const openModal = () => setShow(true);

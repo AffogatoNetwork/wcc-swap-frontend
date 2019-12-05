@@ -4,25 +4,35 @@ import contentStrings from "../constants/Localization";
 import BuyCoffee from "./BuyCoffee";
 import RedeemCoffee from "./RedeemCoffee";
 
-export default function CoffeeActions({ coffeeHash, selectedTokenSymbol, setSelectedTokenSymbol, totalSupply, dollarPrice, reserveWCCToken }) {
+export default function CoffeeActions({ 
+  coffeeHash, 
+  selectedTokenSymbol, 
+  setSelectedTokenSymbol, 
+  validateBuy, 
+  totalSupply, 
+  dollarPrice, 
+  reserveWCCToken, 
+  reserveWCCETH 
+}) {
   
   return (
     <div className="coffee-actions">
       <BuyCoffee 
         selectedTokenSymbol={selectedTokenSymbol}
         setSelectedTokenSymbol={setSelectedTokenSymbol}
+        validateBuy={validateBuy}
         totalSupply={totalSupply}         
         dollarPrice={dollarPrice}
         reserveWCCToken={reserveWCCToken}
       />
 
-      <div className="button-wrapper">
-        <Button variant="custom" className="sell">
-          {contentStrings.sell}
-        </Button>
-      </div>
-      {/* <RedeemCoffee /> */}
-    </div>
+        <div className="button-wrapper">
+          <Button variant="custom" className="sell">
+            Swap
+          </Button>
+        </div>
+        {/* <RedeemCoffee /> */}
+    </div>    
   );  
 }
 

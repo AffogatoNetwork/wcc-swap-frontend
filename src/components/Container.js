@@ -7,7 +7,17 @@ import { Heading } from "rimble-ui";
 import affogato_horizontal from "../assets/affogato-horizontal.png";
 import nativo from "../assets/nativo.jpg";
 
-export default function Container({ coffeeHash, selectedTokenSymbol, setSelectedTokenSymbol, totalSupply, dollarPrice, reserveWCCToken, reserveWCCETH, calculateEthPrice }) {
+export default function Container({ 
+  coffeeHash, 
+  selectedTokenSymbol, 
+  setSelectedTokenSymbol, 
+  validateBuy,
+  totalSupply, 
+  dollarPrice, 
+  reserveWCCToken, 
+  reserveWCCETH, 
+  calculateEthPrice
+ }) {
   const { account } = useWeb3Context();
   const [showConnect, setShowConnect] = useState(false);
 
@@ -16,7 +26,7 @@ export default function Container({ coffeeHash, selectedTokenSymbol, setSelected
   }
 
   return (
-    <>
+    <span className="wrapper">
       <HeaderBar setShowConnect={setShowConnect} />
       <Heading.h1>Dynamic Priced Coffee Sale</Heading.h1>
       <Heading.h4>Invest, Trade, Redeem and Brew your Coffee</Heading.h4>
@@ -25,13 +35,23 @@ export default function Container({ coffeeHash, selectedTokenSymbol, setSelected
           coffeeHash={coffeeHash} 
           selectedTokenSymbol={selectedTokenSymbol}
           setSelectedTokenSymbol={setSelectedTokenSymbol}
+          validateBuy={validateBuy}
           totalSupply={totalSupply} 
           dollarPrice={dollarPrice}
           reserveWCCToken={reserveWCCToken}
           reserveWCCETH={reserveWCCETH}
-          calculateEthPrice={calculateEthPrice}
+          calculateEthPrice={calculateEthPrice} 
         />
-        {/* <CoffeeActions coffeeBagInfo={coffeeBagInfo} /> */}
+        <CoffeeActions 
+          coffeeHash={coffeeHash} 
+          selectedTokenSymbol={selectedTokenSymbol}
+          setSelectedTokenSymbol={setSelectedTokenSymbol}
+          validateBuy={validateBuy}
+          totalSupply={totalSupply} 
+          dollarPrice={dollarPrice}
+          reserveWCCToken={reserveWCCToken}
+          reserveWCCETH={reserveWCCETH}
+        />
       </div>
       <div className="credits">
         <div>
@@ -43,6 +63,6 @@ export default function Container({ coffeeHash, selectedTokenSymbol, setSelected
           <img src={nativo} alt="nativo" className="nativo" />
         </div>
       </div>
-    </>
+    </span>
   );
 }

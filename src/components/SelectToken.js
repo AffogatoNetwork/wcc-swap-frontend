@@ -13,7 +13,7 @@ const SelectItem = styled.option`
 `
 
 const options = Object.keys(TOKEN_SYMBOLS)
-  .filter(s => s !== 'SOCKS')
+  .filter(s => s !== 'WCC')
   .map(s => ({ value: s, label: s }))
 
 function renderOptions(token, i, selectedTokenSymbol, prefix) {

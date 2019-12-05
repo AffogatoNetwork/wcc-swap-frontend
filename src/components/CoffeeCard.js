@@ -10,7 +10,17 @@ import drip from "../assets/drip.png";
 import pour from "../assets/pour.png";
 
 
-export default function CoffeeCard({ coffeeHash, selectedTokenSymbol, setSelectedTokenSymbol,totalSupply, dollarPrice, reserveWCCToken, reserveWCCETH, calculateEthPrice }) {
+export default function CoffeeCard({ 
+  coffeeHash, 
+  selectedTokenSymbol, 
+  setSelectedTokenSymbol,
+  validateBuy,
+  totalSupply, 
+  dollarPrice, 
+  reserveWCCToken, 
+  reserveWCCETH, 
+  calculateEthPrice 
+}) {
   //let coffeeInfo
   const [{ data, loading, error }, refetch] = useAxios(
     `https://ipfs.infura.io/ipfs/${coffeeHash}`
@@ -44,7 +54,8 @@ export default function CoffeeCard({ coffeeHash, selectedTokenSymbol, setSelecte
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Details</Heading.h5> {data.coffee.Process}, Medium roast
+            <Heading.h5>Redem Details</Heading.h5>28 kg, {data.coffee.Process},
+            Medium roast
           </li>
           {/* <li>
             <Heading.h5>Process</Heading.h5> {data.coffee.Process}
@@ -60,21 +71,24 @@ export default function CoffeeCard({ coffeeHash, selectedTokenSymbol, setSelecte
           </li>
         </ul>
         <Heading.h3 color={colors.brown.base}>
-            {reserveWCCETH && `${calculateEthPrice(reserveWCCETH, reserveWCCToken)} ETH / $10` } 
+            {reserveWCCToken && reserveWCCETH && `${calculateEthPrice(reserveWCCETH, reserveWCCToken)} ETH / $10` } 
         </Heading.h3>
         <Heading.h5 color={colors.brown.text}>
           {reserveWCCToken && `${amountFormatter(reserveWCCToken, 18, 0)} / ${totalSupply} ${contentStrings.available}`}
         </Heading.h5>
-        <BuyCoffee 
-          selectedTokenSymbol={selectedTokenSymbol}
-          setSelectedTokenSymbol={setSelectedTokenSymbol}
-          totalSupply={totalSupply}         
-          dollarPrice={dollarPrice}
-          reserveWCCToken={reserveWCCToken}
-        />
-        <Button variant="custom" className="trade">
-          Swap
-        </Button>
+        <div className="button-wrapper">
+          <BuyCoffee 
+            selectedTokenSymbol={selectedTokenSymbol}
+            setSelectedTokenSymbol={setSelectedTokenSymbol}
+            validateBuy={validateBuy}
+            totalSupply={totalSupply}         
+            dollarPrice={dollarPrice}
+            reserveWCCToken={reserveWCCToken}
+          />
+          <Button variant="custom" className="trade">
+            Swap
+          </Button>
+        </div>
       </div>
     </div>
   );

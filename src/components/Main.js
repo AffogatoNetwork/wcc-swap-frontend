@@ -126,8 +126,8 @@ function calculateEthPrice(
 ){
   const amount = calculateEtherTokenInputFromOutput(
     1,
-    reserveWCCETH,
-    reserveWCCToken
+    reserveWCCToken,
+    reserveWCCETH    
   );
 
   return amount;
@@ -704,6 +704,7 @@ export default function Main({ stats, status }) {
             coffeeHash={coffeeHash} 
             selectedTokenSymbol={selectedTokenSymbol}
             setSelectedTokenSymbol={setSelectedTokenSymbol}
+            validateBuy={validateBuy}
             totalSupply={totalSupply} 
             dollarPrice={dollarPrice}
             reserveWCCToken={reserveWCCToken}
