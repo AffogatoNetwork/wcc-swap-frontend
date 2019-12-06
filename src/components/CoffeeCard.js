@@ -71,7 +71,7 @@ export default function CoffeeCard({
           </li>
         </ul>
         <Heading.h3 color={colors.brown.base}>
-            {reserveWCCToken && reserveWCCETH && `${calculateEthPrice(reserveWCCETH, reserveWCCToken)} ETH / $10` } 
+            {reserveWCCToken && reserveWCCETH && `${amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 3)} ETH / $10` } 
         </Heading.h3>
         <Heading.h5 color={colors.brown.text}>
           {reserveWCCToken && `${amountFormatter(reserveWCCToken, 18, 0)} / ${totalSupply} ${contentStrings.available}`}

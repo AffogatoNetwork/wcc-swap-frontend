@@ -125,10 +125,14 @@ function calculateEthPrice(
   reserveWCCToken
 ){
   const amount = calculateEtherTokenInputFromOutput(
-    1,
-    reserveWCCToken,
-    reserveWCCETH    
+    ethers.utils.parseUnits('1', 18),
+    reserveWCCETH,
+    reserveWCCToken        
   );
+  
+  console.log('Reserve WCC: ' + reserveWCCToken);
+  console.log('Reserve ETH: ' + reserveWCCETH);
+  console.log('ETH Price: ' + amount);
 
   return amount;
 }
