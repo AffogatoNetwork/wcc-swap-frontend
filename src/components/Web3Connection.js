@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useWeb3Context } from "web3-react";
 import { ethers } from "ethers";
 import { Heading } from "rimble-ui";
+import Loading from "./Loading";
 
 export default function Web3Connection({ children }) {
   const { setConnector, error, active } = useWeb3Context();
@@ -42,11 +43,7 @@ export default function Web3Connection({ children }) {
     console.error(error);
     return <Heading.h3>Connection Error.</Heading.h3>;
   } else if (!active) {
-    return showLoader ? (
-      <Heading.h3>Loading...</Heading.h3>
-    ) : (
-      <Heading.h3>Loading...</Heading.h3>
-    );
+    return showLoader ? <Loading /> : <Loading />;
   } else {
     return children;
   }

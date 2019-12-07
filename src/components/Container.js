@@ -6,6 +6,8 @@ import CoffeeActions from "./CoffeeActions";
 import { Heading } from "rimble-ui";
 import affogato_horizontal from "../assets/affogato-horizontal.png";
 import nativo from "../assets/nativo.jpg";
+import Loading from "./Loading";
+import useAxios from "axios-hooks";
 
 export default function Container({
   coffeeHash,
@@ -21,10 +23,20 @@ export default function Container({
 }) {
   const { account } = useWeb3Context();
   const [showConnect, setShowConnect] = useState(false);
+  //let coffeeInfo
+  const [{ data, loading, error }, refetch] = useAxios(
+    `https://ipfs.infura.io/ipfs/${coffeeHash}`
+  );
 
   if (!coffeeHash) {
-    return <Heading.h3>Loading...</Heading.h3>;
+    return <Loading />;
   }
+
+  // TODO: Change loader to contexct
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) return <Heading.h3>Error...</Heading.h3>;
 
   return (
     <span className="wrapper">
@@ -32,11 +44,11 @@ export default function Container({
         setShowConnect={setShowConnect}
         accountBalance={accountBalance}
       />
-      <Heading.h1>Dynamic Priced Coffee Sale</Heading.h1>
+      <Heading.h1 variant="primary">Dynamic Priced Coffee Sale</Heading.h1>
       <Heading.h4>Invest, Trade, Redeem and Brew your Coffee</Heading.h4>
       <div className="coffee-container">
         <CoffeeCard
-          coffeeHash={coffeeHash}
+          coffeeData={data}
           selectedTokenSymbol={selectedTokenSymbol}
           setSelectedTokenSymbol={setSelectedTokenSymbol}
           validateBuy={validateBuy}
