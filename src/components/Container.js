@@ -10,7 +10,7 @@ import Loading from "./Loading";
 import useAxios from "axios-hooks";
 
 export default function Container({
-  coffeeHash,
+  coffeeHash = "",
   selectedTokenSymbol,
   setSelectedTokenSymbol,
   validateBuy,

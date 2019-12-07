@@ -47,6 +47,22 @@ html {
   }
 }
 
+.coffeeModal {
+  h3 {
+    display: inline;
+    color: #332211;
+  }
+  .available {
+    float: right;
+  }
+
+  label {
+    div {
+      width: 100%;
+    }
+  }
+}
+
 @media screen and (min-width: $break-small) {
   .App {
     text-align: center;
