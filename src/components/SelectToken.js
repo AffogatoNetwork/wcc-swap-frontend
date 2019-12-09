@@ -33,6 +33,8 @@ function renderOptions(token, i, selectedTokenSymbol, prefix) {
 }
 
 export default function SelectToken({ selectedTokenSymbol, setSelectedTokenSymbol, prefix }) {
+    console.log('select: ' + selectedTokenSymbol);
+  
     return (
       <>
         <Field label="Choose your currency" width={1}>

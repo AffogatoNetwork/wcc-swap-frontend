@@ -1,29 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
   Card,
   Flex,
   Heading,
-  Input,
   Modal,
-  Select,
   Text
 } from "rimble-ui";
 import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
 import { amountFormatter } from '../factory'
 import SelectToken from './SelectToken'
+import IncrementToken from './IncrementToken'
+import { useAppContext } from '../context'
 
+export function useCount() {
+  const [state, setState] = useAppContext()
+
+  function increment() {
+    setState(state => ({ ...state, count: state.count + 1 }))
+  }
+
+  function decrement() {
+    if (state.count >= 1) {
+      setState(state => ({ ...state, count: state.count - 1 }))
+    }
+  }
+
+  function setCount(val) {
+    let int = val.toInt()
+    setState(state => ({ ...state, count: int }))
+  }
+  return [state.count, increment, decrement, setCount]
+}
 
 export default function BuyCoffee({ 
   selectedTokenSymbol,  
   setSelectedTokenSymbol, 
-  validateBuy,  
+  ready,
+  unlock,
+  validateBuy,
+  buy,
   totalSupply, 
+  dollarize,
   dollarPrice, 
-  reserveWCCToken 
+  reserveWCCToken,
+  pending,
+  currentTransactionHash,
+  currentTransactionType,
+  currentTransactionAmount,
+  setCurrentTransaction,
+  clearCurrentTransaction,
+  setShowConnect 
 }) {
+  const [state] = useAppContext()
   const [show, setShow] = useState(false);
 
   const openModal = () => setShow(true);
@@ -34,18 +65,25 @@ export default function BuyCoffee({
   const [buyValidationState, setBuyValidationState] = useState({}) // { maximumInputValue, inputValue, outputValue }
   const [sellValidationState, setSellValidationState] = useState({}) // { inputValue, outputValue, minimumOutputValue }
   const [validationError, setValidationError] = useState()
-
-  /*onBagsChange(event) {
-    let bagsNumber = event.target.value;
-    let totalUSD = bagsNumber * 10;
-
-    this.setState({
-      bagsNumber: event.target.value,
-      totalUSD: totalUSD
-    });
-  }*/
-
   
+  // buy state validation
+  useEffect(() => {
+    if (ready && buying) {
+      try {
+        const { error: validationError, ...validationState } = validateBuy(String(state.count))
+        setBuyValidationState(validationState)
+        setValidationError(validationError || null)
+
+        return () => {
+          setBuyValidationState({})
+          setValidationError()
+        }
+      } catch (error) {
+        setBuyValidationState({})
+        setValidationError(error)
+      }
+    }
+  }, [ready, buying, validateBuy, state.count])
 
   function TokenVal() {
     if (buying && buyValidationState.inputValue) {
@@ -82,11 +120,7 @@ export default function BuyCoffee({
               </Text.span>
             </Box>
             <Box width={1 / 2}>
-              <Input
-                type="number"
-                required={true}
-                placeholder="1"                
-              />
+              <IncrementToken />
             </Box>
           </Flex>
 

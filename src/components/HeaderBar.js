@@ -7,10 +7,11 @@ import icon from "../assets/icon.png";
 import { useWeb3Context } from "web3-react";
 import { addressShortener } from "../utils/utils";
 import "../App.scss";
+import { utils } from "ethers";
 
 import contentStrings from "../constants/Localization";
 
-export default function HeaderBar({ setShowConnect }) {
+export default function HeaderBar({ setShowConnect, accountBalance }) {
   const { account, setConnector } = useWeb3Context();
 
   function handleAccount() {
@@ -31,7 +32,9 @@ export default function HeaderBar({ setShowConnect }) {
             <div className="wallet-details">
               <div className="tokens">
                 <img src={icon} alt="WCC" />
-                <CoffeeCount> 0 WCC</CoffeeCount>
+                <CoffeeCount>
+                  {utils.formatEther(accountBalance)} WCC
+                </CoffeeCount>
               </div>
               <div className="address">
                 <CoffeeCount> {addressShortener(account)}</CoffeeCount>

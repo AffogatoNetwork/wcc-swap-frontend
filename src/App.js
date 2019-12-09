@@ -3,8 +3,8 @@ import Web3Provider, { Connectors } from "web3-react";
 import { Route } from "react-router-dom";
 import "./App.scss";
 import Web3Connection from "./components/Web3Connection";
-import Container from "./components/Container";
 import Main from "./components/Main";
+import AppProvider from './context'
 
 const PROVIDER_URL = "https://rinkeby.infura.io/";
 
@@ -33,7 +33,9 @@ class App extends Component {
       <div className="App">
         <Web3Provider connectors={connectors} libraryName={"ethers.js"}>
           <Web3Connection>
-            <Route exact path="/" render={() => <Main />} />
+            <AppProvider>
+              <Route exact path="/" render={() => <Main />} />
+            </AppProvider>  
           </Web3Connection>
         </Web3Provider>
       </div>

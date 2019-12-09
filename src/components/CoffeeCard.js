@@ -2,24 +2,34 @@ import React from "react";
 import { Button, Heading } from "rimble-ui";
 import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
-import { amountFormatter } from '../factory'
+import { amountFormatter } from "../factory";
 import BuyCoffee from "./BuyCoffee";
+import Checkout from "./Checkout";
 import "../App.scss";
 import useAxios from "axios-hooks";
 import drip from "../assets/drip.png";
 import pour from "../assets/pour.png";
+require("dotenv").config();
 
-
-export default function CoffeeCard({ 
-  coffeeHash, 
-  selectedTokenSymbol, 
+export default function CoffeeCard({
+  coffeeHash,
+  selectedTokenSymbol,
   setSelectedTokenSymbol,
+  ready,
+  unlock,
   validateBuy,
-  totalSupply, 
-  dollarPrice, 
-  reserveWCCToken, 
-  reserveWCCETH, 
-  calculateEthPrice 
+  buy,
+  totalSupply,
+  dollarPrice,
+  reserveWCCToken,
+  reserveWCCETH,
+  calculateEthPrice,
+  currentTransactionHash,
+  currentTransactionType,
+  currentTransactionAmount,
+  setCurrentTransaction,
+  clearCurrentTransaction,
+  setShowConnect
 }) {
   //let coffeeInfo
   const [{ data, loading, error }, refetch] = useAxios(
@@ -74,18 +84,36 @@ export default function CoffeeCard({
             {reserveWCCToken && reserveWCCETH && `${amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 3)} ETH / $10` } 
         </Heading.h3>
         <Heading.h5 color={colors.brown.text}>
-          {reserveWCCToken && `${amountFormatter(reserveWCCToken, 18, 0)} / ${totalSupply} ${contentStrings.available}`}
+          {reserveWCCToken &&
+            `${amountFormatter(reserveWCCToken, 18, 0)} / ${totalSupply} ${
+              contentStrings.available
+            }`}
         </Heading.h5>
         <div className="button-wrapper">
-          <BuyCoffee 
+          <Checkout
             selectedTokenSymbol={selectedTokenSymbol}
             setSelectedTokenSymbol={setSelectedTokenSymbol}
+            ready={ready}  
+            unlock={unlock}
             validateBuy={validateBuy}
-            totalSupply={totalSupply}         
+            buy={buy}  
+            totalSupply={totalSupply}
             dollarPrice={dollarPrice}
             reserveWCCToken={reserveWCCToken}
+            currentTransactionHash={currentTransactionHash}
+            currentTransactionType={currentTransactionType}
+            currentTransactionAmount={currentTransactionAmount}
+            setCurrentTransaction={setCurrentTransaction}
+            clearCurrentTransaction={clearCurrentTransaction}
+            setShowConnect={setShowConnect}
           />
-          <Button variant="custom" className="trade">
+          <Button
+            as="a"
+            href={`${process.env.REACT_APP_UNISWAP_URL}/swap?inputCurrency=${process.env.REACT_APP_WCC_ADDRESS}`}
+            target="\_blank"
+            variant="custom"
+            className="trade"
+          >
             Swap
           </Button>
         </div>
