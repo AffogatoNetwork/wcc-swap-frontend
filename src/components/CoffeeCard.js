@@ -6,13 +6,12 @@ import { amountFormatter } from "../factory";
 import BuyCoffee from "./BuyCoffee";
 import Checkout from "./Checkout";
 import "../App.scss";
-import useAxios from "axios-hooks";
 import drip from "../assets/drip.png";
 import pour from "../assets/pour.png";
 require("dotenv").config();
 
 export default function CoffeeCard({
-  coffeeHash,
+  coffeeData,
   selectedTokenSymbol,
   setSelectedTokenSymbol,
   ready,
@@ -20,6 +19,7 @@ export default function CoffeeCard({
   validateBuy,
   buy,
   totalSupply,
+  dollarize,
   dollarPrice,
   reserveWCCToken,
   reserveWCCETH,
@@ -31,23 +31,15 @@ export default function CoffeeCard({
   clearCurrentTransaction,
   setShowConnect
 }) {
-  //let coffeeInfo
-  const [{ data, loading, error }, refetch] = useAxios(
-    `https://ipfs.infura.io/ipfs/${coffeeHash}`
-  );
-
-  if (loading) return <Heading.h3>Loading...</Heading.h3>;
-  if (error) return <Heading.h3>Error...</Heading.h3>;
-
   return (
     <div className="coffee-card">
       <div className="coffee-image"></div>
 
       <div className="product-title">
         <Heading.h4 color={colors.brown.base} textAlign="left">
-          Honduran {data.coffee.Variety}
+          Honduran {coffeeData.coffee.Variety}
         </Heading.h4>
-        <Heading.h6 textAlign="left">{data.coffee.notes}</Heading.h6>
+        <Heading.h6 textAlign="left">{coffeeData.coffee.notes}</Heading.h6>
         <Heading.h2 color={colors.brown.base} textAlign="left">
           Premium Specialty Coffee
         </Heading.h2>
@@ -64,14 +56,15 @@ export default function CoffeeCard({
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Redem Details</Heading.h5>28 kg, {data.coffee.Process},
-            Medium roast
+            <Heading.h5>Redem Details</Heading.h5>28 kg,
+            {coffeeData.coffee.Process}, Medium roast
           </li>
           {/* <li>
-            <Heading.h5>Process</Heading.h5> {data.coffee.Process}
+            <Heading.h5>Process</Heading.h5> {coffeeData.coffee.Process}
           </li> */}
           <li>
-            <Heading.h5>Specialty Coffee Score</Heading.h5> {data.coffee.score}
+            <Heading.h5>Specialty Coffee Score</Heading.h5>
+            {coffeeData.coffee.score}
             /100
           </li>
           <li>
@@ -98,6 +91,7 @@ export default function CoffeeCard({
             validateBuy={validateBuy}
             buy={buy}  
             totalSupply={totalSupply}
+            dollarize={dollarize}
             dollarPrice={dollarPrice}
             reserveWCCToken={reserveWCCToken}
             currentTransactionHash={currentTransactionHash}

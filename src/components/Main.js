@@ -332,6 +332,9 @@ export default function Main({ stats, status }) {
     try {
       const exchangeRateDAI = getExchangeRate(reserveDAIETH, reserveDAIToken);
 
+      console.log('DAI Address: ' + TOKEN_ADDRESSES.DAI);
+      console.log('Contract: ' + exchangeContractDAI);
+
       if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
         setUSDExchangeRateETH(exchangeRateDAI);
       } else {
@@ -548,134 +551,6 @@ export default function Main({ stats, status }) {
     }
   }
 
-  // sell functionality
-  const validateSell = useCallback(
-    numberOfWCC => {
-      // validate passed amount
-      let parsedValue;
-      try {
-        parsedValue = ethers.utils.parseUnits(numberOfWCC, 18);
-      } catch (error) {
-        error.code = ERROR_CODES.INVALID_AMOUNT;
-        throw error;
-      }
-
-      // how much ETH or tokens the sale will result in
-      let requiredValueInSelectedToken;
-      try {
-        requiredValueInSelectedToken = calculateAmount(
-          TOKEN_SYMBOLS.WCC,
-          selectedTokenSymbol,
-          parsedValue,
-          reserveWCCETH,
-          reserveWCCToken,
-          reserveSelectedTokenETH,
-          reserveSelectedTokenToken
-        );
-      } catch (error) {
-        error.code = ERROR_CODES.INVALID_EXCHANGE;
-        throw error;
-      }
-
-      // slippage-ized
-      const { minimum } = calculateSlippageBounds(requiredValueInSelectedToken);
-
-      // the following are 'non-breaking' errors that will still return the data
-      let errorAccumulator;
-      // validate minimum ether balance
-      if (balanceETH.lt(ethers.utils.parseEther(".01"))) {
-        const error = Error();
-        error.code = ERROR_CODES.INSUFFICIENT_ETH_GAS;
-        if (!errorAccumulator) {
-          errorAccumulator = error;
-        }
-      }
-
-      // validate minimum WCC balance
-      if (balanceWCC.lt(parsedValue)) {
-        const error = Error();
-        error.code = ERROR_CODES.INSUFFICIENT_SELECTED_TOKEN_BALANCE;
-        if (!errorAccumulator) {
-          errorAccumulator = error;
-        }
-      }
-
-      // validate allowance
-      if (allowanceWCC.lt(parsedValue)) {
-        const error = Error();
-        error.code = ERROR_CODES.INSUFFICIENT_ALLOWANCE;
-        if (!errorAccumulator) {
-          errorAccumulator = error;
-        }
-      }
-
-      return {
-        inputValue: parsedValue,
-        outputValue: requiredValueInSelectedToken,
-        minimumOutputValue: minimum,
-        error: errorAccumulator
-      };
-    },
-    [
-      allowanceWCC,
-      balanceETH,
-      balanceWCC,
-      reserveWCCETH,
-      reserveWCCToken,
-      reserveSelectedTokenETH,
-      reserveSelectedTokenToken,
-      selectedTokenSymbol
-    ]
-  );
-
-  async function sell(inputValue, minimumOutputValue) {
-    const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW;
-
-    const estimatedGasPrice = await library
-      .getGasPrice()
-      .then(gasPrice =>
-        gasPrice
-          .mul(ethers.utils.bigNumberify(150))
-          .div(ethers.utils.bigNumberify(100))
-      );
-
-    if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
-      const estimatedGasLimit = await exchangeContractWCC.estimate.tokenToEthSwapInput(
-        inputValue,
-        minimumOutputValue,
-        deadline
-      );
-      return exchangeContractWCC.tokenToEthSwapInput(
-        inputValue,
-        minimumOutputValue,
-        deadline,
-        {
-          gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-          gasPrice: estimatedGasPrice
-        }
-      );
-    } else {
-      const estimatedGasLimit = await exchangeContractWCC.estimate.tokenToTokenSwapInput(
-        inputValue,
-        minimumOutputValue,
-        ethers.constants.One,
-        deadline,
-        TOKEN_ADDRESSES[selectedTokenSymbol]
-      );
-      return exchangeContractWCC.tokenToTokenSwapInput(
-        inputValue,
-        minimumOutputValue,
-        ethers.constants.One,
-        deadline,
-        TOKEN_ADDRESSES[selectedTokenSymbol],
-        {
-          gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-          gasPrice: estimatedGasPrice
-        }
-      );
-    }
-  }
-
   async function burn(amount) {
     const parsedAmount = ethers.utils.parseUnits(amount, 18);
 
@@ -707,12 +582,12 @@ export default function Main({ stats, status }) {
       validateBuy={validateBuy}
       buy={buy}
       totalSupply={totalSupply}
+      dollarize={dollarize}
       dollarPrice={dollarPrice}
       reserveWCCToken={reserveWCCToken}
       reserveWCCETH={reserveWCCETH}
       calculateEthPrice={calculateEthPrice}
-      accountBalance={balanceWCC}
-      dollarize={dollarize}      
+      accountBalance={balanceWCC}     
     />
   );
 }

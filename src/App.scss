@@ -7,6 +7,16 @@ $break-large: 1200px;
   padding-right: 40px;
 }
 
+.App,
+#root,
+body,
+html {
+  height: 100%;
+}
+#root > :first-child {
+  height: 100%;
+}
+
 .App-logo {
   height: 40vmin;
 }
@@ -37,6 +47,22 @@ $break-large: 1200px;
   }
 }
 
+.coffeeModal {
+  h3 {
+    display: inline;
+    color: #332211;
+  }
+  .available {
+    float: right;
+  }
+
+  label {
+    div {
+      width: 100%;
+    }
+  }
+}
+
 @media screen and (min-width: $break-small) {
   .App {
     text-align: center;
@@ -47,6 +73,7 @@ $break-large: 1200px;
   .wrapper {
     h1 {
       font-size: 32px;
+      color: #332211;
     }
 
     h4 {
@@ -224,6 +251,10 @@ $break-large: 1200px;
 
         li {
           margin-bottom: 20px;
+
+          h5 {
+            color: #332211;
+          }
         }
 
         img {
@@ -332,6 +363,7 @@ $break-large: 1200px;
   .wrapper {
     h1 {
       font-size: 48px;
+      color: #332211;
     }
 
     h4 {
@@ -505,6 +537,10 @@ $break-large: 1200px;
 
         li {
           margin-bottom: 20px;
+
+          h5 {
+            color: #332211;
+          }
         }
 
         img {

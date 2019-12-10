@@ -1,31 +1,49 @@
 import React, { Component } from "react";
 import { Button, Box, Card, Heading, Image, Flex } from "rimble-ui";
 import contentStrings from "../constants/Localization";
-import BuyCoffee from "./BuyCoffee";
+import Checkout from "./Checkout";
 import RedeemCoffee from "./RedeemCoffee";
 require("dotenv").config();
 
 export default function CoffeeActions({
-  coffeeHash,
   selectedTokenSymbol,
   setSelectedTokenSymbol,
+  ready,
+  unlock,
   validateBuy,
+  buy,
   totalSupply,
+  dollarize,
   dollarPrice,
   reserveWCCToken,
-  reserveWCCETH
+  pending,
+  currentTransactionHash,
+  currentTransactionType,
+  currentTransactionAmount,
+  setCurrentTransaction,
+  clearCurrentTransaction,
+  setShowConnect
 }) {
   return (
     <div className="coffee-actions">
-      <BuyCoffee
-        selectedTokenSymbol={selectedTokenSymbol}
-        setSelectedTokenSymbol={setSelectedTokenSymbol}
-        validateBuy={validateBuy}
-        totalSupply={totalSupply}
-        dollarPrice={dollarPrice}
-        reserveWCCToken={reserveWCCToken}
-      />
-
+      <Checkout
+          selectedTokenSymbol={selectedTokenSymbol}
+          setSelectedTokenSymbol={setSelectedTokenSymbol}
+          ready={ready}  
+          unlock={unlock}
+          validateBuy={validateBuy}
+          buy={buy}  
+          totalSupply={totalSupply}
+          dollarize={dollarize}
+          dollarPrice={dollarPrice}
+          reserveWCCToken={reserveWCCToken}
+          currentTransactionHash={currentTransactionHash}
+          currentTransactionType={currentTransactionType}
+          currentTransactionAmount={currentTransactionAmount}
+          setCurrentTransaction={setCurrentTransaction}
+          clearCurrentTransaction={clearCurrentTransaction}
+          setShowConnect={setShowConnect}
+        />
       <div className="button-wrapper">
         <Button
           as="a"

@@ -5,46 +5,29 @@ import {
   Card,
   Flex,
   Heading,
+  Input,
   Modal,
+  Field,
   Text
 } from "rimble-ui";
 import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
-import { amountFormatter } from '../factory'
-import SelectToken from './SelectToken'
+import { amountFormatter } from "../factory";
+import SelectToken from "./SelectToken";
 import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
 
-export function useCount() {
-  const [state, setState] = useAppContext()
 
-  function increment() {
-    setState(state => ({ ...state, count: state.count + 1 }))
-  }
-
-  function decrement() {
-    if (state.count >= 1) {
-      setState(state => ({ ...state, count: state.count - 1 }))
-    }
-  }
-
-  function setCount(val) {
-    let int = val.toInt()
-    setState(state => ({ ...state, count: int }))
-  }
-  return [state.count, increment, decrement, setCount]
-}
-
-export default function BuyCoffee({ 
-  selectedTokenSymbol,  
-  setSelectedTokenSymbol, 
+export default function BuyCoffee({
+  selectedTokenSymbol,
+  setSelectedTokenSymbol,
   ready,
   unlock,
   validateBuy,
   buy,
-  totalSupply, 
+  totalSupply,
   dollarize,
-  dollarPrice, 
+  dollarPrice,
   reserveWCCToken,
   pending,
   currentTransactionHash,
@@ -52,23 +35,22 @@ export default function BuyCoffee({
   currentTransactionAmount,
   setCurrentTransaction,
   clearCurrentTransaction,
-  setShowConnect 
+  setShowConnect
 }) {
   const [state] = useAppContext()
   const [show, setShow] = useState(false);
 
   const openModal = () => setShow(true);
   const closeModal = () => setShow(false);
-  
-  const buying = true
 
-  const [buyValidationState, setBuyValidationState] = useState({}) // { maximumInputValue, inputValue, outputValue }
-  const [sellValidationState, setSellValidationState] = useState({}) // { inputValue, outputValue, minimumOutputValue }
-  const [validationError, setValidationError] = useState()
-  
+  const buying = true;
+
+  const [buyValidationState, setBuyValidationState] = useState({}); // { maximumInputValue, inputValue, outputValue }
+  const [validationError, setValidationError] = useState();
+
   // buy state validation
   useEffect(() => {
-    if (ready && buying) {
+    if (buying) {
       try {
         const { error: validationError, ...validationState } = validateBuy(String(state.count))
         setBuyValidationState(validationState)
@@ -85,19 +67,20 @@ export default function BuyCoffee({
     }
   }, [ready, buying, validateBuy, state.count])
 
+
   function TokenVal() {
     if (buying && buyValidationState.inputValue) {
-      return amountFormatter(buyValidationState.inputValue, 18, 4)
+      return amountFormatter(buyValidationState.inputValue, 18, 4);
     } else {
-      return '0'
+      return "0";
     }
   }
-  
+
   return (
-    <>      
+    <>
       <Button variant="primary" className="buy" onClick={openModal}>
         {contentStrings.buy}
-      </Button>      
+      </Button>
 
       <Modal isOpen={show}>
         <Card
@@ -106,25 +89,37 @@ export default function BuyCoffee({
           borderRadius={7}
           borderColor={colors.brown.light}
           boxShadow="1"
+          className="coffeeModal"
         >
-          <Flex p="3%" mt="3%">
-            <Box width={1 / 2}>
-              <Heading.h3>{dollarPrice ? `$${amountFormatter(dollarPrice, 18, 2)} USD` : '$0.00'}</Heading.h3>
-              <Text.span color={colors.brown.text}>
+          <Flex px="6%" mt="6%" flexDirection="column">
+            <Heading.h3 variant="primary" mb="3%">
+              Buy Wrapped Coffee Coin
+            </Heading.h3>
+            <Box width={1}>
+              <Field label="Choose the amount" width={"100%"} mb="2%">
+                <IncrementToken />
                 
-              </Text.span>
-              <Text.span color={colors.brown.text} ml="2">
-              {reserveWCCToken && totalSupply
-               ? `${amountFormatter(reserveWCCToken, 18, 0)}/${totalSupply} ${contentStrings.available}`  
-               : ''}                   
-              </Text.span>
+              </Field>
             </Box>
-            <Box width={1 / 2}>
-              <IncrementToken />
+            <Box width={1}>
+              <Heading.h3 display="inline">
+                {dollarPrice
+                  ? `$ ${amountFormatter(dollarize(buyValidationState.inputValue), 18, 2)} USD`
+                  : "$0.00"}
+              </Heading.h3>
+
+              <Text.span color={colors.brown.text} ml="" className="available">
+                {reserveWCCToken && totalSupply
+                  ? `${amountFormatter(
+                      reserveWCCToken,
+                      18,
+                      0
+                    )}/${totalSupply} ${contentStrings.available}`
+                  : ""}
+              </Text.span>
             </Box>
           </Flex>
-
-          <Flex p="3%">
+          <Flex px="6%" mt="3%">
             <Box width={1}>
               <SelectToken
                 selectedTokenSymbol={selectedTokenSymbol}
@@ -133,27 +128,21 @@ export default function BuyCoffee({
               />
             </Box>
           </Flex>
-          <Flex
-            px={2}
-            py={2}
-            borderTop={1}
-            borderColor={"#E8E8E8"}
-            justifyContent={"flex-end"}
-          >
+          <Flex px={"6%"} py={2} mt="3%" mb="10px" justifyContent={"flex-end"}>
             <Button.Outline
-              size="small"
+              size=""
               variant="danger"
               onClick={closeModal}
+              width={1 / 2}
             >
               {contentStrings.cancel}
             </Button.Outline>
-            <Button variant="primary" size="small" ml={3}>
+            <Button variant="primary" size="" ml={3} width={1 / 2}>
               {contentStrings.buy}
             </Button>
           </Flex>
         </Card>
       </Modal>
     </>
-  );  
+  );
 }
-

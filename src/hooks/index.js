@@ -9,8 +9,7 @@ import {
   getEtherBalance,
   getTokenBalance,
   getTokenAllowance,
-  TOKEN_ADDRESSES,
-  getCoffeeInformation
+  TOKEN_ADDRESSES
 } from "../factory";
 import { utils } from "ethers";
 
