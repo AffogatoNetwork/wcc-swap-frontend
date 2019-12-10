@@ -37,7 +37,6 @@ export default function CoffeeCard({
   );
 
   if (data && reserveWCCETH && reserveWCCToken) {
-    console.log('USD ' + data);
     ethPrice = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 3);
     let ethPrice2 = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 5);
     usdBalance = parseFloat(ethPrice2 * data.USD).toFixed(2);

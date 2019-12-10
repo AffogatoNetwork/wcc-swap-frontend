@@ -1,21 +1,49 @@
 import React, { useState, useEffect } from "react";
+import { useWeb3Context } from 'web3-react'
 import {
   Box,
   Button,
   Card,
   Flex,
   Heading,
-  Input,
   Modal,
   Field,
   Text
 } from "rimble-ui";
 import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
-import { amountFormatter } from "../factory";
+import { ERROR_CODES, amountFormatter, TRADE_TYPES } from "../factory";
 import SelectToken from "./SelectToken";
 import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
+
+
+function getValidationErrorMessage(validationError) {
+  if (!validationError) {
+    return null
+  } else {
+    switch (validationError.code) {
+      case ERROR_CODES.INVALID_AMOUNT: {
+        return 'Invalid Amount'
+      }
+      case ERROR_CODES.INVALID_TRADE: {
+        return 'Invalid Trade'
+      }
+      case ERROR_CODES.INSUFFICIENT_ALLOWANCE: {
+        return 'Set Allowance to Continue'
+      }
+      case ERROR_CODES.INSUFFICIENT_ETH_GAS: {
+        return 'Not Enough ETH to Pay Gas'
+      }
+      case ERROR_CODES.INSUFFICIENT_SELECTED_TOKEN_BALANCE: {
+        return 'Not enough balance'
+      }
+      default: {
+        return 'Unknown Error'
+      }
+    }
+  }
+}
 
 
 export default function BuyCoffee({
@@ -31,13 +59,11 @@ export default function BuyCoffee({
   reserveWCCToken,
   pending,
   currentTransactionHash,
-  currentTransactionType,
-  currentTransactionAmount,
   setCurrentTransaction,
-  clearCurrentTransaction,
   setShowConnect
 }) {
   const [state] = useAppContext()
+  const { account, setConnector } = useWeb3Context()
   const [show, setShow] = useState(false);
 
   const openModal = () => setShow(true);
@@ -47,6 +73,22 @@ export default function BuyCoffee({
 
   const [buyValidationState, setBuyValidationState] = useState({}); // { maximumInputValue, inputValue, outputValue }
   const [validationError, setValidationError] = useState();
+
+  function getText(account, buying, errorMessage, pending, hash) {
+    if (account === null) {
+      return 'Connect Wallet'
+    } else if (!errorMessage) {
+      if (buying) {
+        if (pending && hash) {
+          return 'Pending...'
+        } else {
+          return contentStrings.buy
+        }
+      }
+    } else {
+      return errorMessage ? errorMessage : 'Loading...'
+    }
+  }
 
   // buy state validation
   useEffect(() => {
@@ -67,6 +109,7 @@ export default function BuyCoffee({
     }
   }, [ready, buying, validateBuy, state.count])
 
+  const errorMessage = getValidationErrorMessage(validationError);
 
   function TokenVal() {
     if (buying && buyValidationState.inputValue) {
@@ -146,9 +189,32 @@ export default function BuyCoffee({
             >
               {contentStrings.cancel}
             </Button.Outline>
-            <Button variant="primary" size="" ml={3} width={1 / 2}>
-              {contentStrings.buy}
+
+            <Button 
+              variant="primary" 
+              size="" 
+              ml={3} 
+              width={1 / 2}
+              disabled={validationError !== null || (pending && currentTransactionHash)}
+              onClick= {() => { 
+                if (account === null){
+                  setConnector('Injected', { suppressAndThrowErrors: true }).catch(error => {
+                    setShowConnect(true)
+                  })
+                } else {
+                  ;buy(buyValidationState.maximumInputValue, buyValidationState.outputValue).then(response => {
+                    setCurrentTransaction(
+                      response.hash,
+                      TRADE_TYPES.BUY,
+                      buyValidationState.outputValue
+                    ) 
+                  })                
+                }
+              }}    
+            >
+              {getText(account, true, errorMessage, pending, currentTransactionHash)}
             </Button>
+
           </Flex>
           <Flex px={"6%"} py={2} mt="3%" mb="10px" justifyContent={"center"}>
             <Heading.h5>

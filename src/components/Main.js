@@ -330,10 +330,8 @@ export default function Main({ stats, status }) {
 
   useEffect(() => {
     try {
-      const exchangeRateDAI = getExchangeRate(reserveDAIETH, reserveDAIToken);
-
-      console.log('DAI Address: ' + TOKEN_ADDRESSES.DAI);
-      console.log('Contract: ' + exchangeContractDAI);
+      const exchangeRateDAI = getExchangeRate(reserveDAIETH, reserveDAIToken); 
+      //console.log('Contract: ' + exchangeContractDAI);
 
       if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
         setUSDExchangeRateETH(exchangeRateDAI);
