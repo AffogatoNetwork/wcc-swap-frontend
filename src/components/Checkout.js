@@ -66,8 +66,8 @@ export default function Checkout({
   validateBuy,
   buy,
   totalSupply,
-  dollarize,
-  dollarPrice,
+  ethPrice,
+  usdBalance,
   reserveWCCToken,
   currentTransactionHash,
   currentTransactionType,
@@ -141,8 +141,8 @@ export default function Checkout({
             validateBuy={validateBuy}
             buy={buy}
             totalSupply={totalSupply}
-            dollarize={dollarize}
-            dollarPrice={dollarPrice}
+            ethPrice={ethPrice}
+            usdBalance={usdBalance}
             reserveWCCToken={reserveWCCToken}
             pending={pending}
             currentTransactionHash={currentTransactionHash}

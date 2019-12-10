@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Button, Box, Card, Heading, Image, Flex } from "rimble-ui";
-import contentStrings from "../constants/Localization";
 import Checkout from "./Checkout";
-import RedeemCoffee from "./RedeemCoffee";
+import { amountFormatter } from "../factory";
+import useAxios from "axios-hooks";
+
 require("dotenv").config();
 
 export default function CoffeeActions({
@@ -13,10 +14,9 @@ export default function CoffeeActions({
   validateBuy,
   buy,
   totalSupply,
-  dollarize,
-  dollarPrice,
   reserveWCCToken,
-  pending,
+  reserveWCCETH,    
+  calculateEthPrice,
   currentTransactionHash,
   currentTransactionType,
   currentTransactionAmount,
@@ -24,6 +24,19 @@ export default function CoffeeActions({
   clearCurrentTransaction,
   setShowConnect
 }) {
+  let usdBalance = 0;
+  let ethPrice = 0;
+  const [{ data, loading, error }, refetch] = useAxios(
+    "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=ETH,USD"
+  );
+
+  if (data && reserveWCCETH && reserveWCCToken) {
+    console.log('USD ' + data);
+    ethPrice = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 3);
+    let ethPrice2 = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 5);
+    usdBalance = parseFloat(ethPrice2 * data.USD).toFixed(2);
+  }
+
   return (
     <div className="coffee-actions">
       <Checkout
@@ -34,8 +47,8 @@ export default function CoffeeActions({
           validateBuy={validateBuy}
           buy={buy}  
           totalSupply={totalSupply}
-          dollarize={dollarize}
-          dollarPrice={dollarPrice}
+          ethPrice={ethPrice}
+          usdBalance={usdBalance}
           reserveWCCToken={reserveWCCToken}
           currentTransactionHash={currentTransactionHash}
           currentTransactionType={currentTransactionType}

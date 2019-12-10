@@ -26,8 +26,8 @@ export default function BuyCoffee({
   validateBuy,
   buy,
   totalSupply,
-  dollarize,
-  dollarPrice,
+  ethPrice,
+  usdBalance,
   reserveWCCToken,
   pending,
   currentTransactionHash,
@@ -76,6 +76,15 @@ export default function BuyCoffee({
     }
   }
 
+  function UsdTotal(){
+    if (buying && buyValidationState.inputValue) {
+        return usdBalance * state.count;
+    }
+    else{
+      return "0";
+    }  
+  }
+
   return (
     <>
       <Button variant="primary" className="buy" onClick={openModal}>
@@ -103,8 +112,8 @@ export default function BuyCoffee({
             </Box>
             <Box width={1}>
               <Heading.h3 display="inline">
-                {dollarPrice
-                  ? `$ ${amountFormatter(dollarize(buyValidationState.inputValue), 18, 2)} USD`
+                {usdBalance
+                  ? `$ ${UsdTotal()} USD`
                   : "$0.00"}
               </Heading.h3>
 
@@ -140,6 +149,22 @@ export default function BuyCoffee({
             <Button variant="primary" size="" ml={3} width={1 / 2}>
               {contentStrings.buy}
             </Button>
+          </Flex>
+          <Flex px={"6%"} py={2} mt="3%" mb="10px" justifyContent={"center"}>
+            <Heading.h5>
+              Powered by
+              <a
+                href="https://uniswap.io/"
+                className="uniswap ml-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span role="img" aria-label="unicorn emoji">
+                  🦄
+                </span>{" "}
+                Uniswap
+              </a>
+            </Heading.h5>
           </Flex>
         </Card>
       </Modal>

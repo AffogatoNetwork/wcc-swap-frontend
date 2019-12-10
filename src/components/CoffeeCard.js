@@ -3,11 +3,12 @@ import { Button, Heading } from "rimble-ui";
 import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
 import { amountFormatter } from "../factory";
-import BuyCoffee from "./BuyCoffee";
 import Checkout from "./Checkout";
 import "../App.scss";
 import drip from "../assets/drip.png";
 import pour from "../assets/pour.png";
+import useAxios from "axios-hooks";
+
 require("dotenv").config();
 
 export default function CoffeeCard({
@@ -19,8 +20,6 @@ export default function CoffeeCard({
   validateBuy,
   buy,
   totalSupply,
-  dollarize,
-  dollarPrice,
   reserveWCCToken,
   reserveWCCETH,
   calculateEthPrice,
@@ -31,6 +30,19 @@ export default function CoffeeCard({
   clearCurrentTransaction,
   setShowConnect
 }) {
+  let usdBalance = 0;
+  let ethPrice = 0;
+  const [{ data, loading, error }, refetch] = useAxios(
+    "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=ETH,USD"
+  );
+
+  if (data && reserveWCCETH && reserveWCCToken) {
+    console.log('USD ' + data);
+    ethPrice = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 3);
+    let ethPrice2 = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 5);
+    usdBalance = parseFloat(ethPrice2 * data.USD).toFixed(2);
+  }
+
   return (
     <div className="coffee-card">
       <div className="coffee-image"></div>
@@ -73,9 +85,11 @@ export default function CoffeeCard({
             <img src={drip} alt="drip machine" className="drip" />
           </li>
         </ul>
-        <Heading.h3 color={colors.brown.base}>
-            {reserveWCCToken && reserveWCCETH && `${amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 3)} ETH / $10` } 
-        </Heading.h3>
+        <Heading.h4 color={colors.brown.base}>
+          {reserveWCCToken &&
+            reserveWCCETH &&
+            `${ethPrice} ETH / $${usdBalance}`}
+        </Heading.h4>
         <Heading.h5 color={colors.brown.text}>
           {reserveWCCToken &&
             `${amountFormatter(reserveWCCToken, 18, 0)} / ${totalSupply} ${
@@ -91,8 +105,8 @@ export default function CoffeeCard({
             validateBuy={validateBuy}
             buy={buy}  
             totalSupply={totalSupply}
-            dollarize={dollarize}
-            dollarPrice={dollarPrice}
+            ethPrice={ethPrice}
+            usdBalance={usdBalance}
             reserveWCCToken={reserveWCCToken}
             currentTransactionHash={currentTransactionHash}
             currentTransactionType={currentTransactionType}

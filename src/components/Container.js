@@ -69,8 +69,6 @@ export default function Container({
           validateBuy={validateBuy}
           buy={buy}
           totalSupply={totalSupply}
-          dollarize={dollarize}
-          dollarPrice={dollarPrice}
           reserveWCCToken={reserveWCCToken}
           reserveWCCETH={reserveWCCETH}
           calculateEthPrice={calculateEthPrice}
@@ -90,8 +88,6 @@ export default function Container({
             validateBuy={validateBuy}
             buy={buy}
             totalSupply={totalSupply}
-            dollarize={dollarize}
-            dollarPrice={dollarPrice}
             reserveWCCToken={reserveWCCToken}
             reserveWCCETH={reserveWCCETH}
             calculateEthPrice={calculateEthPrice}
