@@ -7,6 +7,7 @@ import BuyCoffee from "./BuyCoffee";
 import "../App.scss";
 import drip from "../assets/drip.png";
 import pour from "../assets/pour.png";
+import useAxios from "axios-hooks";
 require("dotenv").config();
 
 export default function CoffeeCard({
@@ -20,6 +21,17 @@ export default function CoffeeCard({
   reserveWCCETH,
   calculateEthPrice
 }) {
+  let usdBalance = 0;
+  let ethPrice = 0;
+  const [{ data, loading, error }, refetch] = useAxios(
+    "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=ETH,USD"
+  );
+
+  if (data && reserveWCCETH && reserveWCCToken) {
+    ethPrice = calculateEthPrice(reserveWCCETH, reserveWCCToken);
+    usdBalance = parseFloat(ethPrice * data.USD).toFixed(2);
+  }
+
   return (
     <div className="coffee-card">
       <div className="coffee-image"></div>
@@ -65,7 +77,7 @@ export default function CoffeeCard({
         <Heading.h3 color={colors.brown.base}>
           {reserveWCCToken &&
             reserveWCCETH &&
-            `${calculateEthPrice(reserveWCCETH, reserveWCCToken)} ETH / $10`}
+            `${ethPrice} ETH / $${usdBalance}`}
         </Heading.h3>
         <Heading.h5 color={colors.brown.text}>
           {reserveWCCToken &&

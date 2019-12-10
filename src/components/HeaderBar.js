@@ -20,6 +20,10 @@ export default function HeaderBar({ setShowConnect, accountBalance }) {
     });
   }
 
+  if (account && !accountBalance) {
+    return "";
+  }
+
   return (
     <>
       <div className="header">

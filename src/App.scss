@@ -63,6 +63,20 @@ html {
   }
 }
 
+.uniswap {
+  color: #fe6dde;
+
+  a & {
+    margin-left: 2px;
+    font-weight: bold;
+  }
+
+  &:hover {
+    color: #fe6dde;
+    text-decoration: none;
+  }
+}
+
 @media screen and (min-width: $break-small) {
   .App {
     text-align: center;

@@ -122,6 +122,22 @@ export default function BuyCoffee({
               {contentStrings.buy}
             </Button>
           </Flex>
+          <Flex px={"6%"} py={2} mt="3%" mb="10px" justifyContent={"center"}>
+            <Heading.h5>
+              Powered by
+              <a
+                href="https://uniswap.io/"
+                className="uniswap ml-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span role="img" aria-label="unicorn emoji">
+                  🦄
+                </span>{" "}
+                Uniswap
+              </a>
+            </Heading.h5>
+          </Flex>
         </Card>
       </Modal>
     </>
