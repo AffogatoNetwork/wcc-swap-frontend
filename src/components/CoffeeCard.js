@@ -68,11 +68,11 @@ export default function CoffeeCard({
           This single-origin premium lot from producer Raul Manueles was
           tokenized into <b>CAFE</b> tokens using{" "}
           <a
-            href="https://chai.money/about"
+            href="https://makerdao.com/en/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Chai
+            DAI
           </a>{" "}
           as collateral and added to a pool in{" "}
           <a

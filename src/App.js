@@ -4,9 +4,11 @@ import { Route } from "react-router-dom";
 import "./App.scss";
 import Web3Connection from "./components/Web3Connection";
 import Main from "./components/Main";
-import AppProvider from './context'
+import AppProvider from "./context";
 
-const PROVIDER_URL = "https://rinkeby.infura.io/";
+require("dotenv").config();
+
+const PROVIDER_URL = process.env.REACT_APP_INFURA_URL;
 
 const {
   NetworkOnlyConnector,
@@ -35,7 +37,7 @@ class App extends Component {
           <Web3Connection>
             <AppProvider>
               <Route exact path="/" render={() => <Main />} />
-            </AppProvider>  
+            </AppProvider>
           </Web3Connection>
         </Web3Provider>
       </div>
