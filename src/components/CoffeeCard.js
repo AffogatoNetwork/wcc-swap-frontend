@@ -93,7 +93,7 @@ export default function CoffeeCard({
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Coffee Details</Heading.h5>28 kg,{" "}
+            <Heading.h5>Coffee Details</Heading.h5>28 g,{" "}
             {coffeeData.coffee.Process}, Medium roast
           </li>
           {/* <li>
