@@ -37,7 +37,6 @@ export default function CoffeeCard({
   );
 
   if (data && reserveWCCETH && reserveWCCToken) {
-    console.log("USD " + data);
     ethPrice = amountFormatter(
       calculateEthPrice(reserveWCCETH, reserveWCCToken),
       18,
@@ -59,7 +58,9 @@ export default function CoffeeCard({
         <Heading.h4 color={colors.brown.base} textAlign="left">
           Honduran {coffeeData.coffee.Variety}
         </Heading.h4>
-        <Heading.h6 textAlign="left">{coffeeData.coffee.notes}</Heading.h6>
+        <Heading.h6 textAlign="left" color="#b4600b">
+          {coffeeData.coffee.notes}
+        </Heading.h6>
         <Heading.h2 color={colors.brown.base} textAlign="left">
           Premium Specialty Coffee
         </Heading.h2>
@@ -86,13 +87,13 @@ export default function CoffeeCard({
           specialty coffee.
         </p>
         <p>
-          Read all the details <a href="#"> over here</a>
+          Learn more <a href="#"> here</a>
         </p>
       </div>
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Redem Details</Heading.h5>28 kg,{" "}
+            <Heading.h5>Coffee Details</Heading.h5>28 kg,{" "}
             {coffeeData.coffee.Process}, Medium roast
           </li>
           {/* <li>
@@ -114,7 +115,7 @@ export default function CoffeeCard({
             reserveWCCETH &&
             `${ethPrice} ETH / $${usdBalance}`}
         </Heading.h4>
-        <Heading.h5 color={colors.brown.text}>
+        <Heading.h5 color="#b4600b">
           {reserveWCCToken &&
             `${amountFormatter(reserveWCCToken, 18, 0)} / ${totalSupply} ${
               contentStrings.available

@@ -15,8 +15,7 @@ let ERC20_ABI = WCC_ARTIFACT.abi;
 
 export const TOKEN_ADDRESSES = {
   ETH: "ETH",
-  WCC: process.env.REACT_APP_WCC_ADDRESS,
-  DAI: process.env.REACT_APP_DAI_ADDRESS
+  WCC: process.env.REACT_APP_WCC_ADDRESS
 };
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {

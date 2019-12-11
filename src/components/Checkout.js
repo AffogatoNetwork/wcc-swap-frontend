@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import { useWeb3Context } from 'web3-react'
 
 //import Connect from './Connect'
 import BuyCoffee from './BuyCoffee'
 import Confirmed from './Confirmed'
-import CoffeeActions from './CoffeeActions'
 import { useAppContext } from '../context'
 import { TRADE_TYPES } from '../factory'
 
@@ -146,10 +144,7 @@ export default function Checkout({
             reserveWCCToken={reserveWCCToken}
             pending={pending}
             currentTransactionHash={currentTransactionHash}
-            currentTransactionType={currentTransactionType}
-            currentTransactionAmount={currentTransactionAmount}
             setCurrentTransaction={setCurrentTransaction}
-            clearCurrentTransaction={clearCurrentTransaction}
             setShowConnect={setShowConnect}
             />                        
         )      

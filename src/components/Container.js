@@ -57,9 +57,9 @@ export default function Container({
         setShowConnect={setShowConnect}
         accountBalance={accountBalance}
       />
-      <Heading.h1 variant="primary">Dynamic Priced Coffee Sale</Heading.h1>
-      <Heading.h4>
-        Buy and Trade CAFE Tokens, or Redeem it for a Bag of Coffee
+      <Heading.h1 variant="primary">Dynamically Priced Coffee</Heading.h1>
+      <Heading.h4 color="#b4600b">
+        Buy and Trade CAFE Tokens, or Redeem them for Coffee Bags
       </Heading.h4>
       <div className="coffee-container">
         <CoffeeCard
@@ -102,12 +102,10 @@ export default function Container({
         />
       </div>
       <div className="credits">
-        <div>
-          <p>Brought to you by</p>
-        </div>
         <div className="logos">
+          <b>Smart Contract by</b>
           <img src={affogato_horizontal} alt="affogato" className="affogato" />
-          <b>+</b>
+          <b> Coffee roasted and packaged by </b>
           <img src={nativo} alt="nativo" className="nativo" />
         </div>
       </div>

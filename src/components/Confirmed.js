@@ -59,49 +59,28 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
       clearLastTransaction()
     }
   }, [state.visible, clearLastTransaction])
-
-  if (type === TRADE_TYPES.UNLOCK) {
-    return (
-      <ConfirmedFrame>
-        <TopFrame>
-          <Controls closeCheckout={closeCheckout} />
-          <ImgStyle alt="Logo" />
-          <InfoFrame>
-            <Owned>
-              <p> Unlocked Token!</p>
-            </Owned>
-          </InfoFrame>
-        </TopFrame>
-        <CheckoutPrompt>
-          <EtherscanLink href={link(hash)} target="_blank" rel="noopener noreferrer">
-            Transaction Details ↗
-          </EtherscanLink>
-        </CheckoutPrompt>
-        <Shim />
-      </ConfirmedFrame>
-    )
-  } else if (type === TRADE_TYPES.BUY) {
-    return (
-      <ConfirmedFrame>
-        <TopFrame>
-          <Controls closeCheckout={closeCheckout} />
-          <ImgStyle  alt="Logo" />
-          <InfoFrame>
-            <Owned>
-              <p> {`You got ${amountFormatter(amount, 18, 0)} SOCKS!`}</p>
-            </Owned>
-          </InfoFrame>
-        </TopFrame>
-        <CheckoutPrompt>
-          <EtherscanLink href={link(hash)} target="_blank" rel="noopener noreferrer">
-            Transaction Details ↗
-          </EtherscanLink>
-        </CheckoutPrompt>
-        
-        {/* <Shim /> */}
-      </ConfirmedFrame>
-    )
-  } 
+  
+  return (
+    <ConfirmedFrame>
+      <TopFrame>
+        <Controls closeCheckout={closeCheckout} />
+        <ImgStyle  alt="Logo" />
+        <InfoFrame>
+          <Owned>
+            <p> {`You got ${amountFormatter(amount, 18, 0)} WCC TOKENS!`}</p>
+          </Owned>
+        </InfoFrame>
+      </TopFrame>
+      <CheckoutPrompt>
+        <EtherscanLink href={link(hash)} target="_blank" rel="noopener noreferrer">
+          Transaction Details ↗
+        </EtherscanLink>
+      </CheckoutPrompt>
+      
+      {/* <Shim /> */}
+    </ConfirmedFrame>
+  )
+   
 }
 
 const TopFrame = styled.div`
