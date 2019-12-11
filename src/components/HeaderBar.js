@@ -35,9 +35,9 @@ export default function HeaderBar({ setShowConnect, accountBalance }) {
           {account ? (
             <div className="wallet-details">
               <div className="tokens">
-                <img src={icon} alt="WCC" />
+                <img src={icon} alt="CAFE" />
                 <CoffeeCount>
-                  {utils.formatEther(accountBalance)} WCC
+                  {utils.formatEther(accountBalance)} CAFE
                 </CoffeeCount>
               </div>
               <div className="address">

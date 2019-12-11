@@ -1,6 +1,6 @@
 import React, { Component, useState, useCallback } from "react";
 import { useWeb3Context } from "web3-react";
-import { useAppContext } from '../context'
+import { useAppContext } from "../context";
 import HeaderBar from "./HeaderBar";
 import CoffeeCard from "./CoffeeCard";
 import CoffeeActions from "./CoffeeActions";
@@ -27,14 +27,14 @@ export default function Container({
   accountBalance
 }) {
   const { account } = useWeb3Context();
-  const [currentTransaction, _setCurrentTransaction] = useState({})
+  const [currentTransaction, _setCurrentTransaction] = useState({});
   const setCurrentTransaction = useCallback((hash, type, amount) => {
-    _setCurrentTransaction({ hash, type, amount })
-  }, [])
+    _setCurrentTransaction({ hash, type, amount });
+  }, []);
   const clearCurrentTransaction = useCallback(() => {
-    _setCurrentTransaction({})
-  }, [])
-  const [state, setState] = useAppContext()
+    _setCurrentTransaction({});
+  }, []);
+  const [state, setState] = useAppContext();
   const [showConnect, setShowConnect] = useState(false);
   //let coffeeInfo
   const [{ data, loading, error }, refetch] = useAxios(
@@ -58,7 +58,9 @@ export default function Container({
         accountBalance={accountBalance}
       />
       <Heading.h1 variant="primary">Dynamic Priced Coffee Sale</Heading.h1>
-      <Heading.h4>Invest, Trade, Redeem and Brew your Coffee</Heading.h4>
+      <Heading.h4>
+        Buy and Trade CAFE Tokens, or Redeem it for a Bag of Coffee
+      </Heading.h4>
       <div className="coffee-container">
         <CoffeeCard
           coffeeData={data}
@@ -80,24 +82,24 @@ export default function Container({
           setShowConnect={setShowConnect}
         />
         <CoffeeActions
-            coffeeData={data}
-            selectedTokenSymbol={selectedTokenSymbol}
-            setSelectedTokenSymbol={setSelectedTokenSymbol}
-            ready={ready}
-            unlock={unlock}
-            validateBuy={validateBuy}
-            buy={buy}
-            totalSupply={totalSupply}
-            reserveWCCToken={reserveWCCToken}
-            reserveWCCETH={reserveWCCETH}
-            calculateEthPrice={calculateEthPrice}
-            currentTransactionHash={currentTransaction.hash}
-            currentTransactionType={currentTransaction.type}
-            currentTransactionAmount={currentTransaction.amount}
-            setCurrentTransaction={setCurrentTransaction}
-            clearCurrentTransaction={clearCurrentTransaction}
-            setShowConnect={setShowConnect}
-          />        
+          coffeeData={data}
+          selectedTokenSymbol={selectedTokenSymbol}
+          setSelectedTokenSymbol={setSelectedTokenSymbol}
+          ready={ready}
+          unlock={unlock}
+          validateBuy={validateBuy}
+          buy={buy}
+          totalSupply={totalSupply}
+          reserveWCCToken={reserveWCCToken}
+          reserveWCCETH={reserveWCCETH}
+          calculateEthPrice={calculateEthPrice}
+          currentTransactionHash={currentTransaction.hash}
+          currentTransactionType={currentTransaction.type}
+          currentTransactionAmount={currentTransaction.amount}
+          setCurrentTransaction={setCurrentTransaction}
+          clearCurrentTransaction={clearCurrentTransaction}
+          setShowConnect={setShowConnect}
+        />
       </div>
       <div className="credits">
         <div>

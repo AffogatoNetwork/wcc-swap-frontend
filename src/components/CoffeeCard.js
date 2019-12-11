@@ -37,9 +37,17 @@ export default function CoffeeCard({
   );
 
   if (data && reserveWCCETH && reserveWCCToken) {
-    console.log('USD ' + data);
-    ethPrice = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 3);
-    let ethPrice2 = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 5);
+    console.log("USD " + data);
+    ethPrice = amountFormatter(
+      calculateEthPrice(reserveWCCETH, reserveWCCToken),
+      18,
+      3
+    );
+    let ethPrice2 = amountFormatter(
+      calculateEthPrice(reserveWCCETH, reserveWCCToken),
+      18,
+      5
+    );
     usdBalance = parseFloat(ethPrice2 * data.USD).toFixed(2);
   }
 
@@ -56,10 +64,26 @@ export default function CoffeeCard({
           Premium Specialty Coffee
         </Heading.h2>
         <p>
-          We are using as colateral this single origin coffee best in terms of
-          flavor in quality with Wrapped DAI Saving rates as collateral to mint
-          a wrapped coffee coin token used to redeem a premium bag of this
-          coffee roasted.
+          This single-origin premium lot from producer Raul Manueles was
+          tokenized into <b>CAFE</b> tokens using{" "}
+          <a
+            href="https://chai.money/about"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chai
+          </a>{" "}
+          as collateral and added to a pool in{" "}
+          <a
+            href="https://uniswap.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {" "}
+            Uniswap
+          </a>
+          . You can redeem the <b>CAFE</b> for one bag of freshly roasted
+          specialty coffee.
         </p>
         <p>
           Read all the details <a href="#"> over here</a>
@@ -68,7 +92,7 @@ export default function CoffeeCard({
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Redem Details</Heading.h5>28 kg,
+            <Heading.h5>Redem Details</Heading.h5>28 kg,{" "}
             {coffeeData.coffee.Process}, Medium roast
           </li>
           {/* <li>
@@ -100,10 +124,10 @@ export default function CoffeeCard({
           <Checkout
             selectedTokenSymbol={selectedTokenSymbol}
             setSelectedTokenSymbol={setSelectedTokenSymbol}
-            ready={ready}  
+            ready={ready}
             unlock={unlock}
             validateBuy={validateBuy}
-            buy={buy}  
+            buy={buy}
             totalSupply={totalSupply}
             ethPrice={ethPrice}
             usdBalance={usdBalance}
