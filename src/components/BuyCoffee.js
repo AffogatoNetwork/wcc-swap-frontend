@@ -32,7 +32,7 @@ function getValidationErrorMessage(validationError) {
         return "Set Allowance to Continue";
       }
       case ERROR_CODES.INSUFFICIENT_ETH_GAS: {
-        return "Not Enough ETH to Pay Gas";
+        return "Not Enough ETH";
       }
       case ERROR_CODES.INSUFFICIENT_SELECTED_TOKEN_BALANCE: {
         return "Not enough balance";
