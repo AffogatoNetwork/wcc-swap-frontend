@@ -15,7 +15,7 @@ export default function CoffeeActions({
   buy,
   totalSupply,
   reserveWCCToken,
-  reserveWCCETH,    
+  reserveWCCETH,
   calculateEthPrice,
   currentTransactionHash,
   currentTransactionType,
@@ -31,31 +31,39 @@ export default function CoffeeActions({
   );
 
   if (data && reserveWCCETH && reserveWCCToken) {
-    ethPrice = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 3);
-    let ethPrice2 = amountFormatter(calculateEthPrice(reserveWCCETH, reserveWCCToken), 18, 5);
+    ethPrice = amountFormatter(
+      calculateEthPrice(reserveWCCETH, reserveWCCToken),
+      18,
+      3
+    );
+    let ethPrice2 = amountFormatter(
+      calculateEthPrice(reserveWCCETH, reserveWCCToken),
+      18,
+      5
+    );
     usdBalance = parseFloat(ethPrice2 * data.USD).toFixed(2);
   }
 
   return (
     <div className="coffee-actions">
       <Checkout
-          selectedTokenSymbol={selectedTokenSymbol}
-          setSelectedTokenSymbol={setSelectedTokenSymbol}
-          ready={ready}  
-          unlock={unlock}
-          validateBuy={validateBuy}
-          buy={buy}  
-          totalSupply={totalSupply}
-          ethPrice={ethPrice}
-          usdBalance={usdBalance}
-          reserveWCCToken={reserveWCCToken}
-          currentTransactionHash={currentTransactionHash}
-          currentTransactionType={currentTransactionType}
-          currentTransactionAmount={currentTransactionAmount}
-          setCurrentTransaction={setCurrentTransaction}
-          clearCurrentTransaction={clearCurrentTransaction}
-          setShowConnect={setShowConnect}
-        />
+        selectedTokenSymbol={selectedTokenSymbol}
+        setSelectedTokenSymbol={setSelectedTokenSymbol}
+        ready={ready}
+        unlock={unlock}
+        validateBuy={validateBuy}
+        buy={buy}
+        totalSupply={totalSupply}
+        ethPrice={ethPrice}
+        usdBalance={usdBalance}
+        reserveWCCToken={reserveWCCToken}
+        currentTransactionHash={currentTransactionHash}
+        currentTransactionType={currentTransactionType}
+        currentTransactionAmount={currentTransactionAmount}
+        setCurrentTransaction={setCurrentTransaction}
+        clearCurrentTransaction={clearCurrentTransaction}
+        setShowConnect={setShowConnect}
+      />
       <div className="button-wrapper">
         <Button
           as="a"
