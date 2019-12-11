@@ -150,6 +150,9 @@ export default function CoffeeCard({
             Swap
           </Button>
         </div>
+        <p className="mt-3">
+          <b>Redeem Coming Soon!</b>
+        </p>
       </div>
     </div>
   );
