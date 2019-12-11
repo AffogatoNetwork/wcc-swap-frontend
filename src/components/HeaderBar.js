@@ -16,9 +16,11 @@ export default function HeaderBar({ setShowConnect, accountBalance }) {
   let [ens, setEns] = useState();
   let provider = ethers.getDefaultProvider("homestead");
 
-  provider.lookupAddress(account).then(function(address) {
-    setEns(address);
-  });
+  if (account) {
+    provider.lookupAddress(account).then(function(address) {
+      setEns(address);
+    });
+  }
 
   function handleAccount() {
     setConnector("Injected", { suppressAndThrowErrors: true }).catch(error => {

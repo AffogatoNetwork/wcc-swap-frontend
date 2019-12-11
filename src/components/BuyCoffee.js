@@ -53,13 +53,14 @@ export default function BuyCoffee({
   buy,
   totalSupply,
   ethPrice,
-  usdBalance,
+  ethToUSD,
   reserveWCCToken,
   pending,
   currentTransactionHash,
   setCurrentTransaction,
   setShowConnect
 }) {
+  console.log("TCL: usdBalance", ethToUSD);
   const [state] = useAppContext();
   const { account, setConnector } = useWeb3Context();
   const [show, setShow] = useState(false);
@@ -120,8 +121,8 @@ export default function BuyCoffee({
   }
 
   function UsdTotal() {
-    if (buying && buyValidationState.inputValue) {
-      return usdBalance * state.count;
+    if (ethToUSD && buying && buyValidationState.inputValue) {
+      return parseFloat(ethToUSD.USD * ethToUSD.ETH * TokenVal()).toFixed(2);
     } else {
       return "0";
     }
@@ -153,7 +154,7 @@ export default function BuyCoffee({
             </Box>
             <Box width={1}>
               <Heading.h3 display="inline">
-                {usdBalance ? `$${UsdTotal()} USD` : "$0.00"}
+                {ethToUSD ? `$${UsdTotal()} USD` : "$0.00"}
               </Heading.h3>
 
               <Text.span color="#b4600b" ml="" className="available">

@@ -105,7 +105,7 @@ export default function Container({
         <div className="logos">
           <b>Smart Contract by</b>
           <img src={affogato_horizontal} alt="affogato" className="affogato" />
-          <b> Coffee roasted and packaged by </b>
+          <b> Coffee Roasted and Packaged by </b>
           <img src={nativo} alt="nativo" className="nativo" />
         </div>
       </div>
