@@ -32,7 +32,7 @@ function getValidationErrorMessage(validationError) {
         return "Set Allowance to Continue";
       }
       case ERROR_CODES.INSUFFICIENT_ETH_GAS: {
-        return "Not Enough ETH";
+        return "Not Enough ETH for gas";
       }
       case ERROR_CODES.INSUFFICIENT_SELECTED_TOKEN_BALANCE: {
         return "Not enough balance";
@@ -60,7 +60,6 @@ export default function BuyCoffee({
   setCurrentTransaction,
   setShowConnect
 }) {
-  console.log("TCL: usdBalance", ethToUSD);
   const [state] = useAppContext();
   const { account, setConnector } = useWeb3Context();
   const [show, setShow] = useState(false);
