@@ -55,7 +55,7 @@ export default function CoffeeActions({
         buy={buy}
         totalSupply={totalSupply}
         ethPrice={ethPrice}
-        usdBalance={usdBalance}
+        ethToUSD={data}
         reserveWCCToken={reserveWCCToken}
         currentTransactionHash={currentTransactionHash}
         currentTransactionType={currentTransactionType}
