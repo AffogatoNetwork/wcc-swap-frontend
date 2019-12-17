@@ -56,7 +56,7 @@ export default function CoffeeCard({
 
       <div className="product-title">
         <Heading.h4 color={colors.brown.base} textAlign="left">
-          Honduran {coffeeData.coffee.Variety}
+          Honduran {coffeeData.coffee.variety}
         </Heading.h4>
         <Heading.h6 textAlign="left" color="#b4600b">
           {coffeeData.coffee.notes}
@@ -94,7 +94,7 @@ export default function CoffeeCard({
         <ul>
           <li>
             <Heading.h5>Coffee Details</Heading.h5>28 g,{" "}
-            {coffeeData.coffee.Process}, Medium roast
+            {coffeeData.coffee.process}, Medium roast
           </li>
           {/* <li>
             <Heading.h5>Process</Heading.h5> {coffeeData.coffee.Process}

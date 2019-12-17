@@ -15,7 +15,7 @@ const {
   InjectedConnector,
   WalletConnectConnector
 } = Connectors;
-const Injected = new InjectedConnector({ supportedNetworks: [4] });
+const Injected = new InjectedConnector({ supportedNetworks: [1, 4] });
 const Network = new NetworkOnlyConnector({
   providerURL: PROVIDER_URL
 });
