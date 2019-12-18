@@ -65,8 +65,9 @@ export default function CoffeeCard({
           Premium Specialty Coffee
         </Heading.h2>
         <p>
-          This single-origin premium lot from producer Raul Manueles was
-          tokenized into <b>CAFE</b> tokens using{" "}
+          This single-origin premium lot from producer{" "}
+          <i>{coffeeData.farmer.name}</i> was tokenized into <b>CAFE</b> tokens
+          using{" "}
           <a
             href="https://makerdao.com/en/"
             target="_blank"
@@ -93,17 +94,21 @@ export default function CoffeeCard({
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Coffee Details</Heading.h5>28g,{" "}
-            {coffeeData.coffee.process}, Medium roast
+            <Heading.h5>Coffee Notes</Heading.h5>
+            {coffeeData.coffee.aroma} {coffeeData.coffee.acidity}
+          </li>
+          <li>
+            <Heading.h5>Package</Heading.h5>28g, {coffeeData.coffee.process},{" "}
+            {coffeeData.coffee.roast} Roast.{" "}
           </li>
           {/* <li>
             <Heading.h5>Process</Heading.h5> {coffeeData.coffee.Process}
           </li> */}
-          <li>
+          {/* <li>
             <Heading.h5>Specialty Coffee Score</Heading.h5>
-            {coffeeData.coffee.score}
+            {coffeeData.coffee.elevation}
             /100
-          </li>
+          </li> */}
           <li>
             <Heading.h5>Best for</Heading.h5>
             <img src={pour} alt="pour over coffee" className="pour" />
