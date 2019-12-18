@@ -106,7 +106,7 @@ export default function CoffeeCard({
             {coffeeData.coffee.aroma} {coffeeData.coffee.acidity}
           </li>
           <li>
-            <Heading.h5>Package</Heading.h5>28g, {coffeeData.coffee.process},{" "}
+            <Heading.h5>Package</Heading.h5>340g, {coffeeData.coffee.process},{" "}
             {coffeeData.coffee.roast} Roast.{" "}
           </li>
           {/* <li>
