@@ -88,7 +88,15 @@ export default function CoffeeCard({
           specialty coffee.
         </p>
         <p>
-          Learn more <a href="#"> here</a>
+          Learn more{" "}
+          <a
+            href="https://medium.com/affogato-network/cafe-dynamically-priced-coffee-fc1d0a5ec98d"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {" "}
+            here
+          </a>
         </p>
       </div>
       <div className="product-details">
