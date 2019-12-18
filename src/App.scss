@@ -1,5 +1,6 @@
 $break-small: 320px;
-$break-large: 1200px;
+$break-large: 1700px;
+$break-medium: 1200px;
 
 .App {
   text-align: center;
@@ -371,7 +372,7 @@ html {
   }
 }
 
-@media screen and (min-width: $break-large) {
+@media screen and (min-width: $break-medium) {
   .App {
     text-align: center;
     padding-left: 40px;
@@ -475,7 +476,7 @@ html {
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -488,7 +489,7 @@ html {
     background-color: #fcf6f0;
     margin-left: auto;
     margin-right: auto;
-    width: 85%;
+    width: 90%;
     height: auto;
     min-width: 16px;
     min-height: 16px;
@@ -657,5 +658,14 @@ html {
         height: 50px;
       }
     }
+  }
+}
+
+@media screen and (min-width: $break-large) {
+  .coffee-container {
+    width: 80%;
+  }
+  .coffee-card {
+    width: 85%;
   }
 }
