@@ -16,6 +16,7 @@ import { ERROR_CODES, amountFormatter, TRADE_TYPES } from "../factory";
 import SelectToken from "./SelectToken";
 import IncrementToken from "./IncrementToken";
 import { useAppContext } from "../context";
+import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
 
 function getValidationErrorMessage(validationError) {
   if (!validationError) {
@@ -61,7 +62,7 @@ export default function BuyCoffee({
   setShowConnect
 }) {
   const [state] = useAppContext();
-  const { account, setConnector } = useWeb3Context();
+  const { account, setConnector, connector } = useWeb3Context();
   const [show, setShow] = useState(false);
 
   const openModal = () => setShow(true);
@@ -199,6 +200,15 @@ export default function BuyCoffee({
                   setConnector("Injected", {
                     suppressAndThrowErrors: true
                   }).catch(error => {
+                    const walletconnectUri =
+                      connector &&
+                      connector.walletConnector &&
+                      connector.walletConnector.uri;
+                    if (walletconnectUri) {
+                      WalletConnectQRCodeModal.open(walletconnectUri, () => {
+                        console.log("QR Code Modal closed");
+                      });
+                    }
                     setShowConnect(true);
                   });
                 } else {

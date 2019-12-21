@@ -26,7 +26,7 @@ export default function Container({
   calculateEthPrice,
   accountBalance
 }) {
-  const { account } = useWeb3Context();
+  const { account, connector, setConnector, connectorName } = useWeb3Context();
   const [currentTransaction, _setCurrentTransaction] = useState({});
   const setCurrentTransaction = useCallback((hash, type, amount) => {
     _setCurrentTransaction({ hash, type, amount });
@@ -40,11 +40,19 @@ export default function Container({
   const [{ data, loading, error }, refetch] = useAxios(
     `https://ipfs.infura.io/ipfs/${coffeeHash}`
   );
+  if (!account) {
+    if (connectorName === "Network") {
+      setConnector("WalletConnect", { suppressAndThrowErrors: true }).catch(
+        error => {
+          console.log("TCL: activateWalletConnect -> error", error);
+        }
+      );
+    }
+  }
 
   if (!coffeeHash) {
     return <Loading />;
   }
-
   // TODO: Change loader to contexct
   if (loading) {
     return <Loading />;

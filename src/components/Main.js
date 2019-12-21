@@ -122,9 +122,9 @@ function getExchangeRate(inputValue, outputValue, invert = false) {
 //get ETH price
 function calculateEthPrice(reserveWCCETH, reserveWCCToken) {
   const amount = calculateEtherTokenInputFromOutput(
-    ethers.utils.parseUnits('1', 18),
+    ethers.utils.parseUnits("1", 18),
     reserveWCCETH,
-    reserveWCCToken        
+    reserveWCCToken
   );
 
   return amount;
@@ -330,7 +330,7 @@ export default function Main({ stats, status }) {
 
   useEffect(() => {
     try {
-      const exchangeRateDAI = getExchangeRate(reserveDAIETH, reserveDAIToken); 
+      const exchangeRateDAI = getExchangeRate(reserveDAIETH, reserveDAIToken);
       //console.log('Contract: ' + exchangeContractDAI);
 
       if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
@@ -585,7 +585,7 @@ export default function Main({ stats, status }) {
       reserveWCCToken={reserveWCCToken}
       reserveWCCETH={reserveWCCETH}
       calculateEthPrice={calculateEthPrice}
-      accountBalance={balanceWCC}     
+      accountBalance={balanceWCC}
     />
   );
 }
