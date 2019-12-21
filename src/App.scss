@@ -48,6 +48,16 @@ html {
   }
 }
 
+.btn-outline-primary {
+  color: #b4600b !important;
+  border-color: #b4600b !important;
+  &:hover {
+    color: white !important;
+
+    background-color: #b4600b !important;
+  }
+}
+
 .coffeeModal {
   h3 {
     display: inline;
@@ -176,6 +186,21 @@ html {
         &.connected {
           background-color: rgb(102, 187, 102);
         }
+      }
+    }
+
+    .button-wrapper {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+
+      p {
+        float: none;
+      }
+
+      .walletConnect {
+        margin-top: 10px;
+        margin-left: 0px;
       }
     }
   }
@@ -407,6 +432,10 @@ html {
       padding: 0.75rem;
     }
 
+    .injected {
+      margin-right: 15px;
+    }
+
     .wallet-details {
       display: flex;
     }
@@ -469,6 +498,20 @@ html {
           background-color: rgb(102, 187, 102);
         }
       }
+    }
+    .button-wrapper {
+      text-align: center;
+      display: flex;
+
+      .walletConnect {
+        margin-top: 0px;
+      }
+
+      p {
+        float: none;
+      }
+
+      flex-direction: row;
     }
   }
 

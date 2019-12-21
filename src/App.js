@@ -5,6 +5,7 @@ import "./App.scss";
 import Web3Connection from "./components/Web3Connection";
 import Main from "./components/Main";
 import AppProvider from "./context";
+import WalletConnectApi from "@walletconnect/web3-subprovider";
 
 require("dotenv").config();
 
@@ -19,7 +20,16 @@ const Injected = new InjectedConnector({ supportedNetworks: [1, 4] });
 const Network = new NetworkOnlyConnector({
   providerURL: PROVIDER_URL
 });
-const connectors = { Network, Injected };
+const WalletConnect = new WalletConnectConnector({
+  api: WalletConnectApi,
+  bridge: "https://bridge.walletconnect.org",
+  supportedNetworkURLs: {
+    1: PROVIDER_URL,
+    4: `https://rinkeby.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`
+  },
+  defaultNetwork: 1
+});
+const connectors = { Network, Injected, WalletConnect };
 
 class App extends Component {
   state = {
