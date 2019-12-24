@@ -16,18 +16,26 @@ const {
   InjectedConnector,
   WalletConnectConnector
 } = Connectors;
-const Injected = new InjectedConnector({ supportedNetworks: [1, 4] });
+
+const Injected = new InjectedConnector({
+  supportedNetworks: [parseInt(process.env.REACT_APP_NETWORK)]
+});
 const Network = new NetworkOnlyConnector({
   providerURL: PROVIDER_URL
 });
+let supportedNetworkWC = {};
+if (process.env.REACT_APP_NETWORK === 1) {
+  supportedNetworkWC = { 1: PROVIDER_URL };
+} else {
+  supportedNetworkWC = {
+    4: `https://rinkeby.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`
+  };
+}
 const WalletConnect = new WalletConnectConnector({
   api: WalletConnectApi,
   bridge: "https://bridge.walletconnect.org",
-  supportedNetworkURLs: {
-    1: PROVIDER_URL,
-    4: `https://rinkeby.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`
-  },
-  defaultNetwork: 1
+  supportedNetworkURLs: supportedNetworkWC,
+  defaultNetwork: process.env.REACT_APP_NETWORK
 });
 const connectors = { Network, Injected, WalletConnect };
 

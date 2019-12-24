@@ -494,8 +494,13 @@ html {
         height: 12px;
         margin-left: 12px;
         border-radius: 100%;
-        &.connected {
-          background-color: rgb(102, 187, 102);
+
+        &.connected-1 {
+          background-color: #038789;
+        }
+
+        &.connected-4 {
+          background-color: #ebb33f;
         }
       }
     }

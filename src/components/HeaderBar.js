@@ -76,7 +76,9 @@ export default function HeaderBar({ setShowConnect, accountBalance }) {
                 <CoffeeCount>
                   {ens ? ens : addressShortener(account)}
                 </CoffeeCount>
-                <div className="circle connected"></div>
+                <div
+                  className={`circle connected-${process.env.REACT_APP_NETWORK}`}
+                ></div>
               </div>
             </div>
           ) : (
