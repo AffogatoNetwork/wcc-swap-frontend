@@ -5,17 +5,58 @@ import "./App.scss";
 import Web3Connection from "./components/Web3Connection";
 import Main from "./components/Main";
 import AppProvider from "./context";
-import WalletConnectApi from "@walletconnect/web3-subprovider";
+import Web3Connect from "web3connect";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import Portis from "@portis/web3";
+import Fortmatic from "fortmatic";
 
 require("dotenv").config();
 
+let network = "mainnet";
+
+switch (process.env.REACT_APP_NETWORK) {
+  case "1":
+    network = "mainnet";
+    break;
+  case "3":
+    network = "ropsten";
+    break;
+  case "4":
+    network = "rinkeby";
+    break;
+  default:
+    break;
+}
+
+const web3Connect = new Web3Connect.Core({
+  network: "mainnet", // optional
+  providerOptions: {
+    walletconnect: {
+      package: WalletConnectProvider, // required
+      options: {
+        infuraId: process.env.REACT_APP_INFURA_ID // required
+      }
+    },
+    portis: {
+      package: Portis, // required
+      options: {
+        id: process.env.REACT_APP_PORTIS_ID, // required
+        network: network
+      }
+    },
+    fortmatic: {
+      package: Fortmatic, // required
+      options: {
+        key: process.env.REACT_APP_FORTMATIC_ID, // required
+        network: network
+      }
+    }
+  }
+});
+
 const PROVIDER_URL = process.env.REACT_APP_INFURA_URL;
 
-const {
-  NetworkOnlyConnector,
-  InjectedConnector,
-  WalletConnectConnector
-} = Connectors;
+const { NetworkOnlyConnector, InjectedConnector } = Connectors;
 
 const Injected = new InjectedConnector({
   supportedNetworks: [parseInt(process.env.REACT_APP_NETWORK)]
@@ -23,21 +64,8 @@ const Injected = new InjectedConnector({
 const Network = new NetworkOnlyConnector({
   providerURL: PROVIDER_URL
 });
-let supportedNetworkWC = {};
-if (process.env.REACT_APP_NETWORK === 1) {
-  supportedNetworkWC = { 1: PROVIDER_URL };
-} else {
-  supportedNetworkWC = {
-    4: `https://rinkeby.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`
-  };
-}
-const WalletConnect = new WalletConnectConnector({
-  api: WalletConnectApi,
-  bridge: "https://bridge.walletconnect.org",
-  supportedNetworkURLs: supportedNetworkWC,
-  defaultNetwork: process.env.REACT_APP_NETWORK
-});
-const connectors = { Network, Injected, WalletConnect };
+
+const connectors = { Network, Injected };
 
 class App extends Component {
   state = {
@@ -54,7 +82,11 @@ class App extends Component {
         <Web3Provider connectors={connectors} libraryName={"ethers.js"}>
           <Web3Connection>
             <AppProvider>
-              <Route exact path="/" render={() => <Main />} />
+              <Route
+                exact
+                path="/"
+                render={() => <Main web3Connect={web3Connect} />}
+              />
             </AppProvider>
           </Web3Connection>
         </Web3Provider>

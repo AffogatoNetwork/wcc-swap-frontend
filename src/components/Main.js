@@ -237,8 +237,10 @@ function calculateAmount(
   }
 }
 
-export default function Main({ stats, status }) {
-  const { library, account } = useWeb3Context();
+export default function Main({ stats, status, web3Connect }) {
+  const { library } = useWeb3Context();
+  const [account, setAccount] = useState();
+  const [provider, setProvider] = useState();
 
   // selected token
   const [selectedTokenSymbol, setSelectedTokenSymbol] = useState(
@@ -586,6 +588,11 @@ export default function Main({ stats, status }) {
       reserveWCCETH={reserveWCCETH}
       calculateEthPrice={calculateEthPrice}
       accountBalance={balanceWCC}
+      provider={provider}
+      setProvider={setProvider}
+      account={account}
+      setAccount={setAccount}
+      web3Connect={web3Connect}
     />
   );
 }
