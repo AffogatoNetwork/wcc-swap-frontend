@@ -24,9 +24,14 @@ export default function Container({
   reserveWCCToken,
   reserveWCCETH,
   calculateEthPrice,
-  accountBalance
+  accountBalance,
+  web3Connect,
+  provider,
+  setProvider,
+  account,
+  setAccount
 }) {
-  const { account, connector, setConnector, connectorName } = useWeb3Context();
+  const { connector, setConnector, connectorName } = useWeb3Context();
   const [currentTransaction, _setCurrentTransaction] = useState({});
   const setCurrentTransaction = useCallback((hash, type, amount) => {
     _setCurrentTransaction({ hash, type, amount });
@@ -40,15 +45,6 @@ export default function Container({
   const [{ data, loading, error }, refetch] = useAxios(
     `https://ipfs.infura.io/ipfs/${coffeeHash}`
   );
-  if (!account) {
-    if (connectorName === "Network") {
-      setConnector("WalletConnect", { suppressAndThrowErrors: true }).catch(
-        error => {
-          console.log("TCL: activateWalletConnect -> error", error);
-        }
-      );
-    }
-  }
 
   if (!coffeeHash) {
     return <Loading />;
@@ -64,6 +60,11 @@ export default function Container({
       <HeaderBar
         setShowConnect={setShowConnect}
         accountBalance={accountBalance}
+        web3Connect={web3Connect}
+        provider={provider}
+        setProvider={setProvider}
+        account={account}
+        setAccount={setAccount}
       />
       <Heading.h1 variant="primary">Dynamically Priced Coffee</Heading.h1>
       <Heading.h4 color="#b4600b">
@@ -88,6 +89,11 @@ export default function Container({
           setCurrentTransaction={setCurrentTransaction}
           clearCurrentTransaction={clearCurrentTransaction}
           setShowConnect={setShowConnect}
+          web3Connect={web3Connect}
+          provider={provider}
+          setProvider={setProvider}
+          account={account}
+          setAccount={setAccount}
         />
         <CoffeeActions
           coffeeData={data}
@@ -107,6 +113,11 @@ export default function Container({
           setCurrentTransaction={setCurrentTransaction}
           clearCurrentTransaction={clearCurrentTransaction}
           setShowConnect={setShowConnect}
+          web3Connect={web3Connect}
+          provider={provider}
+          setProvider={setProvider}
+          account={account}
+          setAccount={setAccount}
         />
       </div>
       <div className="credits">

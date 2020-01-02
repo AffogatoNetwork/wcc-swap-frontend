@@ -45,8 +45,13 @@ export function useTokenContract(tokenAddress, withSignerIfPossible = true) {
   }, [account, library, tokenAddress, withSignerIfPossible]);
 }
 
-export function useExchangeContract(tokenAddress, withSignerIfPossible = true) {
-  const { library, account } = useWeb3Context();
+export function useExchangeContract(
+  library,
+  account,
+  tokenAddress,
+  withSignerIfPossible = true
+) {
+  // const { library, account } = useWeb3Context();
 
   const [exchangeAddress, setExchangeAddress] = useState();
   useEffect(() => {
