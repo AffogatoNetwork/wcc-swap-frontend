@@ -28,7 +28,12 @@ export default function CoffeeCard({
   currentTransactionAmount,
   setCurrentTransaction,
   clearCurrentTransaction,
-  setShowConnect
+  setShowConnect,
+  web3Connect,
+  provider,
+  setProvider,
+  account,
+  setAccount
 }) {
   let usdBalance = 0;
   let ethPrice = 0;
@@ -152,6 +157,11 @@ export default function CoffeeCard({
             setCurrentTransaction={setCurrentTransaction}
             clearCurrentTransaction={clearCurrentTransaction}
             setShowConnect={setShowConnect}
+            web3Connect={web3Connect}
+            provider={provider}
+            setProvider={setProvider}
+            account={account}
+            setAccount={setAccount}
           />
           <Button
             as="a"

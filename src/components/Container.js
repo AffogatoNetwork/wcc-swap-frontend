@@ -89,6 +89,11 @@ export default function Container({
           setCurrentTransaction={setCurrentTransaction}
           clearCurrentTransaction={clearCurrentTransaction}
           setShowConnect={setShowConnect}
+          web3Connect={web3Connect}
+          provider={provider}
+          setProvider={setProvider}
+          account={account}
+          setAccount={setAccount}
         />
         <CoffeeActions
           coffeeData={data}
@@ -108,6 +113,11 @@ export default function Container({
           setCurrentTransaction={setCurrentTransaction}
           clearCurrentTransaction={clearCurrentTransaction}
           setShowConnect={setShowConnect}
+          web3Connect={web3Connect}
+          provider={provider}
+          setProvider={setProvider}
+          account={account}
+          setAccount={setAccount}
         />
       </div>
       <div className="credits">

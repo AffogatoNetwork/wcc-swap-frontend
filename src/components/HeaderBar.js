@@ -7,7 +7,7 @@ import icon from "../assets/icon.png";
 import { useWeb3Context } from "web3-react";
 import { addressShortener } from "../utils/utils";
 import "../App.scss";
-import { ethers, utils, providers } from "ethers";
+import { ethers, utils } from "ethers";
 
 import contentStrings from "../constants/Localization";
 
@@ -20,10 +20,8 @@ export default function HeaderBar({
   account,
   setAccount
 }) {
-  // connector error
-  const [connectorError, setConnectorError] = useState();
-  const { connector, setConnector } = useWeb3Context();
-  let [ens, setEns] = useState();
+  const [ens, setEns] = useState();
+  const [networkId, setNetworkId] = useState();
   let defaultProvider = ethers.getDefaultProvider("homestead");
 
   // subscribe to connect
@@ -44,28 +42,25 @@ export default function HeaderBar({
   }
 
   function handleAccount() {
-    // setConnector("Injected", { suppressAndThrowErrors: true }).catch(error => {
-    //   alert("Couldn't connect to Web3. Please install Metamask");
-    //   setShowConnect(true);
-    // });
     web3Connect.toggleModal();
   }
 
   // once an account is connected, don't show this screen
   useEffect(() => {
-    async function getAddress() {
+    async function setConnection() {
       let accounts = await provider.listAccounts();
-      console.log("TCL: getAddress -> accounts", web3Connect);
+      let network = await provider.getNetwork();
       setAccount(accounts[0]);
+      setNetworkId(network.chainId);
     }
 
     if (account !== null) {
       setShowConnect(false);
     }
     if (provider) {
-      getAddress();
+      setConnection();
     }
-  }, [account, provider, setAccount, setShowConnect]);
+  }, [account, networkId, provider, setAccount, setShowConnect, web3Connect]);
 
   return (
     <>
@@ -87,9 +82,7 @@ export default function HeaderBar({
                 <CoffeeCount>
                   {ens ? ens : addressShortener(account)}
                 </CoffeeCount>
-                <div
-                  className={`circle connected-${process.env.REACT_APP_NETWORK}`}
-                ></div>
+                <div className={`circle connected-${networkId}`}></div>
               </div>
             </div>
           ) : (

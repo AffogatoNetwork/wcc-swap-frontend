@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Web3Provider, { Connectors } from "web3-react";
 import { Route } from "react-router-dom";
 import "./App.scss";
@@ -67,32 +67,40 @@ const Network = new NetworkOnlyConnector({
 
 const connectors = { Network, Injected };
 
-class App extends Component {
-  state = {
-    allTokens: 0,
-    storageValue: 0,
-    web3: null,
-    accounts: null,
-    contract: null
-  };
+function App() {
+  const [account, setAccount] = useState();
+  const [provider, setProvider] = useState();
+  // state = {
+  //   allTokens: 0,
+  //   storageValue: 0,
+  //   web3: null,
+  //   accounts: null,
+  //   contract: null
+  // };
 
-  render() {
-    return (
-      <div className="App">
-        <Web3Provider connectors={connectors} libraryName={"ethers.js"}>
-          <Web3Connection>
-            <AppProvider>
-              <Route
-                exact
-                path="/"
-                render={() => <Main web3Connect={web3Connect} />}
-              />
-            </AppProvider>
-          </Web3Connection>
-        </Web3Provider>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Web3Provider connectors={connectors} libraryName={"ethers.js"}>
+        <Web3Connection>
+          <AppProvider>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Main
+                  web3Connect={web3Connect}
+                  account={account}
+                  setAccount={setAccount}
+                  provider={provider}
+                  setProvider={setProvider}
+                />
+              )}
+            />
+          </AppProvider>
+        </Web3Connection>
+      </Web3Provider>
+    </div>
+  );
 }
 
 export default App;

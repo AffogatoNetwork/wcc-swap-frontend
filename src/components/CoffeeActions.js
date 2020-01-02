@@ -22,7 +22,12 @@ export default function CoffeeActions({
   currentTransactionAmount,
   setCurrentTransaction,
   clearCurrentTransaction,
-  setShowConnect
+  setShowConnect,
+  web3Connect,
+  provider,
+  setProvider,
+  account,
+  setAccount
 }) {
   let usdBalance = 0;
   let ethPrice = 0;
@@ -63,6 +68,11 @@ export default function CoffeeActions({
         setCurrentTransaction={setCurrentTransaction}
         clearCurrentTransaction={clearCurrentTransaction}
         setShowConnect={setShowConnect}
+        web3Connect={web3Connect}
+        provider={provider}
+        setProvider={setProvider}
+        account={account}
+        setAccount={setAccount}
       />
       <div className="button-wrapper">
         <Button

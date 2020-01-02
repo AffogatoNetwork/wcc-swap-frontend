@@ -237,22 +237,43 @@ function calculateAmount(
   }
 }
 
-export default function Main({ stats, status, web3Connect }) {
-  const { library } = useWeb3Context();
-  const [account, setAccount] = useState();
-  const [provider, setProvider] = useState();
+export default function Main({
+  stats,
+  status,
+  web3Connect,
+  account,
+  setAccount,
+  provider,
+  setProvider
+}) {
+  let { library } = useWeb3Context();
 
   // selected token
   const [selectedTokenSymbol, setSelectedTokenSymbol] = useState(
     TOKEN_SYMBOLS.ETH
   );
-
+  //TODO: Hacer cambios aca
   // get exchange contracts
-  const exchangeContractWCC = useExchangeContract(TOKEN_ADDRESSES.WCC);
+  if (provider) {
+    library = provider;
+  }
+
+  let exchangeContractWCC = useExchangeContract(
+    library,
+    account,
+    TOKEN_ADDRESSES.WCC
+  );
+
   const exchangeContractSelectedToken = useExchangeContract(
+    library,
+    account,
     TOKEN_ADDRESSES[selectedTokenSymbol]
   );
-  const exchangeContractDAI = useExchangeContract(TOKEN_ADDRESSES.DAI);
+  const exchangeContractDAI = useExchangeContract(
+    library,
+    account,
+    TOKEN_ADDRESSES.DAI
+  );
 
   // get token contracts
   const tokenContractWCC = useTokenContract(TOKEN_ADDRESSES.WCC);
