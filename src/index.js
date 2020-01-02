@@ -8,7 +8,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "rimble-ui";
 import { theme } from "rimble-ui";
 import CustomTheme from "./theme/AffogatoTheme";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <Router>
