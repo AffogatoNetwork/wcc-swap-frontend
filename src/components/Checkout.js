@@ -73,7 +73,12 @@ export default function Checkout({
   setCurrentTransaction,
   clearCurrentTransaction,
   setShowConnect,
-  showConnect
+  showConnect,
+  web3Connect,
+  provider,
+  setProvider,
+  account,
+  setAccount
 }) {
   const { library } = useWeb3Context();
   const [state, setState] = useAppContext();
@@ -145,6 +150,11 @@ export default function Checkout({
           currentTransactionHash={currentTransactionHash}
           setCurrentTransaction={setCurrentTransaction}
           setShowConnect={setShowConnect}
+          web3Connect={web3Connect}
+          provider={provider}
+          setProvider={setProvider}
+          account={account}
+          setAccount={setAccount}
         />
       );
     }

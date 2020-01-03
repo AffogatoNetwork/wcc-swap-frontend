@@ -237,20 +237,43 @@ function calculateAmount(
   }
 }
 
-export default function Main({ stats, status }) {
-  const { library, account } = useWeb3Context();
+export default function Main({
+  stats,
+  status,
+  web3Connect,
+  account,
+  setAccount,
+  provider,
+  setProvider
+}) {
+  let { library } = useWeb3Context();
 
   // selected token
   const [selectedTokenSymbol, setSelectedTokenSymbol] = useState(
     TOKEN_SYMBOLS.ETH
   );
-
+  //TODO: Hacer cambios aca
   // get exchange contracts
-  const exchangeContractWCC = useExchangeContract(TOKEN_ADDRESSES.WCC);
+  if (provider) {
+    library = provider;
+  }
+
+  let exchangeContractWCC = useExchangeContract(
+    library,
+    account,
+    TOKEN_ADDRESSES.WCC
+  );
+
   const exchangeContractSelectedToken = useExchangeContract(
+    library,
+    account,
     TOKEN_ADDRESSES[selectedTokenSymbol]
   );
-  const exchangeContractDAI = useExchangeContract(TOKEN_ADDRESSES.DAI);
+  const exchangeContractDAI = useExchangeContract(
+    library,
+    account,
+    TOKEN_ADDRESSES.DAI
+  );
 
   // get token contracts
   const tokenContractWCC = useTokenContract(TOKEN_ADDRESSES.WCC);
@@ -586,6 +609,11 @@ export default function Main({ stats, status }) {
       reserveWCCETH={reserveWCCETH}
       calculateEthPrice={calculateEthPrice}
       accountBalance={balanceWCC}
+      provider={provider}
+      setProvider={setProvider}
+      account={account}
+      setAccount={setAccount}
+      web3Connect={web3Connect}
     />
   );
 }

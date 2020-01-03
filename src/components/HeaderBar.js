@@ -7,54 +7,60 @@ import icon from "../assets/icon.png";
 import { useWeb3Context } from "web3-react";
 import { addressShortener } from "../utils/utils";
 import "../App.scss";
-import { ethers, utils, providers } from "ethers";
-import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
+import { ethers, utils } from "ethers";
 
 import contentStrings from "../constants/Localization";
 
-export default function HeaderBar({ setShowConnect, accountBalance }) {
-  // connector error
-  const [connectorError, setConnectorError] = useState();
-  const { account, connector, setConnector } = useWeb3Context();
-  let [ens, setEns] = useState();
-  let provider = ethers.getDefaultProvider("homestead");
+export default function HeaderBar({
+  setShowConnect,
+  accountBalance = 0,
+  web3Connect,
+  provider,
+  setProvider,
+  account,
+  setAccount
+}) {
+  const [ens, setEns] = useState();
+  const [networkId, setNetworkId] = useState();
+  let defaultProvider = ethers.getDefaultProvider("homestead");
+
+  // subscribe to connect
+  web3Connect.on("connect", connection => {
+    let provider = new ethers.providers.Web3Provider(connection);
+    setProvider(provider);
+  });
+
+  // subscribe to close
+  web3Connect.on("close", () => {
+    console.log("Web3Connect Modal Closed"); // modal has closed
+  });
 
   if (account) {
-    WalletConnectQRCodeModal.close();
-    provider.lookupAddress(account).then(function(address) {
+    defaultProvider.lookupAddress(account).then(function(address) {
       setEns(address);
     });
   }
 
   function handleAccount() {
-    setConnector("Injected", { suppressAndThrowErrors: true }).catch(error => {
-      alert("Couldn't connect to Web3. Please install Metamask");
-      setShowConnect(true);
-    });
+    web3Connect.toggleModal();
   }
-  function activateWalletConnect() {
-    if (walletconnectUri) {
-      WalletConnectQRCodeModal.open(walletconnectUri, () => {
-        console.log("QR Code Modal closed");
-      });
-    }
-  }
-  const walletconnectUri =
-    connector && connector.walletConnector && connector.walletConnector.uri;
-  // unset the error on connector change
-  useEffect(() => {
-    setConnectorError();
-  }, [connector]);
 
   // once an account is connected, don't show this screen
   useEffect(() => {
+    async function setConnection() {
+      let accounts = await provider.listAccounts();
+      let network = await provider.getNetwork();
+      setAccount(accounts[0]);
+      setNetworkId(network.chainId);
+    }
+
     if (account !== null) {
       setShowConnect(false);
     }
-  });
-  if (account && !accountBalance) {
-    return "";
-  }
+    if (provider) {
+      setConnection();
+    }
+  }, [account, networkId, provider, setAccount, setShowConnect, web3Connect]);
 
   return (
     <>
@@ -76,9 +82,7 @@ export default function HeaderBar({ setShowConnect, accountBalance }) {
                 <CoffeeCount>
                   {ens ? ens : addressShortener(account)}
                 </CoffeeCount>
-                <div
-                  className={`circle connected-${process.env.REACT_APP_NETWORK}`}
-                ></div>
+                <div className={`circle connected-${networkId}`}></div>
               </div>
             </div>
           ) : (
@@ -88,12 +92,6 @@ export default function HeaderBar({ setShowConnect, accountBalance }) {
                 onClick={() => handleAccount()}
               >
                 <CoffeeCount>{contentStrings.connectWallet}</CoffeeCount>
-              </button>
-              <button
-                className="btn btn-outline-primary walletConnect"
-                onClick={() => activateWalletConnect()}
-              >
-                <CoffeeCount>Use WalletConnect</CoffeeCount>
               </button>
             </div>
           )}

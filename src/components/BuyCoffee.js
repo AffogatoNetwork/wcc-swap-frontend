@@ -16,7 +16,7 @@ import { ERROR_CODES, amountFormatter, TRADE_TYPES } from "../factory";
 import SelectToken from "./SelectToken";
 import IncrementToken from "./IncrementToken";
 import { useAppContext } from "../context";
-import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
+import { ethers, utils } from "ethers";
 
 function getValidationErrorMessage(validationError) {
   if (!validationError) {
@@ -59,11 +59,22 @@ export default function BuyCoffee({
   pending,
   currentTransactionHash,
   setCurrentTransaction,
-  setShowConnect
+  setShowConnect,
+  web3Connect,
+  provider,
+  setProvider,
+  account,
+  setAccount
 }) {
   const [state] = useAppContext();
-  const { account, setConnector, connector } = useWeb3Context();
+  const { setConnector, connector } = useWeb3Context();
   const [show, setShow] = useState(false);
+
+  // subscribe to connect
+  web3Connect.on("connect", connection => {
+    let provider = new ethers.providers.Web3Provider(connection);
+    setProvider(provider);
+  });
 
   const openModal = () => setShow(true);
   const closeModal = () => setShow(false);
@@ -74,7 +85,7 @@ export default function BuyCoffee({
   const [validationError, setValidationError] = useState();
 
   function getText(account, buying, errorMessage, pending, hash) {
-    if (account === null) {
+    if (!account) {
       return "Connect Wallet";
     } else if (!errorMessage) {
       if (buying) {
@@ -91,6 +102,15 @@ export default function BuyCoffee({
 
   // buy state validation
   useEffect(() => {
+    async function setConnection() {
+      let accounts = await provider.listAccounts();
+      setAccount(accounts[0]);
+    }
+
+    if (provider) {
+      setConnection();
+    }
+
     if (buying) {
       try {
         const { error: validationError, ...validationState } = validateBuy(
@@ -108,7 +128,7 @@ export default function BuyCoffee({
         setValidationError(error);
       }
     }
-  }, [ready, buying, validateBuy, state.count]);
+  }, [ready, buying, validateBuy, state.count, provider, setAccount]);
 
   const errorMessage = getValidationErrorMessage(validationError);
 
@@ -196,21 +216,9 @@ export default function BuyCoffee({
                 validationError !== null || (pending && currentTransactionHash)
               }
               onClick={() => {
-                if (account === null) {
-                  setConnector("Injected", {
-                    suppressAndThrowErrors: true
-                  }).catch(error => {
-                    const walletconnectUri =
-                      connector &&
-                      connector.walletConnector &&
-                      connector.walletConnector.uri;
-                    if (walletconnectUri) {
-                      WalletConnectQRCodeModal.open(walletconnectUri, () => {
-                        console.log("QR Code Modal closed");
-                      });
-                    }
-                    setShowConnect(true);
-                  });
+                if (!account) {
+                  closeModal();
+                  web3Connect.toggleModal();
                 } else {
                   buy(
                     buyValidationState.maximumInputValue,
