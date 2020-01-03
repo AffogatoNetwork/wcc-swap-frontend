@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Box } from "rimble-ui";
-import { Button } from "reactstrap";
 import styled from "styled-components";
 import affogato_horizontal from "../assets/affogato-horizontal.png";
 import icon from "../assets/icon.png";
-import { useWeb3Context } from "web3-react";
 import { addressShortener } from "../utils/utils";
 import "../App.scss";
 import { ethers, utils } from "ethers";
