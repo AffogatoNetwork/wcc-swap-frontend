@@ -35,7 +35,9 @@ export default function CoffeeCard({
   account,
   setAccount
 }) {
-  let { coffee, farmer, farm } = coffeeData;
+  let { coffee, farmer } = coffeeData;
+  let cupProfile = coffee.cupProfile[0];
+  console.log("TCL: coffeeData", coffeeData);
   let usdBalance = 0;
   let ethPrice = 0;
   const [{ data, loading, error }, refetch] = useAxios(
@@ -64,7 +66,7 @@ export default function CoffeeCard({
           Honduran {coffee.variety}
         </Heading.h4>
         <Heading.h6 textAlign="left" color="#b4600b">
-          {coffee.notes}
+          {cupProfile.notes}
         </Heading.h6>
         <Heading.h2 color={colors.brown.base} textAlign="left">
           Premium Specialty Coffee
@@ -106,12 +108,21 @@ export default function CoffeeCard({
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Coffee Notes</Heading.h5>
-            {coffee.aroma} {coffee.acidity}
+            <Heading.h5>Cup Profile</Heading.h5>
+            {cupProfile.aroma}{" "}
+            <a
+              className="cup-profile"
+              href="https://profile.affogato.co/QmdPAaN2uVUuLBY3RpWrmQADYn8pcShaZGt16vWQcaZRAm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              See complete profile
+            </a>
           </li>
           <li>
             <Heading.h5>Package</Heading.h5>340g, {coffee.process},{" "}
-            {coffee.roast} Roast.{" "}
+            {coffee.actions[0].description} Roast
           </li>
           {/* <li>
             <Heading.h5>Process</Heading.h5> {coffee.Process}
