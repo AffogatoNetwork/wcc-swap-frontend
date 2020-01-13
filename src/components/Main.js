@@ -586,7 +586,7 @@ export default function Main({
           .div(ethers.utils.bigNumberify(100))
       );
 
-    console.log("ENTRA ESTIMATE: " + account);
+    console.log("ENTRA ESTIMATE: " + amount);
     // const estimatedGasLimit = await contract.estimate.burnTokens(amount);
     // console.log("TCL: burn -> estimatedGasLimit", estimatedGasLimit);
     console.log("Contrato: " + contract);

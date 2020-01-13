@@ -187,7 +187,9 @@ export default function Redeem({
     )
   }
 
-  function burnCAFE(){
+
+
+  function burningCAFE(){
     return (
         <Flex px="6%" mt="6%" flexDirection="column">
             <Heading.h5>
@@ -253,7 +255,7 @@ export default function Redeem({
             ? redeemCAFEAmount()
             : ( !hasBurnt
                 ? confirmRedeemCAFE()    
-                : burnCAFE()
+                : burningCAFE()
               )
           }            
           
