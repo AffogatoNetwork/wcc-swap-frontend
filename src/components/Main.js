@@ -278,7 +278,11 @@ export default function Main({
   const coffeeHandlerContract = useCoffeeHandlerContract(library, account);
 
   // get token contracts
-  const tokenContractWCC = useTokenContract(TOKEN_ADDRESSES.WCC);
+  const tokenContractWCC = useTokenContract(
+    TOKEN_ADDRESSES.WCC,
+    library,
+    account
+  );
   const tokenContractSelectedToken = useTokenContract(
     TOKEN_ADDRESSES[selectedTokenSymbol]
   );
