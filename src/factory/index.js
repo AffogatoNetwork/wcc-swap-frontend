@@ -98,7 +98,7 @@ export async function getCoffeeHandlerContract(
   library,
   account
 ){
-  return getContract(COFFEE_HANDLER_ADDRESS, COFFEE_HANDLER_ARTIFACT.abi, library);
+  return getContract(COFFEE_HANDLER_ADDRESS, COFFEE_HANDLER_ARTIFACT.abi, library, account);
 }
 
 // get the ether balance of an address
