@@ -229,7 +229,6 @@ export function useExchangeAllowance(address, tokenAddress) {
 }
 
 export function useGetCoffeeInformation(contract) {
-  const { library, account } = useWeb3Context();
   const [coffeeInformation, setCoffeeInformation] = useState();
 
   const updateCoffeeInformation = useCallback(() => {
@@ -262,12 +261,14 @@ export function useGetCoffeeInformation(contract) {
   return coffeeInformation;
 }
 
-export function useCoffeeHandlerContract(withSignerIfPossible = true) {
-  const { library, account } = useWeb3Context();
-
+export function useCoffeeHandlerContract(
+  library,
+  account,
+  withSignerIfPossible = true
+) {
   return useMemo(() => {
     try {
-      console.log('ENTRA hook')
+      console.log("ENTRA hook");
       return getCoffeeHandlerContract(
         library,
         withSignerIfPossible ? account : undefined
@@ -277,4 +278,3 @@ export function useCoffeeHandlerContract(withSignerIfPossible = true) {
     }
   }, [account, library, withSignerIfPossible]);
 }
-

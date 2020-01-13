@@ -275,7 +275,7 @@ export default function Main({
     account,
     TOKEN_ADDRESSES.DAI
   );
-  const coffeeHandlerContract = useCoffeeHandlerContract();
+  const coffeeHandlerContract = useCoffeeHandlerContract(library, account);
 
   // get token contracts
   const tokenContractWCC = useTokenContract(TOKEN_ADDRESSES.WCC);
@@ -576,6 +576,7 @@ export default function Main({
 
   async function burn(amount) {
     const parsedAmount = ethers.utils.parseUnits(amount, 18);
+    const contract = await coffeeHandlerContract;
 
     const estimatedGasPrice = await library
       .getGasPrice()
@@ -585,14 +586,13 @@ export default function Main({
           .div(ethers.utils.bigNumberify(100))
       );
 
-    console.log('ENTRA ESTIMATE: ' + account);  
-    /*const estimatedGasLimit = await coffeeHandlerContract.estimate.burnTokens(
-      amount
-    );*/
-    console.log('Contrato: ' + coffeeHandlerContract);
+    console.log("ENTRA ESTIMATE: " + account);
+    // const estimatedGasLimit = await contract.estimate.burnTokens(amount);
+    // console.log("TCL: burn -> estimatedGasLimit", estimatedGasLimit);
+    console.log("Contrato: " + contract);
 
-    coffeeHandlerContract.burnTokens(amount,  {
-      gasLimit: calculateGasMargin(ethers.utils.bigNumberify(750000), GAS_MARGIN),
+    contract.burnTokens(amount, {
+      gasLimit: 9000000,
       gasPrice: estimatedGasPrice
     });
 
