@@ -4,6 +4,7 @@ import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
 import { amountFormatter } from "../factory";
 import Checkout from "./Checkout";
+import Redeem from "./Redeem";
 import "../App.scss";
 import drip from "../assets/drip.png";
 import pour from "../assets/pour.png";
@@ -19,6 +20,8 @@ export default function CoffeeCard({
   unlock,
   validateBuy,
   buy,
+  burn,
+  accountBalance,
   totalSupply,
   reserveWCCToken,
   reserveWCCETH,
@@ -172,6 +175,16 @@ export default function CoffeeCard({
           >
             Swap
           </Button>
+        </div>
+        <div className="button-wrapper">
+           <Redeem
+            burn={burn}
+            balanceCAFE={accountBalance}
+            ready={ready}  
+            unlock={unlock}
+            setCurrentTransaction={setCurrentTransaction}
+            setShowConnect={setShowConnect}
+           />
         </div>
         <p className="mt-3">
           <b>Redeem Coming Soon!</b>

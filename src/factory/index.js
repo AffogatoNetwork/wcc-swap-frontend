@@ -4,12 +4,14 @@ import { ethers } from "ethers";
 import EXCHANGE_ABI from "./exchange.json";
 import FACTORY_ABI from "./factory.json";
 import WCC_ARTIFACT from "../contracts/WrappedCoffeeCoin.json";
+import COFFEE_HANDLER_ARTIFACT from "../contracts/CoffeeHandler.json";
 
 import UncheckedJsonRpcSigner from "./signer";
 
 require("dotenv").config();
 
 const FACTORY_ADDRESS = process.env.REACT_APP_FACTORY_ADDRESS;
+const COFFEE_HANDLER_ADDRESS = process.env.REACT_APP_COFFEE_HANDLER_ADDRESS;
 
 let ERC20_ABI = WCC_ARTIFACT.abi;
 
@@ -90,6 +92,13 @@ export async function getTokenExchangeAddressFromFactory(
     library,
     account
   ).getExchange(tokenAddress);
+}
+
+export async function getCoffeeHandlerContract(
+  library,
+  account
+){
+  return getContract(COFFEE_HANDLER_ADDRESS, COFFEE_HANDLER_ARTIFACT.abi, library);
 }
 
 // get the ether balance of an address

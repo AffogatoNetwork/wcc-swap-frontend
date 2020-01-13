@@ -16,7 +16,7 @@ import { ERROR_CODES, amountFormatter, TRADE_TYPES } from "../factory";
 import SelectToken from "./SelectToken";
 import IncrementToken from "./IncrementToken";
 import { useAppContext } from "../context";
-import { ethers, utils } from "ethers";
+import { ethers } from "ethers";
 
 function getValidationErrorMessage(validationError) {
   if (!validationError) {
@@ -67,7 +67,6 @@ export default function BuyCoffee({
   setAccount
 }) {
   const [state] = useAppContext();
-  const { setConnector, connector } = useWeb3Context();
   const [show, setShow] = useState(false);
 
   // subscribe to connect

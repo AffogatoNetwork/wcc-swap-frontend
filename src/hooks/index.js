@@ -6,6 +6,7 @@ import {
   getTokenContract,
   getExchangeContract,
   getTokenExchangeAddressFromFactory,
+  getCoffeeHandlerContract,
   getEtherBalance,
   getTokenBalance,
   getTokenAllowance,
@@ -260,3 +261,20 @@ export function useGetCoffeeInformation(contract) {
 
   return coffeeInformation;
 }
+
+export function useCoffeeHandlerContract(withSignerIfPossible = true) {
+  const { library, account } = useWeb3Context();
+
+  return useMemo(() => {
+    try {
+      console.log('ENTRA hook')
+      return getCoffeeHandlerContract(
+        library,
+        withSignerIfPossible ? account : undefined
+      );
+    } catch {
+      return null;
+    }
+  }, [account, library, withSignerIfPossible]);
+}
+

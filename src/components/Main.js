@@ -11,7 +11,8 @@ import {
   useExchangeReserves,
   useExchangeAllowance,
   useTotalSupply,
-  useGetCoffeeInformation
+  useGetCoffeeInformation,
+  useCoffeeHandlerContract
 } from "../hooks";
 import Container from "./Container";
 
@@ -274,6 +275,7 @@ export default function Main({
     account,
     TOKEN_ADDRESSES.DAI
   );
+  const coffeeHandlerContract = useCoffeeHandlerContract();
 
   // get token contracts
   const tokenContractWCC = useTokenContract(TOKEN_ADDRESSES.WCC);
@@ -583,14 +585,18 @@ export default function Main({
           .div(ethers.utils.bigNumberify(100))
       );
 
-    const estimatedGasLimit = await tokenContractWCC.estimate.burn(
-      parsedAmount
-    );
+    console.log('ENTRA ESTIMATE: ' + account);  
+    /*const estimatedGasLimit = await coffeeHandlerContract.estimate.burnTokens(
+      amount
+    );*/
+    console.log('Contrato: ' + coffeeHandlerContract);
 
-    return tokenContractWCC.burn(parsedAmount, {
-      gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
+    coffeeHandlerContract.burnTokens(amount,  {
+      gasLimit: calculateGasMargin(ethers.utils.bigNumberify(750000), GAS_MARGIN),
       gasPrice: estimatedGasPrice
     });
+
+    return true;
   }
 
   return (
@@ -602,6 +608,7 @@ export default function Main({
       unlock={unlock}
       validateBuy={validateBuy}
       buy={buy}
+      burn={burn}
       totalSupply={totalSupply}
       dollarize={dollarize}
       dollarPrice={dollarPrice}
