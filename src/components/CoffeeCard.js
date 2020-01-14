@@ -165,7 +165,7 @@ export default function CoffeeCard({
             setProvider={setProvider}
             account={account}
             setAccount={setAccount}
-          />
+          />   
           <Button
             as="a"
             href={`${process.env.REACT_APP_UNISWAP_URL}/swap?inputCurrency=${process.env.REACT_APP_WCC_ADDRESS}`}
@@ -174,17 +174,13 @@ export default function CoffeeCard({
             className="trade"
           >
             Swap
-          </Button>
+          </Button>       
         </div>
         <div className="button-wrapper">
-           <Redeem
+          <Redeem
             burn={burn}
             balanceCAFE={accountBalance}
-            ready={ready}  
-            unlock={unlock}
-            setCurrentTransaction={setCurrentTransaction}
-            setShowConnect={setShowConnect}
-           />
+          />
         </div>
         <p className="mt-3">
           <b>Redeem Coming Soon!</b>

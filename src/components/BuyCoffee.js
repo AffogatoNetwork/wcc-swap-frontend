@@ -148,7 +148,7 @@ export default function BuyCoffee({
 
   return (
     <>
-      <Button variant="primary" className="buy" onClick={openModal}>
+      <Button variant="primary" className="buy" onClick={openModal} width={1}>
         {contentStrings.buy}
       </Button>
 
