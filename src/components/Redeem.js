@@ -79,7 +79,7 @@ export default function Redeem({
   const [lastTransactionHash, setLastTransactionHash] = useState('')
 
   const [hasBurnt, setHasBurnt] = useState(false)
-  const [userAddress, setUserAddress] = useState('')
+  const [isBurning, setIsBurning] = useState(false)
 
   const pending = !!transactionHash
   const openModal = () => setShow(true);
@@ -96,6 +96,7 @@ export default function Redeem({
       library.waitForTransaction(transactionHash).then(() => {
         setLastTransactionHash(transactionHash)
         setTransactionHash('')
+        setIsBurning(false)
         setHasBurnt(true)
       })
     }
@@ -114,24 +115,7 @@ export default function Redeem({
 
   function link(hash) {
     return `https://etherscan.io/tx/${hash}`
-  }
-
-  function renderContent() {
-
-    return (
-        <Button
-          variant="primary"
-          disabled={false}
-          text={account === null ? 'Connect Wallet' : 'Redeem CAFE'}
-          type={'cta'}
-          onClick={() => {
-            setConnector('Injected', { suppressAndThrowErrors: true }).catch(() => {
-              setShowConnect(true)
-            })
-          }}
-        />
-    )    
-  }
+  }  
 
   function redeemCAFEAmount(){
       return (
@@ -187,47 +171,44 @@ export default function Redeem({
     )
   }
 
-
-
   function burningCAFE(){
     return (
         <Flex px="6%" mt="6%" flexDirection="column">
-            <Heading.h5>
-                {pending 
-                    ? 'Transaction is in progess'
-                    : `Transaction hash ${transactionHash} `
-                }
+            <Heading.h5>                
+                Transaction is in progess...
             </Heading.h5>
         </Flex>
     )
+  }
+
+  function finishRedeem(){
+      return (
+        <Flex px="6%" mt="6%" flexDirection="column">
+            <Heading.h5>
+                `Transaction hash ${lastTransactionHash} `
+            </Heading.h5>
+        </Flex>
+      )
   }
 
   function handleClick(){
       if (!hasPickedAmount && isValidEmail(email)){
         setNumberBurned(state.count);
         setHasPickedAmount(true);
-      }
-      else if (!hasBurnt) {
-        console.log('Entra qui: ' + numberBurned) ; 
+      }    
+      else if (!hasBurnt && !isBurning)  {
+        setIsBurning(true);
         burn(numberBurned.toString())
             .then(response => {
-                setTransactionHash(response.hash)
+                setTransactionHash(response.hash)             
             })
             .catch(error => {
                 console.error(error)                
             })
       }
       else{
-
-      }
-  }
-
-  function notCAFEToRedeem(){
-      return (
-        <Box width={1}>
-            <Heading.h5>Not CAFE to redeem</Heading.h5>
-        </Box>  
-      )
+        closeModal();
+      }      
   }
 
   return (
@@ -253,9 +234,11 @@ export default function Redeem({
         >          
           {!hasPickedAmount || !isValidEmail(email)
             ? redeemCAFEAmount()
-            : ( !hasBurnt
-                ? confirmRedeemCAFE()    
-                : burningCAFE()
+            : ( isBurning
+                ? burningCAFE()
+                : (!hasBurnt
+                   ? confirmRedeemCAFE()    
+                   : finishRedeem())
               )
           }            
           
@@ -264,6 +247,7 @@ export default function Redeem({
               size=""
               variant="danger"
               onClick={closeModal}
+              disabled={isBurning}
               width={1 / 2}
             >
               {contentStrings.cancel}
@@ -274,12 +258,15 @@ export default function Redeem({
               ml={3}
               width={1 / 2} 
               onClick={handleClick}
+              disabled={isBurning}
             >
              {!hasPickedAmount || !isValidEmail(email)   
-                ? `Redeem`
-                : ( !hasBurnt 
-                    ? `Confirm`
-                    : 'OK' )
+                ? 'Redeem'
+                : ( isBurning 
+                    ? 'Redeeming...'
+                    : (!hasBurnt 
+                    ? 'Confirm'
+                    : 'Finish'))
              }  
             </Button>
           </Flex>     

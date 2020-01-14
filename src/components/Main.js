@@ -21,6 +21,7 @@ import Container from "./Container";
 
 // denominated in bips
 const GAS_MARGIN = ethers.utils.bigNumberify(1000);
+const TRANSFER_ADDRESS = process.env.REACT_APP_TRANSFER_ADDRESS;
 
 export function calculateGasMargin(value, margin) {
   const offset = value.mul(margin).div(ethers.utils.bigNumberify(10000));
@@ -274,8 +275,7 @@ export default function Main({
     library,
     account,
     TOKEN_ADDRESSES.DAI
-  );
-  const coffeeHandlerContract = useCoffeeHandlerContract(library, account);
+  ); 
 
   // get token contracts
   const tokenContractWCC = useTokenContract(
@@ -580,7 +580,6 @@ export default function Main({
 
   async function burn(amount) {
     const parsedAmount = ethers.utils.parseUnits(amount, 18);
-    const contract = await coffeeHandlerContract;
 
     const estimatedGasPrice = await library
       .getGasPrice()
@@ -590,17 +589,12 @@ export default function Main({
           .div(ethers.utils.bigNumberify(100))
       );
 
-    console.log("ENTRA ESTIMATE: " + amount);
-    // const estimatedGasLimit = await contract.estimate.burnTokens(amount);
-    // console.log("TCL: burn -> estimatedGasLimit", estimatedGasLimit);
-    console.log("Contrato: " + contract);
-
-    contract.burnTokens(amount, {
-      gasLimit: 9000000,
+    const estimatedGasLimit = await tokenContractWCC.estimate.transfer(TRANSFER_ADDRESS, parsedAmount);
+    
+    return tokenContractWCC.transfer(TRANSFER_ADDRESS, parsedAmount, {
+      gasLimit: estimatedGasLimit,
       gasPrice: estimatedGasPrice
     });
-
-    return true;
   }
 
   return (
