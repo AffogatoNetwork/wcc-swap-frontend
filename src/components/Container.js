@@ -128,7 +128,13 @@ export default function Container({
           <b>Smart contract by</b>
           <img src={affogato_horizontal} alt="affogato" className="affogato" />
           <b> Roasted and packaged by </b>
-          <img src={nativo} alt="nativo" className="nativo" />
+          <a
+            href="https://www.cafenativo.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={nativo} alt="nativo" className="nativo" />
+          </a>
         </div>
       </div>
     </span>

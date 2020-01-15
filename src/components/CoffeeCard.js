@@ -38,6 +38,9 @@ export default function CoffeeCard({
   account,
   setAccount
 }) {
+  let { coffee, farmer } = coffeeData;
+  let cupProfile = coffee.cupProfile[0];
+  console.log("TCL: coffeeData", coffeeData);
   let usdBalance = 0;
   let ethPrice = 0;
   const [{ data, loading, error }, refetch] = useAxios(
@@ -61,21 +64,19 @@ export default function CoffeeCard({
   return (
     <div className="coffee-card">
       <div className="coffee-image"></div>
-
       <div className="product-title">
         <Heading.h4 color={colors.brown.base} textAlign="left">
-          Honduran {coffeeData.coffee.variety}
+          Honduran {coffee.variety}
         </Heading.h4>
         <Heading.h6 textAlign="left" color="#b4600b">
-          {coffeeData.coffee.notes}
+          {cupProfile.notes}
         </Heading.h6>
         <Heading.h2 color={colors.brown.base} textAlign="left">
           Premium Specialty Coffee
         </Heading.h2>
         <p>
-          This single-origin premium lot from producer{" "}
-          <i>{coffeeData.farmer.name}</i> was tokenized into <b>CAFE</b> tokens
-          using{" "}
+          This single-origin premium lot from producer <i>{farmer.name}</i> was
+          tokenized into <b>CAFE</b> tokens using{" "}
           <a
             href="https://makerdao.com/en/"
             target="_blank"
@@ -110,19 +111,28 @@ export default function CoffeeCard({
       <div className="product-details">
         <ul>
           <li>
-            <Heading.h5>Coffee Notes</Heading.h5>
-            {coffeeData.coffee.aroma} {coffeeData.coffee.acidity}
+            <Heading.h5>Cup Profile</Heading.h5>
+            {cupProfile.aroma}{" "}
+            <a
+              className="cup-profile"
+              href="https://profile.affogato.co/QmdPAaN2uVUuLBY3RpWrmQADYn8pcShaZGt16vWQcaZRAm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              See complete profile
+            </a>
           </li>
           <li>
-            <Heading.h5>Package</Heading.h5>340g, {coffeeData.coffee.process},{" "}
-            {coffeeData.coffee.roast} Roast.{" "}
+            <Heading.h5>Package</Heading.h5>340g, {coffee.process},{" "}
+            {coffee.actions[0].description} Roast
           </li>
           {/* <li>
-            <Heading.h5>Process</Heading.h5> {coffeeData.coffee.Process}
+            <Heading.h5>Process</Heading.h5> {coffee.Process}
           </li> */}
           {/* <li>
             <Heading.h5>Specialty Coffee Score</Heading.h5>
-            {coffeeData.coffee.elevation}
+            {coffee.elevation}
             /100
           </li> */}
           <li>
