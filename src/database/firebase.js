@@ -7,5 +7,5 @@ const firebaseApp = firebase.initializeApp({
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID
 });
 
-const db = firebaseApp.firestore();
-export { db };
+//const db = firebaseApp.firestore();
+export { firebaseApp };

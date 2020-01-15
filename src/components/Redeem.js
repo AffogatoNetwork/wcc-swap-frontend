@@ -75,8 +75,6 @@ export default function Redeem({
   const [hasBurnt, setHasBurnt] = useState(false)
   const [isBurning, setIsBurning] = useState(false)
 
-  const dbService = new FirebaseDBService();
-
   const openModal = () => setShow(true);
   const closeModal = () => {
         setShow(false);
@@ -215,14 +213,21 @@ export default function Redeem({
         number: numberBurned.toString(),
         shipped: false
     };
+    const dbService = new FirebaseDBService();  
 
-      const newRedeem = await dbService.addRedeem(tranHash, data);
-      if (!newRedeem.error){
-        console.error("CAFE tokens hve been redeem for user: " + account);
-      }
-      else{
-        console.error("Error redeeming CAFE for user: " + account);
-      }
+    const authenticate = await dbService.signIn();
+    if (!authenticate.error){
+        const newRedeem = await dbService.addRedeem(tranHash, data);
+        if (!newRedeem.error){
+            console.log("CAFE tokens have been redeem for user: " + account);
+        }
+        else{
+            console.error("Error redeeming CAFE for user: " + account);
+        }
+    }
+    else{
+        console.error('Error Autheticating to firebase: ' + authenticate.error);
+    }
   }
 
   return (
