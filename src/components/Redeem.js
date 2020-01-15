@@ -86,12 +86,12 @@ export default function Redeem({
   
   useEffect(() => {
     if (transactionHash) {
-      library.waitForTransaction(transactionHash).then(() => {
+      library.waitForTransaction(transactionHash).then(() => { 
         setLastTransactionHash(transactionHash)
         setTransactionHash('')
         setIsBurning(false)
         setHasBurnt(true)
-        registerRedeem(transactionHash);
+        
       })
     }
   })
@@ -194,7 +194,8 @@ export default function Redeem({
         setIsBurning(true);
         burn(numberBurned.toString())
             .then(response => {
-                setTransactionHash(response.hash)             
+                setTransactionHash(response.hash);
+                registerRedeem(response.hash);           
             })
             .catch(error => {
                 console.error(error)                
