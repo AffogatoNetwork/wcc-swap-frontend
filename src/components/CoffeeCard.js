@@ -40,7 +40,6 @@ export default function CoffeeCard({
 }) {
   let { coffee, farmer } = coffeeData;
   let cupProfile = coffee.cupProfile[0];
-  console.log("TCL: coffeeData", coffeeData);
   let usdBalance = 0;
   let ethPrice = 0;
   const [{ data, loading, error }, refetch] = useAxios(
@@ -187,14 +186,14 @@ export default function CoffeeCard({
           </Button>
         </div>
         <div className="button-wrapper">
-           <Redeem
+          <Redeem
             burn={burn}
             balanceCAFE={accountBalance}
-            ready={ready}  
+            ready={ready}
             unlock={unlock}
             setCurrentTransaction={setCurrentTransaction}
             setShowConnect={setShowConnect}
-           />
+          />
         </div>
         <p className="mt-3">
           <b>Redeem Coming Soon!</b>
