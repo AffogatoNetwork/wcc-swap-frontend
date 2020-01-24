@@ -29,7 +29,7 @@ switch (process.env.REACT_APP_NETWORK) {
 }
 
 const web3Connect = new Web3Connect.Core({
-  network: "mainnet", // optional
+  network: network, // optional
   providerOptions: {
     walletconnect: {
       package: WalletConnectProvider, // required
