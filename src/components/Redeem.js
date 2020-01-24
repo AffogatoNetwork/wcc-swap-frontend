@@ -17,13 +17,12 @@ import {
     Text 
 } from "rimble-ui";
 import RedeemForm from './RedeemForm'
-import { amountFormatter } from '../factory'
 
 import IncrementToken from './IncrementToken'
 import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
 import { isValidEmail } from "../utils/utils"
-import Confirmed from './Confirmed';
+import FirebaseDBService from "../services/firebaseService";
 //import Confetti from 'react-dom-confetti'
 
 const config = {
@@ -59,11 +58,6 @@ export function Controls({ theme, type }) {
 export default function Redeem({
   burn,
   balanceCAFE = 0,
-  ready,
-  unlock,
-  setCurrentTransaction,
-  setShowConnect,
-  closeCheckout
 }) {
   const { library, account, setConnector } = useWeb3Context()
   const [state] = useAppContext()
@@ -81,7 +75,6 @@ export default function Redeem({
   const [hasBurnt, setHasBurnt] = useState(false)
   const [isBurning, setIsBurning] = useState(false)
 
-  const pending = !!transactionHash
   const openModal = () => setShow(true);
   const closeModal = () => {
         setShow(false);
@@ -93,11 +86,12 @@ export default function Redeem({
   
   useEffect(() => {
     if (transactionHash) {
-      library.waitForTransaction(transactionHash).then(() => {
+      library.waitForTransaction(transactionHash).then(() => { 
         setLastTransactionHash(transactionHash)
         setTransactionHash('')
         setIsBurning(false)
         setHasBurnt(true)
+        
       })
     }
   })
@@ -200,7 +194,8 @@ export default function Redeem({
         setIsBurning(true);
         burn(numberBurned.toString())
             .then(response => {
-                setTransactionHash(response.hash)             
+                setTransactionHash(response.hash);
+                registerRedeem(response.hash);           
             })
             .catch(error => {
                 console.error(error)                
@@ -209,6 +204,31 @@ export default function Redeem({
       else{
         closeModal();
       }      
+  }
+
+  async function registerRedeem(tranHash){
+    const data = {
+        transactionHash: tranHash,
+        address: account,
+        email: email,
+        number: numberBurned.toString(),
+        shipped: false
+    };
+    const dbService = new FirebaseDBService();  
+
+    const authenticate = await dbService.signIn();
+    if (!authenticate.error){
+        const newRedeem = await dbService.addRedeem(tranHash, data);
+        if (!newRedeem.error){
+            console.log("CAFE tokens have been redeem for user: " + account);
+        }
+        else{
+            console.error("Error redeeming CAFE for user: " + account);
+        }
+    }
+    else{
+        console.error('Error Autheticating to firebase: ' + authenticate.error);
+    }
   }
 
   return (

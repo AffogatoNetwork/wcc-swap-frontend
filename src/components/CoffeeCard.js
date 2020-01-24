@@ -186,14 +186,7 @@ export default function CoffeeCard({
           </Button>
         </div>
         <div className="button-wrapper">
-          <Redeem
-            burn={burn}
-            balanceCAFE={accountBalance}
-            ready={ready}
-            unlock={unlock}
-            setCurrentTransaction={setCurrentTransaction}
-            setShowConnect={setShowConnect}
-          />
+          <Redeem burn={burn} balanceCAFE={accountBalance} />
         </div>
         <p className="mt-3">
           <b>Redeem Coming Soon!</b>
