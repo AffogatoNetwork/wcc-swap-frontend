@@ -80,7 +80,7 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
   const [isBurning, setIsBurning] = useState(false);
 
   const [delivery, setDelivery] = useState("denver");
-  const [coffeeType, setCoffeeType] = useState("whole");
+  const [coffeeType, setCoffeeType] = useState("Whole Bean");
 
   const openModal = () => setShow(true);
   const closeModal = () => {
@@ -156,14 +156,14 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
           </Text.span>
         </Box>
         <Box width={1} className="type">
-          <Field label="Bean Type" width={"100%"} mb="3%">
+          <Field label="Select Grind" width={"100%"} mb="3%">
             <Select
               value={coffeeType}
               onChange={handleSelectChange}
               required={true}
               options={[
-                { value: "whole", label: "Whole Beans" },
-                { value: "grounded", label: "Grounded" }
+                { value: "Whole Bean", label: "Whole Bean" },
+                { value: "Ground", label: "Ground" }
               ]}
             />
           </Field>
@@ -280,7 +280,7 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
       transactionHash: tranHash,
       address: account,
       email: email,
-      number: numberBurned.toString(),
+      amount: numberBurned.toString(),
       shipped: false,
       coffeeType: coffeeType,
       delivery: delivery
