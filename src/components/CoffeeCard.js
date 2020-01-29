@@ -151,7 +151,8 @@ export default function CoffeeCard({
               contentStrings.available
             }`}
         </Heading.h5>
-        <div className="button-wrapper">
+        <div className="button-wrapper mb-3">
+          <Redeem burn={burn} balanceCAFE={accountBalance} />
           <Checkout
             selectedTokenSymbol={selectedTokenSymbol}
             setSelectedTokenSymbol={setSelectedTokenSymbol}
@@ -179,18 +180,12 @@ export default function CoffeeCard({
             as="a"
             href={`${process.env.REACT_APP_UNISWAP_URL}/swap?inputCurrency=${process.env.REACT_APP_WCC_ADDRESS}`}
             target="\_blank"
-            variant="custom"
+            variant="primary"
             className="trade"
           >
             Swap
           </Button>
         </div>
-        <div className="button-wrapper">
-          <Redeem burn={burn} balanceCAFE={accountBalance} />
-        </div>
-        <p className="mt-3">
-          <b>Redeem Coming Soon!</b>
-        </p>
       </div>
     </div>
   );

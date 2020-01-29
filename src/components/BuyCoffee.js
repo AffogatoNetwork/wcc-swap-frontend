@@ -159,7 +159,7 @@ export default function BuyCoffee({
           borderRadius={7}
           borderColor={colors.brown.light}
           boxShadow="1"
-          className="coffeeModal"
+          className="coffeeModal buy"
         >
           <Flex px="6%" mt="6%" flexDirection="column">
             <Heading.h3 variant="primary" mb="3%">
@@ -167,7 +167,7 @@ export default function BuyCoffee({
             </Heading.h3>
             <Box width={1}>
               <Field label="Choose the amount" width={"100%"} mb="2%">
-                <IncrementToken />
+                <IncrementToken required={true} />
               </Field>
             </Box>
             <Box width={1}>
@@ -175,7 +175,13 @@ export default function BuyCoffee({
                 {ethToUSD ? `$${UsdTotal()} USD` : "$0.00"}
               </Heading.h3>
 
-              <Text.span color="#b4600b" ml="" className="available">
+              <Text.span
+                color="#b4600b"
+                ml=""
+                className="available"
+                fontWeight={"bold"}
+                fontSize="1"
+              >
                 {reserveWCCToken && totalSupply
                   ? `${amountFormatter(
                       reserveWCCToken,
@@ -242,7 +248,7 @@ export default function BuyCoffee({
           </Flex>
           <Flex px={"6%"} py={2} mt="3%" mb="10px" justifyContent={"center"}>
             <Heading.h5>
-              Powered by
+              Powered by{" "}
               <a
                 href="https://uniswap.io/"
                 className="uniswap ml-2"
