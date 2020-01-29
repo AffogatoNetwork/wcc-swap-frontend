@@ -79,7 +79,8 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
   const [hasBurnt, setHasBurnt] = useState(false);
   const [isBurning, setIsBurning] = useState(false);
 
-  const [delivery, setDelivery] = useState("");
+  const [delivery, setDelivery] = useState("denver");
+  const [coffeeType, setCoffeeType] = useState("whole");
 
   const openModal = () => setShow(true);
   const closeModal = () => {
@@ -112,6 +113,10 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
 
   let handleOptionChange = changeEvent => {
     setDelivery(changeEvent.target.value);
+  };
+
+  let handleSelectChange = changeEvent => {
+    setCoffeeType(changeEvent.target.value);
   };
 
   function link(hash) {
@@ -153,6 +158,8 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
         <Box width={1} className="type">
           <Field label="Bean Type" width={"100%"} mb="3%">
             <Select
+              value={coffeeType}
+              onChange={handleSelectChange}
               required={true}
               options={[
                 { value: "whole", label: "Whole Beans" },
@@ -162,19 +169,20 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
           </Field>
         </Box>
         <Box width={1}>
-          <Field label="Enter email address" width={"100%"} mb="2%">
+          <Field label="Enter email address (required)" width={"100%"} mb="2%">
             <Input
               type="email"
               required={true}
               placeholder="your@email.com"
               width={"100%"}
               color={emailBorderColor}
+              borderColor={isValidEmail(email) ? "#ccc" : colors.red}
               onChange={handleEmailChange}
             />
           </Field>
         </Box>
         <Box width={1} mt="2%">
-          <Field label="Delivery" width="100%">
+          <Field label="Delivery" width="100%" mb="1%">
             <div required={true}>
               <Radio
                 label="ETH Denver (Free)"
@@ -229,7 +237,17 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
   function finishRedeem() {
     return (
       <Flex px="6%" mt="6%" flexDirection="column">
-        <Heading.h5>`Transaction hash ${lastTransactionHash} `</Heading.h5>
+        <Heading.h5>Transaction Details </Heading.h5>
+        <p>
+          <a
+            href={`${process.env.REACT_APP_ETHERSCAN_URL}/tx/${lastTransactionHash}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="affogato-link"
+          >
+            See on Etherscan
+          </a>
+        </p>
       </Flex>
     );
   }
@@ -239,15 +257,19 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
       setNumberBurned(state.count);
       setHasPickedAmount(true);
     } else if (!hasBurnt && !isBurning) {
-      setIsBurning(true);
-      burn(numberBurned.toString())
-        .then(response => {
-          setTransactionHash(response.hash);
-          registerRedeem(response.hash);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      if (isValidEmail(email)) {
+        setIsBurning(true);
+        burn(numberBurned.toString())
+          .then(response => {
+            setTransactionHash(response.hash);
+            registerRedeem(response.hash);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      } else {
+        setEmailBorderColor(colors.red);
+      }
     } else {
       closeModal();
     }
@@ -259,7 +281,9 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
       address: account,
       email: email,
       number: numberBurned.toString(),
-      shipped: false
+      shipped: false,
+      coffeeType: coffeeType,
+      delivery: delivery
     };
     const dbService = new FirebaseDBService();
 
@@ -306,7 +330,7 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
             ? confirmRedeemCAFE()
             : finishRedeem()}
 
-          <Flex px={"6%"} py={2} mt="3%" mb="10px" justifyContent={"flex-end"}>
+          <Flex px={"6%"} py={2} mt="0px" mb="10px" justifyContent={"flex-end"}>
             <Button.Outline
               size=""
               variant="danger"
@@ -332,22 +356,6 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
                 ? "Confirm"
                 : "Finish"}
             </Button>
-          </Flex>
-          <Flex px={"6%"} py={2} mt="3%" mb="10px" justifyContent={"center"}>
-            <Heading.h5>
-              Powered by{" "}
-              <a
-                href="https://uniswap.io/"
-                className="uniswap ml-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span role="img" aria-label="unicorn emoji">
-                  🦄
-                </span>
-                Uniswap
-              </a>
-            </Heading.h5>
           </Flex>
         </Card>
       </Modal>

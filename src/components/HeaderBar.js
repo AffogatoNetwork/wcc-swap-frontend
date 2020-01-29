@@ -57,6 +57,8 @@ export default function HeaderBar({
     if (provider) {
       setConnection();
     }
+
+    return function cleanUp() {};
   }, [account, networkId, provider, setAccount, setShowConnect, web3Connect]);
 
   return (

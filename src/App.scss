@@ -98,6 +98,16 @@ html {
   }
 }
 
+.affogato-link {
+  font-weight: bold;
+  color: #b4600b;
+
+  &:hover {
+    color: #743e08;
+    text-decoration: none;
+  }
+}
+
 @media screen and (min-width: $break-small) {
   .App {
     text-align: center;
@@ -133,6 +143,7 @@ html {
     .btn {
       border-radius: 6px;
       padding: 0.75rem;
+      height: 48px;
     }
 
     .wallet-details {
@@ -181,6 +192,7 @@ html {
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 48px;
 
       p {
         color: #2b2b2b;
