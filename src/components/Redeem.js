@@ -229,7 +229,7 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
   function burningCAFE() {
     return (
       <Flex px="6%" mt="6%" flexDirection="column">
-        <Heading.h5>Transaction is in progess...</Heading.h5>
+        <Heading.h5>Transaction is in progress...</Heading.h5>
       </Flex>
     );
   }
