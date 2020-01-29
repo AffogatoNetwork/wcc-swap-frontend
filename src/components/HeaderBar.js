@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import affogato_horizontal from "../assets/affogato-horizontal.png";
 import icon from "../assets/icon.png";
-import { addressShortener } from "../utils/utils";
+import addressShortener from "../utils/utils";
 import "../App.scss";
 import { ethers, utils } from "ethers";
 
@@ -57,6 +57,8 @@ export default function HeaderBar({
     if (provider) {
       setConnection();
     }
+
+    return function cleanUp() {};
   }, [account, networkId, provider, setAccount, setShowConnect, web3Connect]);
 
   return (

@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useCount } from './Checkout'
+import React from "react";
+import styled from "styled-components";
+import { useCount } from "./Checkout";
 
 const SelectFrame = styled.div`
   display: flex;
@@ -9,20 +9,21 @@ const SelectFrame = styled.div`
   justify-content: center;
   width: 100%;
   border: 1px solid;
-  border-radius: 8px;
-  border-color: #D2CECE;
+  border-radius: 4px;
+  border-color: #d2cece;
   color: #000;
   background-color: #fff;
-  padding: 8px 12px 8px 12px;  
+  padding: 8px 12px 8px 12px;
   font-weight: 600;
+  height: 48px;
   /* margin-top: 0.5rem;
   margin-bottom: 0.5rem; */
-`
+`;
 
 const SelectMenu = styled.div`
   font-size: 16px;
   /* margin: 1rem; */
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   width: 100%;
   /* height: 48px; */
@@ -35,7 +36,7 @@ const SelectMenu = styled.div`
   border: none;
   /* padding: 0px 1rem 0px 1rem; */
   text-align: center;
-`
+`;
 
 const IncrementButton = styled.span`
   cursor: pointer;
@@ -47,21 +48,21 @@ const IncrementButton = styled.span`
   align-items: center;
   justify-content: ${props => props.justify};
   justify-content: center;
-`
+`;
 
 export default function IncrementToken({ initialValue, max }) {
-  const [count, incrementCount, decrementCount] = useCount(initialValue, max)
+  const [count, incrementCount, decrementCount] = useCount(initialValue, max);
 
   return (
     <SelectFrame>
-      <IncrementButton justify={'flex-start'} onClick={decrementCount}>
+      <IncrementButton justify={"flex-start"} onClick={decrementCount}>
         -
       </IncrementButton>
       <SelectMenu>{count}</SelectMenu>
 
-      <IncrementButton justify={'flex-end'} onClick={incrementCount}>
+      <IncrementButton justify={"flex-end"} onClick={incrementCount}>
         +
       </IncrementButton>
     </SelectFrame>
-  )
+  );
 }

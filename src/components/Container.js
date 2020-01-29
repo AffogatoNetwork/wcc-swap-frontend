@@ -18,6 +18,7 @@ export default function Container({
   unlock,
   validateBuy,
   buy,
+  burn,
   totalSupply,
   dollarize,
   dollarPrice,
@@ -79,6 +80,8 @@ export default function Container({
           unlock={unlock}
           validateBuy={validateBuy}
           buy={buy}
+          burn={burn}
+          accountBalance={accountBalance}
           totalSupply={totalSupply}
           reserveWCCToken={reserveWCCToken}
           reserveWCCETH={reserveWCCETH}

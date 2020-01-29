@@ -11,7 +11,8 @@ import {
   useExchangeReserves,
   useExchangeAllowance,
   useTotalSupply,
-  useGetCoffeeInformation
+  useGetCoffeeInformation,
+  useCoffeeHandlerContract
 } from "../hooks";
 import Container from "./Container";
 
@@ -20,6 +21,7 @@ import Container from "./Container";
 
 // denominated in bips
 const GAS_MARGIN = ethers.utils.bigNumberify(1000);
+const TRANSFER_ADDRESS = process.env.REACT_APP_TRANSFER_ADDRESS;
 
 export function calculateGasMargin(value, margin) {
   const offset = value.mul(margin).div(ethers.utils.bigNumberify(10000));
@@ -273,10 +275,14 @@ export default function Main({
     library,
     account,
     TOKEN_ADDRESSES.DAI
-  );
+  ); 
 
   // get token contracts
-  const tokenContractWCC = useTokenContract(TOKEN_ADDRESSES.WCC);
+  const tokenContractWCC = useTokenContract(
+    TOKEN_ADDRESSES.WCC,
+    library,
+    account
+  );
   const tokenContractSelectedToken = useTokenContract(
     TOKEN_ADDRESSES[selectedTokenSymbol]
   );
@@ -583,12 +589,10 @@ export default function Main({
           .div(ethers.utils.bigNumberify(100))
       );
 
-    const estimatedGasLimit = await tokenContractWCC.estimate.burn(
-      parsedAmount
-    );
-
-    return tokenContractWCC.burn(parsedAmount, {
-      gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
+    const estimatedGasLimit = await tokenContractWCC.estimate.transfer(TRANSFER_ADDRESS, parsedAmount);
+    
+    return tokenContractWCC.transfer(TRANSFER_ADDRESS, parsedAmount, {
+      gasLimit: estimatedGasLimit,
       gasPrice: estimatedGasPrice
     });
   }
@@ -602,6 +606,7 @@ export default function Main({
       unlock={unlock}
       validateBuy={validateBuy}
       buy={buy}
+      burn={burn}
       totalSupply={totalSupply}
       dollarize={dollarize}
       dollarPrice={dollarPrice}
