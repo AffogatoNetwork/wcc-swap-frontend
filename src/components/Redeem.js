@@ -194,13 +194,13 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
               />
               <Radio
                 disabled
-                label="U.S. (Not Available Yet) "
+                label="U.S. (Coming Soon) "
                 my={2}
                 theme={affogatoTheme}
               />
               <Radio
                 disabled
-                label="International (Not Available Yet)"
+                label="International (Coming Soon)"
                 my={2}
                 theme={affogatoTheme}
               />
