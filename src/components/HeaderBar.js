@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import affogato_horizontal from "../assets/affogato-horizontal.png";
 import icon from "../assets/icon.png";
-import { addressShortener } from "../utils/utils";
+import addressShortener from "../utils/utils";
 import "../App.scss";
 import { ethers, utils } from "ethers";
 
@@ -21,16 +21,9 @@ export default function HeaderBar({
   const [networkId, setNetworkId] = useState();
   let defaultProvider = ethers.getDefaultProvider("homestead");
 
-  // subscribe to connect
-  web3Connect.on("connect", connection => {
-    let provider = new ethers.providers.Web3Provider(connection);
-    setProvider(provider);
-  });
-
-  // subscribe to close
-  web3Connect.on("close", () => {
-    console.log("Web3Connect Modal Closed"); // modal has closed
-  });
+  // if (web3Connect.cachedProvider && !account) {
+  //   web3Connect.toggleModal();
+  // }
 
   if (account) {
     defaultProvider.lookupAddress(account).then(function(address) {
@@ -57,6 +50,8 @@ export default function HeaderBar({
     if (provider) {
       setConnection();
     }
+
+    return function cleanUp() {};
   }, [account, networkId, provider, setAccount, setShowConnect, web3Connect]);
 
   return (

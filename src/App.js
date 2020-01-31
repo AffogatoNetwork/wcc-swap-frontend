@@ -9,6 +9,7 @@ import Web3Connect from "web3connect";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Portis from "@portis/web3";
 import Fortmatic from "fortmatic";
+import { ethers } from "ethers";
 
 require("dotenv").config();
 
@@ -29,7 +30,8 @@ switch (process.env.REACT_APP_NETWORK) {
 }
 
 const web3Connect = new Web3Connect.Core({
-  network: "mainnet", // optional
+  network: network, // optional
+  cacheProvider: true,
   providerOptions: {
     walletconnect: {
       package: WalletConnectProvider, // required
@@ -70,6 +72,22 @@ const connectors = { Network, Injected };
 function App() {
   const [account, setAccount] = useState();
   const [provider, setProvider] = useState();
+
+  // subscribe to connect
+  web3Connect.on("connect", connection => {
+    let provider = new ethers.providers.Web3Provider(connection);
+    setProvider(provider);
+  });
+
+  // subscribe to close
+  web3Connect.on("close", () => {
+    console.log("Web3Connect Modal Closed"); // modal has closed
+  });
+
+  if (web3Connect.cachedProvider && !provider) {
+    web3Connect.toggleModal();
+  }
+
   // state = {
   //   allTokens: 0,
   //   storageValue: 0,

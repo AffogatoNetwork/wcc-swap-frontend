@@ -4,6 +4,7 @@ import contentStrings from "../constants/Localization";
 import colors from "../theme/colors";
 import { amountFormatter } from "../factory";
 import Checkout from "./Checkout";
+import Redeem from "./Redeem";
 import "../App.scss";
 import drip from "../assets/drip.png";
 import pour from "../assets/pour.png";
@@ -19,6 +20,8 @@ export default function CoffeeCard({
   unlock,
   validateBuy,
   buy,
+  burn,
+  accountBalance,
   totalSupply,
   reserveWCCToken,
   reserveWCCETH,
@@ -37,7 +40,6 @@ export default function CoffeeCard({
 }) {
   let { coffee, farmer } = coffeeData;
   let cupProfile = coffee.cupProfile[0];
-  console.log("TCL: coffeeData", coffeeData);
   let usdBalance = 0;
   let ethPrice = 0;
   const [{ data, loading, error }, refetch] = useAxios(
@@ -149,7 +151,8 @@ export default function CoffeeCard({
               contentStrings.available
             }`}
         </Heading.h5>
-        <div className="button-wrapper">
+        <div className="button-wrapper mb-3">
+          <Redeem burn={burn} balanceCAFE={accountBalance} />
           <Checkout
             selectedTokenSymbol={selectedTokenSymbol}
             setSelectedTokenSymbol={setSelectedTokenSymbol}
@@ -177,15 +180,12 @@ export default function CoffeeCard({
             as="a"
             href={`${process.env.REACT_APP_UNISWAP_URL}/swap?inputCurrency=${process.env.REACT_APP_WCC_ADDRESS}`}
             target="\_blank"
-            variant="custom"
+            variant="primary"
             className="trade"
           >
             Swap
           </Button>
         </div>
-        <p className="mt-3">
-          <b>Redeem Coming Soon!</b>
-        </p>
       </div>
     </div>
   );

@@ -67,7 +67,16 @@ html {
   .available {
     float: right;
   }
+}
 
+.type {
+  div,
+  select {
+    width: 100%;
+  }
+}
+
+.buy {
   label {
     div {
       width: 100%;
@@ -85,6 +94,16 @@ html {
 
   &:hover {
     color: #fe6dde;
+    text-decoration: none;
+  }
+}
+
+.affogato-link {
+  font-weight: bold;
+  color: #b4600b;
+
+  &:hover {
+    color: #743e08;
     text-decoration: none;
   }
 }
@@ -124,6 +143,7 @@ html {
     .btn {
       border-radius: 6px;
       padding: 0.75rem;
+      height: 48px;
     }
 
     .wallet-details {
@@ -172,6 +192,7 @@ html {
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 48px;
 
       p {
         color: #2b2b2b;
@@ -625,28 +646,35 @@ html {
 
       button,
       a {
-        width: 50%;
-        margin-top: 20px;
+        width: 100%;
+        margin-top: 10px;
       }
 
       .button-wrapper {
-        display: flex;
-        .buy {
-          width: 50%;
+        display: grid;
+        grid-template-columns: 100px 100px;
+        grid-template-rows: auto auto;
+        grid-column-gap: 5px;
+        margin-bottom: 20px;
+
+        .redeem {
+          grid-column-start: -1;
+          grid-column-end: 1;
+          width: 100%;
           display: flex;
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
+        }
+
+        .buy {
+          width: 100%;
+          display: flex;
+
           span {
             margin-right: 2px;
           }
         }
         .trade {
-          width: 50%;
+          width: 100%;
           display: flex;
-          background: #fe6dde;
-          color: white;
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
 
           span {
             margin-right: 2px;
