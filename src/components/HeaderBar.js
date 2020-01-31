@@ -21,16 +21,9 @@ export default function HeaderBar({
   const [networkId, setNetworkId] = useState();
   let defaultProvider = ethers.getDefaultProvider("homestead");
 
-  // subscribe to connect
-  web3Connect.on("connect", connection => {
-    let provider = new ethers.providers.Web3Provider(connection);
-    setProvider(provider);
-  });
-
-  // subscribe to close
-  web3Connect.on("close", () => {
-    console.log("Web3Connect Modal Closed"); // modal has closed
-  });
+  // if (web3Connect.cachedProvider && !account) {
+  //   web3Connect.toggleModal();
+  // }
 
   if (account) {
     defaultProvider.lookupAddress(account).then(function(address) {

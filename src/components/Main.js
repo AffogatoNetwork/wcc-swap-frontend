@@ -254,6 +254,7 @@ export default function Main({
   const [selectedTokenSymbol, setSelectedTokenSymbol] = useState(
     TOKEN_SYMBOLS.ETH
   );
+
   //TODO: Hacer cambios aca
   // get exchange contracts
   if (provider) {
@@ -275,7 +276,7 @@ export default function Main({
     library,
     account,
     TOKEN_ADDRESSES.DAI
-  ); 
+  );
 
   // get token contracts
   const tokenContractWCC = useTokenContract(
@@ -589,8 +590,11 @@ export default function Main({
           .div(ethers.utils.bigNumberify(100))
       );
 
-    const estimatedGasLimit = await tokenContractWCC.estimate.transfer(TRANSFER_ADDRESS, parsedAmount);
-    
+    const estimatedGasLimit = await tokenContractWCC.estimate.transfer(
+      TRANSFER_ADDRESS,
+      parsedAmount
+    );
+
     return tokenContractWCC.transfer(TRANSFER_ADDRESS, parsedAmount, {
       gasLimit: estimatedGasLimit,
       gasPrice: estimatedGasPrice

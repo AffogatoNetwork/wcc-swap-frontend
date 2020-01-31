@@ -51,7 +51,10 @@ export default function Container({
     return <Loading />;
   }
   // TODO: Change loader to contexct
-  if (loading) {
+  if (
+    loading ||
+    (web3Connect.cachedProvider && !provider && !(provider instanceof Promise))
+  ) {
     return <Loading />;
   }
   if (error) return <Heading.h3>Error...</Heading.h3>;
