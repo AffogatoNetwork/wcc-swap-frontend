@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useWeb3Context } from "web3-react";
-import { ethers } from "ethers";
+import { ethers, utils } from "ethers";
 
 import { TOKEN_SYMBOLS, TOKEN_ADDRESSES, ERROR_CODES } from "../factory";
 import {
@@ -291,13 +291,22 @@ export default function Main({
   // get balances
   const balanceETH = useAddressBalance(account, TOKEN_ADDRESSES.ETH);
   const balanceWCC = useAddressBalance(account, TOKEN_ADDRESSES.WCC);
+  let balanceBurn = useAddressBalance(
+    process.env.REACT_APP_TRANSFER_ADDRESS,
+    TOKEN_ADDRESSES.WCC
+  );
+
   const balanceSelectedToken = useAddressBalance(
     account,
     TOKEN_ADDRESSES[selectedTokenSymbol]
   );
 
   // totalsupply
-  const totalSupply = useTotalSupply(tokenContractWCC);
+  let totalSupply = useTotalSupply(tokenContractWCC);
+  if (balanceBurn) {
+    balanceBurn = utils.formatEther(balanceBurn);
+    totalSupply = totalSupply - balanceBurn;
+  }
 
   //coffee Hash
   const coffeeHash = useGetCoffeeInformation(tokenContractWCC);
