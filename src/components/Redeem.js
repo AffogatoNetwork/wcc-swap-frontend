@@ -162,7 +162,7 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
               onChange={handleSelectChange}
               required={true}
               options={[
-                { value: "Whole Bean", label: "Whole Bean" },
+                { value: "Whole Bean", label: "Whole Bean (Recommended)" },
                 { value: "Ground", label: "Ground" }
               ]}
             />
