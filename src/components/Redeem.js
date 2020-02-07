@@ -185,7 +185,7 @@ export default function Redeem({ burn, balanceCAFE = 0 }) {
           <Field label="Delivery" width="100%" mb="1%">
             <div required={true}>
               <Radio
-                label="ETH Denver (Free)"
+                label="ETH Denver, Honduras & DNSummit (Free)"
                 value="denver"
                 checked={delivery === "denver"}
                 my={2}
