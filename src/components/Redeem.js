@@ -62,8 +62,8 @@ export function Controls({ theme, type }) {
   );
 }
 
-export default function Redeem({ burn, balanceCAFE = 0 }) {
-  const { library, account, setConnector } = useWeb3Context();
+export default function Redeem({ burn, balanceCAFE = 0, account }) {
+  const { library, setConnector } = useWeb3Context();
   const [state] = useAppContext();
   const [show, setShow] = useState(false);
 

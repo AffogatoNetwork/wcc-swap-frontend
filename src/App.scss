@@ -667,19 +667,21 @@ html {
         .buy {
           width: 100%;
           display: flex;
+          grid-column-start: -1;
+          grid-column-end: 1;
 
           span {
             margin-right: 2px;
           }
         }
-        .trade {
-          width: 100%;
-          display: flex;
+        // .trade {
+        //   width: 100%;
+        //   display: flex;
 
-          span {
-            margin-right: 2px;
-          }
-        }
+        //   span {
+        //     margin-right: 2px;
+        //   }
+        // }
       }
     }
   }
