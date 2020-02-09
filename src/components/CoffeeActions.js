@@ -75,7 +75,7 @@ export default function CoffeeActions({
         setAccount={setAccount}
       />
       <div className="button-wrapper">
-        <Button
+        {/* <Button
           as="a"
           href={`${process.env.REACT_APP_UNISWAP_URL}/swap?inputCurrency=${process.env.REACT_APP_WCC_ADDRESS}`}
           target="\_blank"
@@ -83,7 +83,7 @@ export default function CoffeeActions({
           className="sell"
         >
           Swap
-        </Button>
+        </Button> */}
       </div>
       {/* <RedeemCoffee /> */}
     </div>

@@ -85,7 +85,7 @@ export default function CoffeeCard({
           </a>{" "}
           as collateral and added to a pool in{" "}
           <a
-            href="https://uniswap.io/"
+            href={`${process.env.REACT_APP_UNISWAP_URL}/swap?inputCurrency=${process.env.REACT_APP_WCC_ADDRESS}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -152,7 +152,7 @@ export default function CoffeeCard({
             }`}
         </Heading.h5>
         <div className="button-wrapper mb-3">
-          <Redeem burn={burn} balanceCAFE={accountBalance} />
+          <Redeem burn={burn} balanceCAFE={accountBalance} account={account} />
           <Checkout
             selectedTokenSymbol={selectedTokenSymbol}
             setSelectedTokenSymbol={setSelectedTokenSymbol}
@@ -176,7 +176,7 @@ export default function CoffeeCard({
             account={account}
             setAccount={setAccount}
           />
-          <Button
+          {/* <Button
             as="a"
             href={`${process.env.REACT_APP_UNISWAP_URL}/swap?inputCurrency=${process.env.REACT_APP_WCC_ADDRESS}`}
             target="\_blank"
@@ -184,7 +184,7 @@ export default function CoffeeCard({
             className="trade"
           >
             Swap
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
