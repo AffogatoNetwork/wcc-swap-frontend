@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useWeb3Context } from "web3-react";
 import { utils } from "ethers";
 import { Link } from "react-router-dom";
+import SelectUSState from "react-select-us-states";
 
 import { useAppContext } from "../context";
 import {
@@ -16,7 +17,8 @@ import {
   Modal,
   Text,
   Radio,
-  Select
+  Select,
+  Textarea
 } from "rimble-ui";
 import RedeemForm from "./RedeemForm";
 
@@ -82,6 +84,9 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
   const [delivery, setDelivery] = useState("denver");
   const [coffeeType, setCoffeeType] = useState("Whole Bean");
 
+  const [USState, setUSState] = useState("AL");
+  const [deliveryAddressUS, setDeliveryAddressUS] = useState("");
+
   const openModal = () => setShow(true);
   const closeModal = () => {
     setShow(false);
@@ -115,8 +120,17 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
     setDelivery(changeEvent.target.value);
   };
 
+  let handleDeliveryAddressUSChange = changeEvent => {
+    setDeliveryAddressUS(changeEvent.target.value);
+  };
+
   let handleSelectChange = changeEvent => {
     setCoffeeType(changeEvent.target.value);
+  };
+
+  let handleUSStateChange = USState => {
+    console.log("TCL: Redeem -> changeEvent", USState);
+    setUSState(USState);
   };
 
   function link(hash) {
@@ -193,43 +207,96 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
                 onChange={handleOptionChange}
               />
               <Radio
-                disabled
-                label="U.S. (Coming Soon) "
+                label="U.S. ($7 Shipping Fee) "
                 my={2}
+                value="US"
                 theme={affogatoTheme}
+                checked={delivery === "US"}
+                onChange={handleOptionChange}
               />
               <Radio
-                disabled
-                label="International (Coming Soon)"
+                label="International"
                 my={2}
+                value="international"
+                checked={delivery === "international"}
                 theme={affogatoTheme}
+                onChange={handleOptionChange}
               />
             </div>
           </Field>
         </Box>
+        {delivery === "US" ? (
+          <>
+            <Box width={1}>
+              <Field label="U.S. State" width="100%" mb="1%">
+                <div required={true} className="w-100">
+                  <SelectUSState
+                    value={USState}
+                    className="us-state w-100"
+                    onChange={handleUSStateChange}
+                  />
+                </div>
+              </Field>
+            </Box>
+            <Box width={1} mt="2%">
+              <Field label="Shipping Address" width="100%" mb="1%">
+                <div required={true} className="w-100">
+                  <Textarea
+                    type="text"
+                    required={true}
+                    placeholder="Street, Apt., City, Zip Code"
+                    width={"100%"}
+                    borderColor={deliveryAddressUS !== "" ? "#ccc" : colors.red}
+                    onChange={handleDeliveryAddressUSChange}
+                  />
+                </div>
+              </Field>
+            </Box>
+          </>
+        ) : (
+          <></>
+        )}
       </Flex>
     );
   }
 
   function confirmRedeemCAFE() {
-    return (
-      <Flex px="6%" mt="6%" flexDirection="column">
-        <Box width={1}>
-          <Heading.h5>
-            {`Are you sure you want to redeem ${numberBurned} CAFE`}
-          </Heading.h5>
-        </Box>
-        <Box width={1}>
-          <Heading.h6>{`Information will be sent to ${email} `}</Heading.h6>
-        </Box>
-      </Flex>
-    );
+    if (delivery === "US") {
+      return (
+        <Flex px="6%" mt="6%" flexDirection="column">
+          <Box width={1}>
+            <Heading.h4>
+              {`Reedeming ${numberBurned} CAFE`}
+              <br></br>
+            </Heading.h4>
+          </Box>
+          <Box width={1}>
+            <p>
+              {`An additional shipping fee of $7 is required. More information will be sent to ${email} after confirmation`}
+            </p>
+          </Box>
+        </Flex>
+      );
+    } else {
+      return (
+        <Flex px="6%" mt="6%" flexDirection="column">
+          <Box width={1}>
+            <Heading.h4>{`Redeeming ${numberBurned} CAFE`}</Heading.h4>
+          </Box>
+          <Box width={1}>
+            <p>{`Redeem information will be sent to ${email} `}</p>
+          </Box>
+        </Flex>
+      );
+    }
   }
 
   function burningCAFE() {
     return (
       <Flex px="6%" mt="6%" flexDirection="column">
-        <Heading.h5>Transaction is in progress...</Heading.h5>
+        <Heading.h4 textAlign="center">
+          Transaction is in progress...
+        </Heading.h4>
       </Flex>
     );
   }
@@ -237,8 +304,8 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
   function finishRedeem() {
     return (
       <Flex px="6%" mt="6%" flexDirection="column">
-        <Heading.h5>Transaction Details </Heading.h5>
-        <p>
+        <Heading.h4>Transaction Details </Heading.h4>
+        <p textAlign="center">
           <a
             href={`${process.env.REACT_APP_ETHERSCAN_URL}/tx/${lastTransactionHash}`}
             target="_blank"
@@ -283,7 +350,9 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
       amount: numberBurned.toString(),
       shipped: false,
       coffeeType: coffeeType,
-      delivery: delivery
+      delivery: delivery,
+      deliveryAddressUS: deliveryAddressUS,
+      USState: USState
     };
     const dbService = new FirebaseDBService();
 
@@ -330,33 +399,81 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
             ? confirmRedeemCAFE()
             : finishRedeem()}
 
-          <Flex px={"6%"} py={2} mt="0px" mb="10px" justifyContent={"flex-end"}>
-            <Button.Outline
-              size=""
-              variant="danger"
-              onClick={closeModal}
-              disabled={isBurning}
-              width={1 / 2}
+          {delivery === "international" ? (
+            <>
+              <Flex px="6%" mt="" flexDirection="column">
+                <Heading.h4 variant="custom" mb="3%">
+                  For international shipping please email{" "}
+                  <a
+                    href="mailto:cristian@affogato.co"
+                    className="affogato-link"
+                  >
+                    cristian@affogato.co
+                  </a>
+                </Heading.h4>
+              </Flex>
+              <Flex
+                px={"6%"}
+                py={2}
+                mt="0px"
+                mb="10px"
+                justifyContent={"flex-end"}
+              >
+                <Button.Outline
+                  size=""
+                  variant="danger"
+                  onClick={closeModal}
+                  disabled={isBurning}
+                  width={1 / 2}
+                >
+                  {contentStrings.cancel}
+                </Button.Outline>
+                <Button
+                  variant="primary"
+                  onClick={closeModal}
+                  disabled={isBurning}
+                  width={1 / 2}
+                  ml={3}
+                >
+                  Close
+                </Button>
+              </Flex>
+            </>
+          ) : (
+            <Flex
+              px={"6%"}
+              py={2}
+              mt="0px"
+              mb="10px"
+              justifyContent={"flex-end"}
             >
-              {contentStrings.cancel}
-            </Button.Outline>
-            <Button
-              variant="primary"
-              size=""
-              ml={3}
-              width={1 / 2}
-              onClick={handleClick}
-              disabled={isBurning}
-            >
-              {!hasPickedAmount || !isValidEmail(email)
-                ? "Redeem"
-                : isBurning
-                ? "Redeeming..."
-                : !hasBurnt
-                ? "Confirm"
-                : "Finish"}
-            </Button>
-          </Flex>
+              <Button.Outline
+                size=""
+                variant="danger"
+                onClick={closeModal}
+                disabled={isBurning}
+                width={1 / 2}
+              >
+                {contentStrings.cancel}
+              </Button.Outline>
+              <Button
+                variant="primary"
+                size=""
+                ml={3}
+                width={1 / 2}
+                onClick={handleClick}
+                disabled={isBurning}
+              >
+                {!hasPickedAmount || !isValidEmail(email)
+                  ? "Redeem"
+                  : isBurning
+                  ? "Redeeming..."
+                  : !hasBurnt
+                  ? "Confirm"
+                  : "Finish"}
+              </Button>
+            </Flex>
+          )}
         </Card>
       </Modal>
     </>
