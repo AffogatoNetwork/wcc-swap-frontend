@@ -207,7 +207,7 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
                 onChange={handleOptionChange}
               />
               <Radio
-                label="U.S. ($7 Shipping Fee) "
+                label="U.S. (Free) "
                 my={2}
                 value="US"
                 theme={affogatoTheme}
@@ -272,7 +272,7 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
           </Box>
           <Box width={1}>
             <p>
-              {`An additional shipping fee of $7 is required. More information will be sent to ${email} after confirmation`}
+             <p>{`Shipping information will be sent to ${email} `}</p>
             </p>
           </Box>
         </Flex>
