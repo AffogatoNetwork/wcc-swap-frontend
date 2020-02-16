@@ -6,6 +6,18 @@ $break-medium: 1200px;
   width: 100%;
 }
 
+p {
+  font-family: "Source Sans Pro", -apple-system, sans-serif;
+}
+
+.international-buttons {
+  p {
+    color: #3f3d4b;
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
 .us-state {
   color: #3f3d4b;
   background-color: #fff;

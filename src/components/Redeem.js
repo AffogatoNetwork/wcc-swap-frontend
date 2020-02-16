@@ -401,16 +401,23 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
 
           {delivery === "international" ? (
             <>
-              <Flex px="6%" mt="" flexDirection="column">
-                <Heading.h4 variant="custom" mb="3%">
-                  For international shipping please email{" "}
-                  <a
-                    href="mailto:cristian@affogato.co"
-                    className="affogato-link"
-                  >
-                    cristian@affogato.co
-                  </a>
-                </Heading.h4>
+              <Flex
+                px="6%"
+                mt=""
+                flexDirection="column"
+                className="international-buttons"
+              >
+                <p>
+                  <small>
+                    For international shipping please email{" "}
+                    <a
+                      href="mailto:cristian@affogato.co"
+                      className="affogato-link"
+                    >
+                      cristian@affogato.co
+                    </a>
+                  </small>
+                </p>
               </Flex>
               <Flex
                 px={"6%"}
