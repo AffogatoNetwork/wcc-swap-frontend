@@ -272,7 +272,7 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
           </Box>
           <Box width={1}>
             <p>
-             <p>{`Shipping information will be sent to ${email} `}</p>
+              <p>{`Shipping information will be sent to ${email} `}</p>
             </p>
           </Box>
         </Flex>
@@ -373,7 +373,7 @@ export default function Redeem({ burn, balanceCAFE = 0, account }) {
     <>
       <Button
         variant="custom"
-        disabled={balanceCAFE === 0}
+        disabled={true}
         text={"Next"}
         type={"cta"}
         onClick={openModal}

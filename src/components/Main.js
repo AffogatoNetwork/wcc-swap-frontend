@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useWeb3Context } from "web3-react";
 import { ethers, utils } from "ethers";
+import { Flash, Heading } from "rimble-ui";
 
 import { TOKEN_SYMBOLS, TOKEN_ADDRESSES, ERROR_CODES } from "../factory";
 import {
@@ -611,27 +612,46 @@ export default function Main({
   }
 
   return (
-    <Container
-      coffeeHash={coffeeHash}
-      selectedTokenSymbol={selectedTokenSymbol}
-      setSelectedTokenSymbol={setSelectedTokenSymbol}
-      ready={ready}
-      unlock={unlock}
-      validateBuy={validateBuy}
-      buy={buy}
-      burn={burn}
-      totalSupply={totalSupply}
-      dollarize={dollarize}
-      dollarPrice={dollarPrice}
-      reserveWCCToken={reserveWCCToken}
-      reserveWCCETH={reserveWCCETH}
-      calculateEthPrice={calculateEthPrice}
-      accountBalance={balanceWCC}
-      provider={provider}
-      setProvider={setProvider}
-      account={account}
-      setAccount={setAccount}
-      web3Connect={web3Connect}
-    />
+    <>
+      <Flash className="flash">
+        <Heading.h5>
+          The Coffee Sale is oficially over. Follow us at{" "}
+          <a
+            href="https://twitter.com/affogatoco"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cup-profile"
+          >
+            @affogatoco
+          </a>{" "}
+          for more annoucements{" "}
+          <span role="img" aria-label="coffee">
+            ☕
+          </span>{" "}
+        </Heading.h5>
+      </Flash>
+      <Container
+        coffeeHash={coffeeHash}
+        selectedTokenSymbol={selectedTokenSymbol}
+        setSelectedTokenSymbol={setSelectedTokenSymbol}
+        ready={ready}
+        unlock={unlock}
+        validateBuy={validateBuy}
+        buy={buy}
+        burn={burn}
+        totalSupply={totalSupply}
+        dollarize={dollarize}
+        dollarPrice={dollarPrice}
+        reserveWCCToken={reserveWCCToken}
+        reserveWCCETH={reserveWCCETH}
+        calculateEthPrice={calculateEthPrice}
+        accountBalance={balanceWCC}
+        provider={provider}
+        setProvider={setProvider}
+        account={account}
+        setAccount={setAccount}
+        web3Connect={web3Connect}
+      />
+    </>
   );
 }

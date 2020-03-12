@@ -141,19 +141,30 @@ export default function CoffeeCard({
           </li>
         </ul>
         <Heading.h4 color={colors.brown.base}>
-          {reserveWCCToken &&
+          Coffee Sale is Finished!
+          {/* {reserveWCCToken &&
             reserveWCCETH &&
-            `${ethPrice} ETH / $${usdBalance}`}
+            `${ethPrice} ETH / $${usdBalance}`} */}
         </Heading.h4>
-        <Heading.h5 color="#b4600b">
-          {reserveWCCToken &&
+        <span>
+          Follow us at{" "}
+          <a
+            href="https://twitter.com/affogatoco"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cup-profile"
+          >
+            @affogatoco
+          </a>{" "}
+          for more announcements.
+        </span>
+        {/* {reserveWCCToken &&
             `${amountFormatter(reserveWCCToken, 18, 0)} / ${totalSupply} ${
               contentStrings.available
-            }`}
-        </Heading.h5>
+            }`} */}
         <div className="button-wrapper mb-3">
-          <Redeem burn={burn} balanceCAFE={accountBalance} account={account} />
-          <Checkout
+          {/* <Redeem burn={burn} balanceCAFE={accountBalance} account={account} /> */}
+          {/* <Checkout
             selectedTokenSymbol={selectedTokenSymbol}
             setSelectedTokenSymbol={setSelectedTokenSymbol}
             ready={ready}
@@ -175,7 +186,7 @@ export default function CoffeeCard({
             setProvider={setProvider}
             account={account}
             setAccount={setAccount}
-          />
+          /> */}
           {/* <Button
             as="a"
             href={`${process.env.REACT_APP_UNISWAP_URL}/swap?inputCurrency=${process.env.REACT_APP_WCC_ADDRESS}`}

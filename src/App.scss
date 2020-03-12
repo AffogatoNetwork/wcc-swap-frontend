@@ -6,6 +6,20 @@ $break-medium: 1200px;
   width: 100%;
 }
 
+.flash {
+  margin-top: 20px;
+  background-color: #fcf6f0 !important;
+  border: 1px solid transparent !important;
+  border-bottom: 1px transparent !important;
+  border-color: #eee !important;
+  border-radius: 10px !important;
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1) !important;
+  div {
+    text-align: center !important;
+    color: #332211;
+  }
+}
+
 p {
   font-family: "Source Sans Pro", -apple-system, sans-serif;
 }
